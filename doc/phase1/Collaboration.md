@@ -1,24 +1,28 @@
 ## Goal
 
 ## Team Members
-* Yueti Yang <br/>
+
+* Yueti (Elsie) Yang <br/>
+
 I took CSC324 last term and is familiar with Racket. Also, I had experiences in other programming languages such as Java, C, Python and Node.js. I am available mostly on every Wednesday, Thursday and Friday. But we can also meet anytime when I am not in class. 
 
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/elsie_schedule.png)
 
-![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/asako_schedule.png)
 
 * Asako Matsuoka <br/>
 I have some experience with Python, C, Java, PHP, web programming and DB programming but not so proficient in any of them. I took CSC324 last semester so I know a bit about Racket too (have never written any plugins though). I can meet anytime except during the class time since I live very close to campus. 
 
-![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/elsie_schedule.png)
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/asako_schedule.png)
+
 
 * Abrar Hussain  
 
-I have previous experience previous experience using mainly C++ and Python. I took CSC324 last term, and I have used Kivy
+I have previous experience using mainly C++ and Python. I took CSC324 last term, and I have used Kivy
 a tiny bit (for a small project last summer). I'm familiar with web programming and SQL. I'm available most of the time
 on weekdays. 
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/abrar_schedule.png)
+
 
 * Andrew Fecenko <br/>
 I have experience with Python, C, Java, Racket, SQL Databases and Web programming in Flask (Python Framework). Willing to learn whatever is needed for the project. I'm available most of the time while not in class including weekends (Live close to campus).
@@ -27,13 +31,20 @@ I have experience with Python, C, Java, Racket, SQL Databases and Web programmin
 
 
 * Huan (Elaine) Wei <br/>
+
 I have some experience with Python, C, Java, Racket and SQL. I am in process of learning Web programming. I took csc324 last term so I know the basics of racket. My schedule is flexiable, I can meet anytime during weekdays when I am not in class.
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/elaine_schedule.jpg)
 
+* Chae (Chris) Ahn <br/>
+
+I majorly code in python and C or C++, but also have experience with java, Racket, SQL, and HTML. I took CSC324 last semester and it was a lot of fun. I live close to campus as well and am available on all weekdays unless there is a midterm or another assignment due.
+
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/chris_schedule.jpg)
+
 ## Meetings
 ##### January 29, 2016
-- Present members: Yueti, Asako, (Professor Gary Baumgardner)
+- Present members: Yueti (Elsie), Asako, Angel, Huan (Elaine), Chae (Chris)
 - Gary demonstrated his Racket projects he has developed, and briefly explained what we can do to help him in our project. Probably we will be implementing Racket plugins.
 - Gary will send us a list of things that we can work on.
 
