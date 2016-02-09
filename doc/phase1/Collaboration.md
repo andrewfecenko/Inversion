@@ -42,6 +42,7 @@ I majorly code in python and C or C++, but also have experience with java, Racke
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/chris_schedule.jpg)
 
+
 ## Meetings
 ##### January 29, 2016
 - Present members: Yueti (Elsie), Asako, Angel, Huan (Elaine), Chae (Chris)
