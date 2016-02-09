@@ -25,6 +25,12 @@ I have experience with Python, C, Java, Racket, SQL Databases and Web programmin
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/andrew_schedule.png)
 
+
+* Huan (Elaine) Wei <br/>
+I have some experience with Python, C, Java, Racket and SQL. I am in process of learning Web programming. I took csc324 last term so I know the basics of racket. My schedule is flexiable, I can meet anytime during weekdays when I am not in class.
+
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/elaine_schedule.jpg)
+
 ## Meetings
 ##### January 29, 2016
 - Present members: Yueti, Asako, (Professor Gary Baumgardner)
