@@ -40,7 +40,7 @@ I have some experience with Python, C, Java, Racket and SQL. I am in process of 
 
 I majorly code in python and C or C++, but also have experience with java, Racket, SQL, and HTML. I took CSC324 last semester and it was a lot of fun. I live close to campus as well and am available on all weekdays unless there is a midterm or another assignment due.
 
-![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/chris_schedule.jpg)
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/chris_schedule.png)
 
 
 ## Meetings
