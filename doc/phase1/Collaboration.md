@@ -42,6 +42,12 @@ I majorly code in python and C or C++, but also have experience with java, Racke
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/chris_schedule.png)
 
+* Angel You <br/>
+
+I have experience with Python, Java, C, basic HTML and I took CSC324 so I some Racket. I'm still not super confident with my programming skills, but I can do digital art, which may or may not come in handy. I am mostly free outside class time, but I commute so I have to know the meeting time beforehand. 
+
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/angel_schedule.png)
+
 
 ## Meetings
 ##### January 29, 2016
