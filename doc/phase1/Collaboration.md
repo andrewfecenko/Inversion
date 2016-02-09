@@ -20,6 +20,11 @@ on weekdays.
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/abrar_schedule.png)
 
+* Andrew Fecenko <br/>
+I have experience with Python, C, Java, Racket, SQL Databases and Web programming in Flask (Python Framework). Willing to learn whatever is needed for the project. I'm available most of the time while not in class including weekends (Live close to campus).
+
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/andrew_schedule.png)
+
 ## Meetings
 ##### January 29, 2016
 - Present members: Yueti, Asako, (Professor Gary Baumgardner)
