@@ -64,9 +64,11 @@ ideas, including making a grocery Uber app, a programmer meetup app, and a Linux
 Our TA suggested that it would be a good idea to look at the complexity of each of our project
 ideas to find something suitable for two months of work. In the end we decided to stick to creating our journal
 application. 
-- In order to come to an agreement on which product we want to create, we started off with gathering some ideas on [google doc](https://docs.google.com/document/d/15e98ClDGKsCXWeM5BL5I1ppgQ4gvcNfYLoE3noBoc24/edit), and then each
+- In order to come to an agreement on which product we want to create, we started off with gathering some ideas on [Google Doc][google-doc-link], and then each
 member casted their top three choices. The bottom two choices were removed from selection, and then we repeated the
-process with the remaining three choices (and one vote per member). 
+process with the remaining three choices (and one vote per member).
+
+[google-doc-link]: https://docs.google.com/document/d/15e98ClDGKsCXWeM5BL5I1ppgQ4gvcNfYLoE3noBoc24/edit/ "Project Ideas"
 
 ## Collaboration
 
