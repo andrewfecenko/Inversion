@@ -68,3 +68,18 @@ process with the remaining three choices (and one vote per member).
 
 ## Collaboration
 
+There were a few different roles that each of our group members could take for this phase. We did not decide on who would take specific roles, but whoever was willing to make a contribution acted accordingly. 
+
+##### Communication with clients/managers (Gary, Joey, Tricia)
+- Some of us visited Gary in person and reported the details to other members but not everyone in the group could be fully aware of what we were going to do.
+- Email worked better because in this way everyone in the group could gain the most recent more accurate information.
+##### Communication within the group
+- We originally used Facebook messenger, but we had difficulties keeping track of previous discussions. For example, some of us could easily miss important messages from other members.
+- We started using Slack instead to make sure that every group member is involved in the discussion.
+##### Coming up with ideas
+- Physical meeting: None of us took notes, so the meeting did not produce anything meaningful although everyone contributed to the discussion. We might want to have a noter taker in the next phase to improve our productivity during a meeting.
+- Meeting on video chat: While discussing, each member collaboratively took notes on google doc. This tool worked very well for gathering/organizing ideas and setting up a meeting that every group member could attend. 
+##### Updating current status of our project
+- Members who were most aware of the current status of the project updated. 
+If we are going to have a note taker in the next phase, this person will update the meeting details.
+- Some meeting details were updated a few days after the actual meeting. Updating them on time will be more helpful to those who were not present at the meeting.
