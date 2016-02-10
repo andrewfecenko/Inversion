@@ -2,15 +2,15 @@
 
 ## Summary
 
-* What are we planning to build? \n
+* What are we planning to build? <br/>
 A mobile application. The application would function as a daily journal, with each entry potentially including the sections shown in the
 attached image as the base. We want to show users what they're repeatedly doing wrong, so they can stop making those mistakes.
 
-* Who are the users? \n
+* Who are the users? <br/>
 Teenagers and young working adults (those who are busy and familier with technologies)
 
 
-* Why do we think users will find it valuable? \n
+* Why do we think users will find it valuable? <br/>
 While there are other applications like Wunderlist (https://www.wunderlist.com/), which allows you to create todo lists
 for daily activities, and Habitica (https://habitica.com/static/front),
 which focuses on creating habits to improve your productivity, our application would focus on minimizing mistakes.
@@ -26,5 +26,5 @@ a goal, a user would try to avoid things that definitely wouldn't bring him clos
 always work out, but it does help avoid trouble.
 
 
-* How are we planning to build it? \n
+* How are we planning to build it? <br/>
 
