@@ -68,7 +68,7 @@ application.
 member casted their top three choices. The bottom two choices were removed from selection, and then we repeated the
 process with the remaining three choices (and one vote per member).
 
-[google-doc-link]: https://docs.google.com/document/d/15e98ClDGKsCXWeM5BL5I1ppgQ4gvcNfYLoE3noBoc24/edit?usp=sharing "Project Ideas"
+[google-doc-link]: https://docs.google.com/document/d/15e98ClDGKsCXWeM5BL5I1ppgQ4gvcNfYLoE3noBoc24/edit?usp=sharing/ "Project Ideas"
 
 ## Collaboration
 
