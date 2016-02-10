@@ -46,7 +46,7 @@ I majorly code in python and C or C++, but also have experience with java, Racke
 
 * Angel You <br/>
 
-I have experience with Python, Java, C, basic HTML and I took CSC324 so I some Racket. I'm still not super confident with my programming skills, but I can do digital art, which may or may not come in handy. I am mostly free outside class time, but I commute so I have to know the meeting time beforehand. 
+I have experience with Python, Java, C, basic HTML and I took CSC324 so I know some Racket. I'm still not super confident with my programming skills, but I can do digital art, which may or may not come in handy. I am mostly free outside class time, but I commute so I have to know the meeting time beforehand. 
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/angel_schedule.png)
 
@@ -64,8 +64,8 @@ ideas, including making a grocery Uber app, a programmer meetup app, and a Linux
 Our TA suggested that it would be a good idea to look at the complexity of each of our project
 ideas to find something suitable for two months of work. In the end we decided to stick to creating our journal
 application. 
-- In order to come to an agreement on which product we want to create, we started off with five ideas, and then each
-member cast their top three choices. The bottom two choices were removed from selection, and then we repeated the
+- In order to come to an agreement on which product we want to create, we started off with gathering some ideas on [google doc](https://docs.google.com/document/d/15e98ClDGKsCXWeM5BL5I1ppgQ4gvcNfYLoE3noBoc24/edit), and then each
+member casted their top three choices. The bottom two choices were removed from selection, and then we repeated the
 process with the remaining three choices (and one vote per member). 
 
 ## Collaboration
@@ -74,16 +74,22 @@ There were a few different roles that each of our group members could take for t
 
 ##### Communication with clients/managers (Gary, Joey, Tricia)
 - Some of us visited Gary in person and reported the details to other members but not everyone in the group could be fully aware of what we were going to do.
-- Email worked better because in this way everyone in the group could gain the most recent more accurate information.
+- Email worked better because in this way everyone in the group could gain the most recent and more accurate information.
 Communication within the group
 - We originally used Facebook messenger, but we had difficulties keeping track of previous discussions. For example, some of us could easily miss important messages from other members.
-- We started using Slack instead to make sure that every group member is involved in the discussion.
+- We started using Slack instead to make sure that every group member is involved in the discussion, and to easily keep track of past links and files.
 
 ##### Coming up with ideas
-- Physical meeting: None of us took notes, so the meeting did not produce anything meaningful although everyone contributed to the discussion. We might want to have a noter taker in the next phase to improve our productivity during a meeting.
-- Meeting on video chat: While discussing, each member collaboratively took notes on google doc. This tool worked very well for gathering/organizing ideas and setting up a meeting that every group member could attend. 
+- Physical meeting: None of us took notes, so the meeting did not produce anything meaningful although everyone contributed to the discussion. We might want to have a note taker in the next phase to track of where we were at each meetings.
+- Meeting on video chat: While discussing, each member collaboratively took notes on google doc. This tool worked very well for gathering/organizing ideas and setting up a meeting that every group member could attend.
 
 ##### Updating current status of our project
 - Members who were most aware of the current status of the project updated. 
 If we are going to have a note taker in the next phase, this person will update the meeting details.
 - Some meeting details were updated a few days after the actual meeting. Updating them on time will be more helpful to those who were not present at the meeting.
+
+##### Roles & Decision making
+- Since we have a large group with seven members, we decided to take democratic approahes when sharing ideas and making decisions. Decisions were not made by a single person but instead everyone took votes through slack.
+- Since we will be adding features to the project and don't know how big the project will extend at current point, we have not decided any particular roles yet. But Abrar, Andrew and Chirs showed interest in backend tasks and Asako, Elsie, Elaine and Angel welcomed frontend tasks. Angel might take on some artistic roles later on.
+
+
