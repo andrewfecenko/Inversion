@@ -6,7 +6,7 @@ All of the team members share a clear picture of what we want to bring about for
 
 * Yueti (Elsie) Yang <br/>
 
-I took CSC324 last term and is familiar with Racket. Also, I had experience in other programming languages such as Java, C, Python and Node.js. I am available mostly on every Wednesday, Thursday and Friday. But we can also meet anytime when I am not in class. 
+I took CSC324 last term and is familiar with Racket. Also, I have experience with other programming languages such as Java, C, Python and Node.js. I am available mostly on every Wednesday, Thursday and Friday. But we can also meet anytime when I am not in class. 
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/elsie_schedule.png)
 
