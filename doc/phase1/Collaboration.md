@@ -1,5 +1,7 @@
 ## Goal
 
+All of the team members share a clear picture of what we want to bring about for the project and are excited to deliver the software application in the near future. To meet the final goal, we will set realistic milestones for each phase and pursue it with determination and passion. Based on team members’ skills and interests, three of us: Abrar, Chae (Chris) and Andrew will be mainly in charge of the back-end part and the rest of members: Yueti (Elsie), Asako, Huan (Elaine) and Angel will be working on the front-end. Although assigned different roles, there is no clear distinction between the back-end and the front-end teams – all team members should share the skills and knowledge to make improvements or enhancements.
+
 ## Team Members
 
 * Yueti (Elsie) Yang <br/>
