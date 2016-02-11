@@ -57,6 +57,14 @@ I have experience with Python, Java, C, basic HTML and I took CSC324 so I know s
 - Gary demonstrated his Racket projects he has developed, and briefly explained what we can do to help him in our project. Probably we will be implementing Racket plugins.
 - Gary will send us a list of things that we can work on.
 
+##### February 1, 2016
+- Present members: Elsie, Asako, Angel, Elaine, and Chae.
+- Emailed Professor Gary for details of the Racket project, but could not get a response.
+
+##### February 4, 2016
+- Chae visited Gary, but he was busy and needed several more days to get back to us.
+- We emailed Joey to let him know about our situation.
+
 ##### February 8, 2016
 - Present members: All team members.
 - We discussed some backup ideas for our project (instead of working on a Racket plugin). We went through a couple of
@@ -82,16 +90,19 @@ Communication within the group
 - We started using Slack instead to make sure that every group member is involved in the discussion, and to easily keep track of past links and files.
 
 ##### Coming up with ideas
-- Physical meeting: None of us took notes, so the meeting did not produce anything meaningful although everyone contributed to the discussion. We might want to have a note taker in the next phase to track of where we were at each meetings.
-- Meeting on video chat: While discussing, each member collaboratively took notes on google doc. This tool worked very well for gathering/organizing ideas and setting up a meeting that every group member could attend.
+- Physical Meeting: None of us took notes, although everyone contributed to the discussion. We want to have a note taker in the next phase
+to track what we're doing at each meeting.  
+- Meeting on video chat: While discussing, each member collaboratively took notes on Google Doc. This tool worked very
+well for gathering and organizing ideas. Using a video chat was also very convenient for most group members.  
 
 ##### Updating current status of our project
-- Members who were most aware of the current status of the project updated. 
-If we are going to have a note taker in the next phase, this person will update the meeting details.
+- If we are going to have a note taker in the next phase, this person will update the meeting details.
 - Some meeting details were updated a few days after the actual meeting. Updating them on time will be more helpful to those who were not present at the meeting.
 
 ##### Roles & Decision making
-- Since we have a large group with seven members, we decided to take democratic approahes when sharing ideas and making decisions. Decisions were not made by a single person but instead everyone took votes through slack.
-- Since we will be adding features to the project and don't know how big the project will extend at current point, we have not decided any particular roles yet. But Abrar, Andrew and Chirs showed interest in backend tasks and Asako, Elsie, Elaine and Angel welcomed frontend tasks. Angel might take on some artistic roles later on.
+- Since we have a large group with seven members, we decided to take a democratic approach when making decisions:
+everyone voted through Slack. 
+- We have not given members specific roles yet. Abrar, Andrew and Chirs showed interest in backend tasks. And Asako,
+Elsie, Elaine and Angel showed interest in frontend tasks. Angel might take on some artistic roles later on.
 
 
