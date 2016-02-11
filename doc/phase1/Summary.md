@@ -23,16 +23,24 @@ mentioned in the product detail, our users will benefit by understanding their p
 The idea of highlighting mistakes stems from the idea of inversion, which is a method for solving problems by attempting
 to address them backward. Instead of trying to come up with ideas on how to advance towards a goal, a user would try to
 avoid things that definitely wouldn't bring him closer to it. Inverting a problem doesn't always work out, but it does
-help avoid trouble. It's easy to think of inversion as an avoiding stupidity filter. Users would be required to past in
-their own daily mistakes manually, and the app will focus on highlighting more common mistakes throughout weeks and
+help avoid trouble. It's easy to think of inversion as an avoiding stupidity filter. Users would be required to paste in
+their daily mistakes manually, and the app will focus on highlighting more common mistakes throughout weeks and
 months. 
 
 
 ## Construction
 
 We will be coding in Python, and using the [Kivy][kivy-link] framework to build a mobile app that runs on Android (
-potentially also on IPhone). There is a frontend component of the
+potentially also on IPhone). There is a front-end component that deals with providing a way to browse journal entries,
+add new entries, and review highlighted mistakes. There would be a back-end component that deals with storage and
+manipulation of journal data, as well as a section that scans through and extracts information from the highlighted
+mistakes. Later on, there should be a way to have both online and offline storage for journal data. 
 
 ## Potential Challenges
 
-We will have to try our best to differentiate our app from numerous other task-manager/daily-planner apps out in the market. Programming-wise, our major challenges will relate to how we want to implement the technical parts of "finding repeated mistakes". Each team member will have to work on enhancing their knowledge on natural language computing.
+We will have to try our best to differentiate our app from numerous other task-manager/daily-planner apps out in the
+market. Programming-wise, our major challenges will relate to how we want to implement the technical parts of "finding
+repeated mistakes." Team members working on the back-end will have to improve their knowledge on natural language processing.
+On the front-end, issues have to deal mainly with handling increasing code complexity - the initial view codebase should
+be extensible, so that more features can be added to the project. Because Kivy uses it's own language for displaying
+material on the screen, there won't be too much documentation available on how to structure code.  
