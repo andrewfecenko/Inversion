@@ -11,21 +11,20 @@ which focuses on creating habits to improve your productivity, our application w
 [habitica-link]: https://habitica.com/static/front/
 [diaro-link]: http://www.diaroapp.com/
 
-
-## Target Audience
-
-Our target audience are students and working adults who are used to current technology, meaning they have had previous experience on other daily journal applications. We want to help those who ccould not be motivated by existing applications that mainly focus on simply creating future tasks. As mentioned in the product detail, our users will benefit better from understanding their past mistakes, and will be motivated to improve their lifestyle by not repeating the same mistakes. As we extend and shape our project further, we will have a more clear idea on who else might want to use the app.
-
-
 ## Method
 
 The idea of highlighting mistakes stems from the idea of inversion, which is a method for solving problems by attempting
 to address them backward. Instead of trying to come up with ideas on how to advance towards a goal, a user would try to
 avoid things that definitely wouldn't bring him closer to it. Inverting a problem doesn't always work out, but it does
 help avoid trouble. It's easy to think of inversion as an avoiding stupidity filter. Users would be required to paste in
-their daily mistakes manually, and the app will focus on highlighting more common mistakes the throughout weeks and
+their daily mistakes manually, and the app will focus on highlighting more common mistakes throughout the weeks and
 months. 
 
+## Target Audience
+
+Our target audience are students and working adults who have experience using other daily journal applications. As we
+mentioned in the product detail, our users will benefit by better understanding their past mistakes. As we extend our 
+app further, we will have a more clear picture on who would want to use our app.
 
 ## Construction
 
@@ -34,9 +33,6 @@ potentially also on IPhone). There is a front-end component that deals with prov
 add new entries, and review highlighted mistakes. There would be a back-end component that deals with storage and
 manipulation of journal data, as well as a section that scans through and extracts information from the highlighted
 mistakes. Later on, there should be a way to have both online and offline storage for journal data. 
-
-[kivy-link]: https://kivy.org/
-
 
 ## Potential Challenges
 
