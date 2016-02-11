@@ -27,6 +27,9 @@ The idea of highlighting mistakes stems from the idea of inversion, which is a m
 We will be coding in Python, and using the [Kivy][kivy-link] framework to build a mobile app that runs on Android (
 potentially also on IPhone). There is a frontend component of the
 
+[kivy-link]: https://kivy.org/
+
+
 ## Potential Challenges
 
 We will have to try our best to differentiate our app from numerous other task-manager/daily-planner apps out in the market. Programming-wise, our major challenges will relate to how we want to implement the technical parts of "finding repeated mistakes". Each team member will have to work on enhancing their knowledge on natural language computing.
