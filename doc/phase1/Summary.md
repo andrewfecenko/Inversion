@@ -1,6 +1,6 @@
 ## Product Detail
 
-A mobile application. The application would function as a daily journal, potentially including some of the preliminary sections shown in the below image as the base. We want to show users what they're repeatedly doing wrong, so they can stop making those mistakes.
+We want to create a mobile application. potentially including some of the preliminary sections shown in the below image as the base. We want to show users what they're repeatedly doing wrong, so they can stop making those mistakes.
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/raw_layout.jpg)
 
@@ -19,14 +19,13 @@ Our target audience are students and working adults who are used to current tech
 
 ## Method
 
-The idea of highlighting mistakes stems from the idea of inversion, which is a method for solving problems by attempting to address them backward. Instead of trying to come up with ideas on how to advance towards a goal, a user would try to avoid things that definitely wouldn't bring him closer to it. Inverting a problem doesn't always work out, but it does help avoid trouble.
+The idea of highlighting mistakes stems from the idea of inversion, which is a method for solving problems by attempting to address them backward. Instead of trying to come up with ideas on how to advance towards a goal, a user would try to avoid things that definitely wouldn't bring him closer to it. Inverting a problem doesn't always work out, but it does help avoid trouble. It's easy to think of inversion as an avoiding stupidity filter. Users would be required to indicate whether their goal was met or not, and the app will focus on highlighting most common mistakes throughout weeks and months. 
 
-We will be coding in Python, and using [Kivy][kivy-link] library to build a mobile app that runs on android.
 
-Writing a small Python application that uses markdown for text and provides a simple GUI for inserting information daily is something that can be done by a single developer in one day. But the base project is extensible, and we plan to make this an Android application with extra features and better design, it's something that could maybe take up two whole months. We will have to come up with creative ideas to make our project stand out from other commonplace task apps. We plan to discuss further ideas and to improve our project as we go along.
+## Construction
 
-[kivy-link]: https://kivy.org/
-
+We will be coding in Python, and using the [Kivy][kivy-link] framework to build a mobile app that runs on Android (
+potentially also on IPhone). There is a frontend component of the
 
 ## Potential Challenges
 
