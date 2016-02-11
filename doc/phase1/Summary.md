@@ -1,6 +1,6 @@
 ## Product Detail
 
-We want to create a mobile application. potentially including some of the preliminary sections shown in the below image as the base. We want to show users what they're repeatedly doing wrong, so they can stop making those mistakes.
+We want to create a mobile application that would function as a daily journal, with each entry potentially including some of the sections shown in the below image as the base. We want to show users what they're repeatedly doing wrong, so they can stop making those mistakes.
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase1/images/raw_layout.jpg)
 
