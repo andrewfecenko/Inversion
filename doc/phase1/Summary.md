@@ -39,6 +39,6 @@ mistakes. Later on, there should be a way to have both online and offline storag
 We will have to try our best to differentiate our app from numerous other task-manager/daily-planner apps out in the
 market. Programming-wise, our major challenges will relate to how we want to implement the technical parts of "finding
 repeated mistakes." Team members working on the back-end will have to improve their knowledge on natural language processing.
-On the front-end, issues have to deal mainly with handling increasing code complexity: the initial view codebase should
-be extensible, so that more features can be added to the project. Because Kivy uses it's own language for displaying
+On the front-end, issues have to deal mainly with handling increasing code complexity: the initial view codebase will
+have to be extensible, so that more features can be added to the project. Because Kivy uses it's own language for displaying
 material on the screen, there won't be too much documentation available on how to structure code.  
