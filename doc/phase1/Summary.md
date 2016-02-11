@@ -28,7 +28,7 @@ app further, we will have a more clear picture on who would want to use our app.
 
 ## Construction
 
-We will be coding in Python, and using the [Kivy][kivy-link] framework to build a mobile app that runs on Android (
+We will be coding in Python, and using the [Kivy](https://kivy.org/) framework to build a mobile app that runs on Android (
 potentially also on IPhone). There is a front-end component that deals with providing a way to browse journal entries,
 add new entries, and review highlighted mistakes. There would be a back-end component that deals with storage and
 manipulation of journal data, as well as a section that scans through and extracts information from the highlighted
