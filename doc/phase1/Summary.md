@@ -35,6 +35,9 @@ add new entries, and review highlighted mistakes. There would be a back-end comp
 manipulation of journal data, as well as a section that scans through and extracts information from the highlighted
 mistakes. Later on, there should be a way to have both online and offline storage for journal data. 
 
+[kivy-link]: https://kivy.org/
+
+
 ## Potential Challenges
 
 We will have to try our best to differentiate our app from numerous other task-manager/daily-planner apps out in the
