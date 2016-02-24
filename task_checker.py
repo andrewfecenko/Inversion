@@ -2,9 +2,6 @@
 
 from tkinter import *
 from tkinter import messagebox
-import schedule
-import time
-import schedule
 import json
 from datetime import datetime
 
