@@ -1,0 +1,20 @@
+#:kivy 1.9.1
+
+<GridLayout>:
+    cols: 2
+    spacing: 10
+    row_default_height: (0.5 * (self.width - self.spacing[0]) - self.padding[0])
+    row_force_default: True
+
+<Button>:
+    background_normal: 'button_normal.png'
+    background_down: 'button_down.png'
+    font_size: 24
+    halign: 'center'
+    markup: True
+
+<Journal>:
+
+    Button
+
+
