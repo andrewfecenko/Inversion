@@ -1,4 +1,5 @@
 #:kivy 1.9.1
+#:import C kivy.utils.get_color_from_hex
 
 <GridLayout>:
     cols: 2
@@ -15,6 +16,36 @@
 
 <Journal>:
 
-    Button
+    padding: 15
 
+    Button:
+        id: begin_end_recording
+        background_color: C('#3498db')
+        text:
+            ('[font=Modern Pictograms][size=120]'
+            'e[/size][/font]\nEnter tasks')
 
+    GridLayout:
+        Button:
+            background_color: C('#2ecc71')
+            text: '[font=Modern Pictograms][size=80]B[/size][/font]\nCollection'
+
+        Button:
+            background_color: C('#1abc9c')
+            text: '[font=Modern Pictograms][size=80]([/size][/font]\nSettings'
+
+        Button:
+            background_color: C('#27ae60')
+            text: '[font=Modern Pictograms][size=80]n[/size][/font]\nLock'
+
+        Button:
+            background_color: C('#16a085')
+            text: '[font=Modern Pictograms][size=80]j[/size][/font]\nFavorites'
+
+    Button:
+        background_color: C('#95a5a6')
+        text: '[font=Modern Pictograms][size=120]4[/size][/font]\nUpdate day'
+
+    Button:
+        background_color: C('#e74c3c')
+        text: '[font=Modern Pictograms][size=120]X[/size][/font]\nReview Mistakes'
