@@ -1,3 +1,4 @@
+#:file name: journal.kv
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
 
@@ -20,11 +21,12 @@
     padding: 15
 
     Button:
-        id: begin_end_recording
+        id: enter_tasks
         background_color: C('#3498db')
         text:
             ('[font=Modern Pictograms][size=120]'
             'e[/size][/font]\nEnter tasks')
+        on_release: journal.load_window("enter_tasks")
 
     GridLayout:
         Button:
