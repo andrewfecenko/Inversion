@@ -1,4 +1,8 @@
-from sqlalchemy import *
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.sql import func
+from sqlalchemy.orm import sessionmaker
 
 engine = create_engine('sqlite:///:memory:', echo=False)
 
@@ -13,6 +17,10 @@ class Entry(Base):
 
 Base.metadata.create_all(engine)
 
-Session = orm.sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine)
+
 session = Session()
 
+new_entry = Entry(content='Buy milk')
+session.add(new_entry)
+session.commit()
