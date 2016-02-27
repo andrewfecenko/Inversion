@@ -12,6 +12,7 @@
         text: "Task"
 
     TextInput:
+    	id: task_text
     	size_hint: None, None
         size: entry.width * 0.8, 35
         padding: [5, (self.height - self.line_height) / 2]
@@ -38,18 +39,37 @@
     	spacing: 75
     	padding: [20, 30, 20, 50]
 
-    	Entry
-    	Entry
-    	Entry
+    	Entry:
+    		id: task_one_entry
+    		task_text: self.ids.task_text.text
+    	Entry:
+    		id: task_two_entry
+    		task_text: self.ids.task_text.text
+    	Entry:
+    		id: task_three_entry
+    		task_text: self.ids.task_text.text
 
     ## back button for menu
-    Button:
-    	background_color: C('#3498db')
-    	size_hint: 1, None
-    	size: add_entry.width, add_entry.height * 0.08
-    	halign: 'center'
-        text: 'Back'
-        font_size: '30sp'
-        on_release: app.load_window("journal_menu")
+    BoxLayout:
+
+    	spacing: 20
+
+	    Button:
+	    	background_color: C('#3498db')
+	    	size_hint: 1, None
+	    	size: add_entry.width, add_entry.height * 0.08
+	    	halign: 'center'
+	        text: 'Submit'
+	        font_size: '30sp'
+	        on_release: add_entry.submit_tasks()
+
+	    Button:
+	    	background_color: C('#3498db')
+	    	size_hint: 1, None
+	    	size: add_entry.width, add_entry.height * 0.08
+	    	halign: 'center'
+	        text: 'Back'
+	        font_size: '30sp'
+	        on_release: app.load_window("journal_menu")
 
 
