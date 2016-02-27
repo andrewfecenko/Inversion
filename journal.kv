@@ -16,6 +16,7 @@
 
 <Journal>:
 
+    id: journal
     padding: 15
 
     Button:
@@ -35,8 +36,10 @@
             text: '[font=Modern Pictograms][size=80]([/size][/font]\nSettings'
 
         Button:
+            id: lock
             background_color: C('#27ae60')
-            text: '[font=Modern Pictograms][size=80]n[/size][/font]\nLock'
+            text: journal.locked_text
+            on_release: journal.unlock_lock()
 
         Button:
             background_color: C('#16a085')
