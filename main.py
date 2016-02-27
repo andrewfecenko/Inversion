@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.app import Widget
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
 
 from kivy.config import Config
 from kivy.core.text import LabelBase
@@ -11,7 +12,31 @@ from kivy.properties import StringProperty
 
 from add_entry import AddEntry
 
+# load separate kv for later reference
 Builder.load_file('entry.kv')
+
+class JournalInterfaceManager(BoxLayout):
+
+    def __init__(self, **kwargs):
+        super(JournalInterfaceManager, self).__init__(**kwargs)
+        self.windows = {}
+
+        # initially load the journal window as main window
+        journal_menu = Journal()
+        self.add_window("journal_menu", journal_menu)
+        self.load_window("journal_menu")
+
+        # add remaining windows to tracked windows
+        enter_tasks = AddEntry()
+        self.add_window("enter_tasks", enter_tasks)
+
+    def add_window(self, key, window):
+        self.windows[key] = window
+
+    def load_window(self, key):
+        self.clear_widgets()
+        self.add_widget(self.windows[key])
+
 
 class Journal(GridLayout):
 
@@ -23,17 +48,6 @@ class Journal(GridLayout):
         super(Journal, self).__init__(**kwargs)
         self.locked = True
         self.locked_text = '[font=Modern Pictograms][size=80]n[/size][/font]\nLock'
-
-        enter_tasks = AddEntry()
-        self.add_window("enter_tasks", enter_tasks)
-
-
-    def add_window(self, key, window):
-        self.windows[key] = window
-
-    def load_window(self, key):
-        self.clear_widgets()
-        self.add_widget(self.windows[key])
 
     def unlock_lock(self):
 
@@ -49,9 +63,11 @@ class Journal(GridLayout):
 class JournalApp(App):
 
     def build(self):
-        journal = Journal()
-        return journal
+        self.journal = JournalInterfaceManager()
+        return self.journal
 
+    def load_window(self, key):
+        self.journal.load_window(key)
 
 if __name__ == "__main__":
     Config.set('graphics', 'width', '600')

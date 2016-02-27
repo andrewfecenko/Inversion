@@ -1,5 +1,20 @@
-#:file name: entry.kv
 #:kivy 1.9.1
 
+<Entry@BoxLayout>:
+    orientation: 'horizontal'
+    Label:
+        text: "Task"
+        size_hint: None, None
+        size: 100, 40
+
+    TextInput:
+        size_hint: None, None
+        size: 300, 40
+
 <AddEntry>:
-    Button
+
+    orientation: 'vertical'
+    Entry
+    Entry
+    Entry
+
