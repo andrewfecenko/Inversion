@@ -1,20 +1,55 @@
 #:kivy 1.9.1
+#:import C kivy.utils.get_color_from_hex
 
 <Entry@BoxLayout>:
-    orientation: 'horizontal'
+
+	id: entry
+
     Label:
-        text: "Task"
         size_hint: None, None
-        size: 100, 40
+        size: entry.width * 0.2, 35
+        font_size: '20sp'
+        text: "Task"
 
     TextInput:
-        size_hint: None, None
-        size: 300, 40
+    	size_hint: None, None
+        size: entry.width * 0.8, 35
+        padding: [5, (self.height - self.line_height) / 2]
 
 <AddEntry>:
 
+	id: add_entry
     orientation: 'vertical'
-    Entry
-    Entry
-    Entry
+    padding: 15
+
+    ## add entry main label
+    Label:
+    	size_hint: 1, None
+    	size: add_entry.width, add_entry.height * 0.15
+    	halign: 'center'
+        text: 'Add Entry'
+        font_size: '30sp'
+
+    BoxLayout:
+
+    	orientation: 'vertical'
+    	size_hint: 1, None
+    	size: add_entry.width, add_entry.height * 0.7
+    	spacing: 75
+    	padding: [20, 30, 20, 50]
+
+    	Entry
+    	Entry
+    	Entry
+
+    ## back button for menu
+    Button:
+    	background_color: C('#3498db')
+    	size_hint: 1, None
+    	size: add_entry.width, add_entry.height * 0.08
+    	halign: 'center'
+        text: 'Back'
+        font_size: '30sp'
+        on_release: app.load_window("journal_menu")
+
 
