@@ -45,7 +45,7 @@ def create_entry(task_list):
 create_entry(["Task 1", "Task 2", "Task 3"])
 def tasksToday():
 	beg = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-	end = datetime.datetime.now().replace(hour=23, minute=0, second=0, microsecond=0)
+	end = datetime.datetime.now().replace(hour=23, minute=59, second=59, microsecond=59)
 	out = []
 	time = datetime.datetime.now()
 	print time
