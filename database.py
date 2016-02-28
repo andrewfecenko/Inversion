@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, Sequence
 from sqlalchemy.sql import func
+from sqlalchemy.orm import sessionmaker
 
 engine = create_engine('sqlite:///:memory:', echo=False)
 
@@ -15,3 +16,18 @@ class Entry(Base):
 	content = Column(String(256))
 
 Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+def create_task(eid, task_content):
+	new_task = Task(entry_id=eid, content=task_content)
+	session.add(new_task)
+	session.commit()
+
+def create_entry(task_list):
+	new_entry = Entry()
+	session.add(new_entry)
+	session.commit()
+	for content in task_list:
+		create_task(new_entry.id, content)
