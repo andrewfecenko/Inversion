@@ -1,19 +1,22 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import sessionmaker
 
-from database import Entry
+from database import *
 
-engine = create_engine('sqlite:///:memory:', echo=False)
 
-Session = sessionmaker(bind=engine)
-session = Session()
 
-new_entry = Entry(content='Buy milk')
+new_entry = Entry()
+tasks = ["Task 1", "Task 2", "Task 3"]
 session.add(new_entry)
 session.commit()
+entry_id = new_entry.id
+for task in tasks:
+	a = Task(entry_id=entry_id, content=task)
+	session.add(a)
+session.commit()
 
-for e in session.query(Entry).filter(Entry.content == 'Buy milk'):
-	print e.content
-	print e.id
-	print e.time_created
+for s in session.query(Task).all():
+	print s.id
+	print s.entry_id
+	print s.content
+
