@@ -32,11 +32,13 @@
             id: collection
             background_color: C('#2ecc71')
             text: '[font=Modern Pictograms][size=80]B[/size][/font]\nCollection'
+            on_release: app.load_window('collections')
 
         Button:
             id: settings
             background_color: C('#1abc9c')
             text: '[font=Modern Pictograms][size=80]([/size][/font]\nSettings'
+            on_release: app.load_window('settings')
 
         Button:
             id: lock
@@ -48,6 +50,7 @@
             id: favorites
             background_color: C('#16a085')
             text: '[font=Modern Pictograms][size=80]j[/size][/font]\nFavorites'
+            on_release: app.load_window('favorites')
 
     Button:
         id: update_entry
