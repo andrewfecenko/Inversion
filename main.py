@@ -11,9 +11,13 @@ from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
 
 from add_entry import AddEntry
+from update_entry import UpdateEntry
+from review_mistakes import ReviewMistakes
 
 # load separate kv for later reference
-Builder.load_file('entry.kv')
+Builder.load_file('kv-files/add_entry.kv')
+Builder.load_file('kv-files/update_entry.kv')
+Builder.load_file('kv-files/review_mistakes.kv')
 
 class JournalInterfaceManager(BoxLayout):
 
@@ -29,6 +33,12 @@ class JournalInterfaceManager(BoxLayout):
         # add remaining windows to tracked windows
         enter_tasks = AddEntry()
         self.add_window("enter_tasks", enter_tasks)
+
+        update_entry = UpdateEntry()
+        self.add_window("update_entry", update_entry)
+
+        review_mistakes = ReviewMistakes()
+        self.add_window("review_mistakes", review_mistakes)
 
     def add_window(self, key, window):
         self.windows[key] = window
@@ -73,5 +83,5 @@ if __name__ == "__main__":
     Config.set('graphics', 'width', '600')
     Config.set('graphics', 'height', '600')
 
-    LabelBase.register(name='Modern Pictograms', fn_regular='modernpics.ttf')
+    LabelBase.register(name='Modern Pictograms', fn_regular='images/modernpics.ttf')
     JournalApp().run()

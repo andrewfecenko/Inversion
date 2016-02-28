@@ -15,4 +15,3 @@ class AddEntry(BoxLayout):
         print self.ids.task_one_entry.task_text
         print self.ids.task_two_entry.task_text
         print self.ids.task_three_entry.task_text
-
