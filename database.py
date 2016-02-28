@@ -4,6 +4,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Sequence, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
+import datetime
 
 engine = create_engine('sqlite:///:memory:', echo=False)
 
@@ -12,15 +13,15 @@ Base = declarative_base()
 class Entry(Base):
 	__tablename__ = 'entries'
 	id = Column(Integer, Sequence('entry_id_seq'), primary_key=True)
-	time_created = Column(DateTime(timezone=True), server_default=func.now())
-	time_updated = Column(DateTime(timezone=True), onupdate=func.now())
+	time_created = Column(DateTime, default=datetime.datetime.now())
+	time_updated = Column(DateTime, default=datetime.datetime.now())
 
 class Task(Base):
 	__tablename__ = 'tasks'
 	id = Column(Integer, Sequence('entry_id_seq'), primary_key=True)
 	entry_id = Column(Integer, ForeignKey('entries.id'))
-	time_created = Column(DateTime(timezone=True), server_default=func.now())
-	time_updated = Column(DateTime(timezone=True), onupdate=func.now())
+	time_created = Column(DateTime, default=datetime.datetime.now())
+	time_updated = Column(DateTime, default=datetime.datetime.now())
 	content = Column(String(256))
 	entry = relationship('Entry', backref="tasks")
 
@@ -41,3 +42,17 @@ def create_entry(task_list):
 	for content in task_list:
 		create_task(new_entry.id, content)
 
+create_entry(["Task 1", "Task 2", "Task 3"])
+def tasksToday():
+	beg = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+	end = datetime.datetime.now().replace(hour=23, minute=0, second=0, microsecond=0)
+	out = []
+	time = datetime.datetime.now()
+	print time
+	for s in session.query(Task).all():
+		cur = s.time_created
+		if (cur <= end and cur >= beg):
+			print cur
+			out.append(s.content)
+	return out
+print (tasksToday())
