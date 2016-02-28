@@ -1,0 +1,25 @@
+#:kivy 1.9.1
+#:import C kivy.utils.get_color_from_hex
+
+<Settings>:
+
+    id: settings
+    orientation: 'vertical'
+    padding: 15
+
+    ## add entry main label
+    Label:
+        size_hint: 1, None
+        size: settings.width, settings.height * 0.15
+        halign: 'center'
+        text: 'Settings'
+        font_size: '30sp'
+
+    Button:
+        background_color: C('#3498db')
+        size_hint: 1, None
+        size: settings.width, settings.height * 0.08
+        halign: 'center'
+        text: 'Back'
+        font_size: '30sp'
+        on_release: app.load_window("journal_menu")
