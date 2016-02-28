@@ -1,10 +1,6 @@
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.popup import Popup
-from kivy.uix.label import Label
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
 
 from kivy.config import Config
 from kivy.core.text import LabelBase
@@ -65,13 +61,6 @@ class Journal(GridLayout):
 
         if self.locked:
             # TODO: make sure that password is required to unlock
-            box = BoxLayout()
-            box.add_widget(Label(text='Hello world'))
-            box.add_widget(TextInput(text='Hi'))
-
-            popup = Popup(title='Test popup', content=box, size_hint=(None, None), size=(400, 400))
-            popup.open()
-
             for section in self.ids:
                 if section != 'lock':
                     self.ids[section].disabled = False
@@ -85,25 +74,6 @@ class Journal(GridLayout):
                     self.ids[section].disabled = True
             self.locked_text = '[font=Modern Pictograms][size=80]n[/size][/font]\nUnlock'
             self.locked = True
-
-
-
-class LockPopup(Popup):
-
-    def __init__(self, **kwargs):
-        super(LockPopup, self).__init__(**kwargs)
-        self.title = "Test popup"
-
-        box = BoxLayout()
-        box.add_widget(Label(text='Hello world'))
-        box.add_widget(TextInput(text='Hi'))
-
-        self.content = box
-        self.size_hint = None, None
-        self.size = 400, 200
-
-    def on_dismiss(self):
-        pass
 
 
 class JournalApp(App):
