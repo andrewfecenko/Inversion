@@ -12,15 +12,22 @@ from kivy.properties import StringProperty
 from add_entry import AddEntry
 from update_entry import UpdateEntry
 from review_mistakes import ReviewMistakes
+from settings import Settings
+from collect import Collection
+from favorites import Favorites
 
 # load separate kv for later reference
 Builder.load_file('kv-files/add_entry.kv')
 Builder.load_file('kv-files/update_entry.kv')
 Builder.load_file('kv-files/review_mistakes.kv')
+Builder.load_file('kv-files/settings.kv')
+Builder.load_file('kv-files/collection.kv')
+Builder.load_file('kv-files/favorites.kv')
 
 class JournalInterfaceManager(BoxLayout):
 
     def __init__(self, **kwargs):
+
         super(JournalInterfaceManager, self).__init__(**kwargs)
         self.windows = {}
 
@@ -38,6 +45,15 @@ class JournalInterfaceManager(BoxLayout):
 
         review_mistakes = ReviewMistakes()
         self.add_window("review_mistakes", review_mistakes)
+
+        settings = Settings()
+        self.add_window("settings", settings)
+
+        collections = Collection()
+        self.add_window("collections", collections)
+
+        favourites = Favorites()
+        self.add_window("favorites",favourites)
 
     def add_window(self, key, window):
         self.windows[key] = window
