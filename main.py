@@ -1,5 +1,4 @@
 from kivy.app import App
-from kivy.app import Widget
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 
@@ -11,9 +10,13 @@ from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
 
 from add_entry import AddEntry
+from update_entry import UpdateEntry
+from review_mistakes import ReviewMistakes
 
 # load separate kv for later reference
-Builder.load_file('entry.kv')
+Builder.load_file('kv-files/add_entry.kv')
+Builder.load_file('kv-files/update_entry.kv')
+Builder.load_file('kv-files/review_mistakes.kv')
 
 class JournalInterfaceManager(BoxLayout):
 
@@ -30,6 +33,12 @@ class JournalInterfaceManager(BoxLayout):
         enter_tasks = AddEntry()
         self.add_window("enter_tasks", enter_tasks)
 
+        update_entry = UpdateEntry()
+        self.add_window("update_entry", update_entry)
+
+        review_mistakes = ReviewMistakes()
+        self.add_window("review_mistakes", review_mistakes)
+
     def add_window(self, key, window):
         self.windows[key] = window
 
@@ -42,20 +51,27 @@ class Journal(GridLayout):
 
     locked = BooleanProperty()
     locked_text = StringProperty()
-    windows = {}
 
     def __init__(self, **kwargs):
         super(Journal, self).__init__(**kwargs)
-        self.locked = True
+        self.locked = False
         self.locked_text = '[font=Modern Pictograms][size=80]n[/size][/font]\nLock'
 
     def unlock_lock(self):
 
         if self.locked:
             # TODO: make sure that password is required to unlock
+            for section in self.ids:
+                if section != 'lock':
+                    self.ids[section].disabled = False
             self.locked_text = '[font=Modern Pictograms][size=80]q[/size][/font]\nLock'
             self.locked = False
+
         else:
+
+            for section in self.ids:
+                if section != 'lock':
+                    self.ids[section].disabled = True
             self.locked_text = '[font=Modern Pictograms][size=80]n[/size][/font]\nUnlock'
             self.locked = True
 
@@ -73,5 +89,5 @@ if __name__ == "__main__":
     Config.set('graphics', 'width', '600')
     Config.set('graphics', 'height', '600')
 
-    LabelBase.register(name='Modern Pictograms', fn_regular='modernpics.ttf')
+    LabelBase.register(name='Modern Pictograms', fn_regular='images/modernpics.ttf')
     JournalApp().run()
