@@ -14,6 +14,10 @@
     halign: 'center'
     markup: True
 
+<LockPopup>:
+    id: lock_popup
+
+
 <Journal>:
 
     id: journal
@@ -29,10 +33,12 @@
 
     GridLayout:
         Button:
+            id: collection
             background_color: C('#2ecc71')
             text: '[font=Modern Pictograms][size=80]B[/size][/font]\nCollection'
 
         Button:
+            id: settings
             background_color: C('#1abc9c')
             text: '[font=Modern Pictograms][size=80]([/size][/font]\nSettings'
 
@@ -43,15 +49,18 @@
             on_release: journal.unlock_lock()
 
         Button:
+            id: favorites
             background_color: C('#16a085')
             text: '[font=Modern Pictograms][size=80]j[/size][/font]\nFavorites'
 
     Button:
+        id: update_entry
         background_color: C('#95a5a6')
         text: '[font=Modern Pictograms][size=120]4[/size][/font]\nUpdate day'
         on_release: app.load_window("update_entry")
 
     Button:
+        id: review_mistakes
         background_color: C('#e74c3c')
         text: '[font=Modern Pictograms][size=120]X[/size][/font]\nReview Mistakes'
         on_release: app.load_window("review_mistakes")
