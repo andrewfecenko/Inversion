@@ -17,7 +17,7 @@ class Entry(Base):
                           nullable=False)
     time_updated = Column(DateTime, default=datetime.datetime.now(),
                           nullable=False)
-    tasks = relationship('Task', backref="entries")
+    tasks = relationship('Task', backref='entries', lazy='dynamic')
 
 
 class Task(Base):
