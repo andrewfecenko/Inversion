@@ -84,7 +84,6 @@ def create_task(eid, task_content):
     session.add(new_task)
     session.commit()
 
-
 def create_entry(task_list):
     new_entry = Entry()
     session.add(new_entry)
@@ -92,21 +91,17 @@ def create_entry(task_list):
     for content in task_list:
         create_task(new_entry.id, content)
 
-create_entry(["Task 1", "Task 2", "Task 3"])
-
-
-def tasksToday():
+def tasks_today():
     beg = datetime.datetime.now().replace(
         hour=0, minute=0, second=0, microsecond=0)
     end = datetime.datetime.now().replace(
         hour=23, minute=59, second=59, microsecond=59)
     out = []
     time = datetime.datetime.now()
-    print time
+
     for s in session.query(Task).all():
         cur = s.time_created
         if (cur <= end and cur >= beg):
-            print cur
             out.append(s.content)
     return out
-print(tasksToday())
+
