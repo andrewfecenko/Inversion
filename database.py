@@ -31,7 +31,7 @@ class Summary(Base):
     __tablename__ = 'summary'
     id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
-    entry = relationship('Entry', back_populates='entry')
+    entries = relationship('Entry', back_populates='summary')
     content = Column(String(1024))
 
 
@@ -69,7 +69,7 @@ class Plans(Base):
     __tablename__ = 'plans'
     id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
-    entry = relationship('Entry', back_populates='plans')
+    entries = relationship('Entry', back_populates='plans')
     content = Column(String(1024))
 
 
