@@ -17,7 +17,22 @@ class Entry(Base):
                           nullable=False)
     time_updated = Column(DateTime, default=datetime.datetime.now(),
                           nullable=False)
+
+    # use one-to-one for summary and plans, one-to-many for rest
+    summary = relationship('Summary', uselist=False, back_populates='entries')
     tasks = relationship('Task', backref='entries', lazy='dynamic')
+    completed_tasks = relationship('CompletedTask', backref='entries', lazy='dynamic')
+    knowledge = relationship('Knowledge', backref='entries', lazy='dynamic')
+    failure_points = relationship('FailurePoints', backref='entries', lazy='dynamic')
+    plans = relationship('Plans', uselist=False, back_populates='entries')
+
+
+class Summary(Base):
+    __tablename__ = 'summary'
+    id = Column(Integer, primary_key=True)
+    entry_id = Column(Integer, ForeignKey(Entry.id))
+    entry = relationship('Entry', back_populates='entry')
+    content = Column(String(1024))
 
 
 class Task(Base):
@@ -27,6 +42,36 @@ class Task(Base):
     time_created = Column(DateTime, default=datetime.datetime.now())
     time_updated = Column(DateTime, default=datetime.datetime.now())
     content = Column(String(256))
+
+
+class CompletedTask(Base):
+    __tablename__ = 'completed_task'
+    id = Column(Integer, primary_key=True)
+    entry_id = Column(Integer, ForeignKey(Entry.id))
+    content = Column(String(256))
+
+
+class Knowledge(Base):
+    __tablename__ = 'knowledge'
+    id = Column(Integer, primary_key=True)
+    entry_id = Column(Integer, ForeignKey(Entry.id))
+    content = Column(String(256))
+
+
+class FailurePoints(Base):
+    __tablename__ = 'failure_points'
+    id = Column(Integer, primary_key=True)
+    entry_id = Column(Integer, ForeignKey(Entry.id))
+    content = Column(String(256))
+
+
+class Plans(Base):
+    __tablename__ = 'plans'
+    id = Column(Integer, primary_key=True)
+    entry_id = Column(Integer, ForeignKey(Entry.id))
+    entry = relationship('Entry', back_populates='plans')
+    content = Column(String(1024))
+
 
 Base.metadata.create_all(engine)
 
