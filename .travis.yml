@@ -7,3 +7,6 @@ before_install:
  - "easy_install cython"
 install: "pip install -r requirements.txt"
 script: nosetests
+branches:
+ only:
+  - master
