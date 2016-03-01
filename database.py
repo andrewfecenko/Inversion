@@ -12,7 +12,7 @@ Base = declarative_base()
 
 class Entry(Base):
     __tablename__ = 'entries'
-    id = Column(Integer, Sequence('entry_id_seq'), primary_key=True)
+    id = Column(Integer, primary_key=True)
     time_created = Column(DateTime, default=datetime.datetime.now(),
                           nullable=False)
     time_updated = Column(DateTime, default=datetime.datetime.now(),
@@ -104,4 +104,85 @@ def tasks_today():
         if (cur <= end and cur >= beg):
             out.append(s.content)
     return out
+
+def get_todays_entry(): 
+    """Get the Entry relation for today."""
+    beg = datetime.datetime.now().replace(
+        hour=0, minute=0, second=0, microsecond=0)
+    end = datetime.datetime.now().replace(
+        hour=23, minute=59, second=59, microsecond=59)
+
+    for entry in session.query(Entry).all():
+        entry_time = entry.time_created
+        if (entry_time <= end and entry_time >= beg):
+            return entry
+
+    return None
+
+def get_todays_info(entry):
+    """Get all of todaay's info returned as a list."""
+    try:
+        summary = entry.summary.filter(Summary.entry_id == entry.id)
+    except AttributeError:
+        summary = None
+
+    try:
+        tasks = entry.tasks.filter(Task.entry_id == entry.id)
+    except AttributeError:
+        tasks = None
+
+    try:
+        completed_tasks = entry.completed_tasks.filter(CompletedTask.entry_id == entry.id)
+    except AttributeError:
+        completed_tasks = None
+
+    try:
+        knowledge = entry.knowledge.filter(Knowledge.entry_id == entry.id)
+    except AttributeError:
+        knowledge = None
+
+    try:
+        failure_points = entry.failure_points.filter(FailurePoints.entry_id == entry.id)
+    except AttributeError:
+        failure_points = None
+
+    try:
+        plans = entry.plans.filter(Plans.entry_id == entry.id)
+    except AttributeError:
+        plans = None
+
+    return (summary, tasks, completed_tasks, failure_points, plans)
+
+
+def partial_info_get():
+    """TODO: delete this function."""
+    create_entry(["Task one", "Task two", "Task three"])
+    todays_entry = get_todays_entry()
+    todays_entry = get_todays_info(todays_entry)
+    for info in todays_entry:
+
+        if info is None:
+            continue
+    
+        print "info: "
+        print info
+
+
+def generate_schema_dot():
+    """ 
+    Generate a .dot file for the current database schema. 
+    Render the graphviz directed graphs with:
+        $ dot -Tpng schema.dot > schema.png
+    """
+    import sys
+    import sadisplay
+    reload(sys)
+    sys.setdefaultencoding('utf8')
+
+    desc = sadisplay.describe(globals().values())
+
+    with open('schema.dot', 'w') as f:
+        f.write(sadisplay.dot(desc))
+
+
 
