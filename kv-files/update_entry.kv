@@ -1,26 +1,57 @@
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
+#:import label kivy.uix.label
+#:import sla kivy.adapters.simplelistadapter
 
 <UpdateEntry>:
 
 	id: view_entry
 
 	orientation: 'vertical'
-    padding: 15
-
-    ## add entry main label
-    Label:
-    	size_hint: 1, None
-    	size: view_entry.width, view_entry.height * 0.15
-    	halign: 'center'
-        text: 'Update Entry'
-        font_size: '30sp'
+    size: root.width, root.height
 
     Button:
-    	background_color: C('#3498db')
-    	size_hint: 1, None
-    	size: view_entry.width, view_entry.height * 0.08
-    	halign: 'center'
+        background_color: C('#3498db')
+        size_hint: 1, None
+        size: root.width, root.height * 0.01
+        halign: 'center'
         text: 'Back'
         font_size: '30sp'
         on_release: app.load_window("journal_menu")
+
+
+#<TaskList>:
+#    id: task_list
+#    orientation: 'vertical'
+#    size: root.width, root.height
+#
+#
+#<Task>:
+#    id: task
+#    halign: 'right'
+#    orientation: 'horizontal'
+#    size: 20, 20
+
+
+
+#    <Task>:
+#        id: task
+#	    orientation: 'vertical'
+#        size: 50, 50
+#        adapter:
+#            sla.SimpleListAdapter(
+#            data=["Item #{0}".format(i) for i in range(100)],
+#            cls=label.Label)
+
+#    ## add entry main label
+#    Label:
+#    	size_hint: 1, None
+#    	size: view_entry.width, view_entry.height * 0.15
+#    	halign: 'center'
+#        text: 'Update Entry'
+#        font_size: '30sp'
+#
+#    ListView:
+#        item_strings: ["Palo Alto, MX", "Palo Alto, US"]
+#
+#

@@ -15,6 +15,7 @@ from review_mistakes import ReviewMistakes
 from settings import Settings
 from collect import Collection
 from favorites import Favorites
+from kivy.core.window import Window
 
 # load separate kv for later reference
 Builder.load_file('kv-files/add_entry.kv')
@@ -102,8 +103,11 @@ class JournalApp(App):
         self.journal.load_window(key)
 
 if __name__ == "__main__":
-    Config.set('graphics', 'width', '600')
-    Config.set('graphics', 'height', '600')
+    Config.set('graphics', 'width', '640')
+    Config.set('graphics', 'height', '1136')
+
+    # Set window size
+    Window.size = (640, 1136)
 
     LabelBase.register(name='Modern Pictograms', fn_regular='images/modernpics.ttf')
     JournalApp().run()
