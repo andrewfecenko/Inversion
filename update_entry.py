@@ -5,7 +5,7 @@ import datetime
 from kivy.core.window import Window
 from  kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
-from database import create_task, add_summary, add_plan
+from db_function import create_task, create_summary, create_plan
 
 entry = {
     'eid': 1,
@@ -94,9 +94,9 @@ class DetailedData(BoxLayout):
         if section_name == 'tasks':
             create_task(entry['eid'], input_value)
         elif section_name == 'summary':
-            add_summary(entry['eid'], input_value)
+            create_summary(entry['eid'], input_value)
         elif section_name == 'plans':
-            add_plan(entry['eid'], input_value)
+            create_plan(entry['eid'], input_value)
 
 class UpdateEntry(BoxLayout):
     def __init__(self):
