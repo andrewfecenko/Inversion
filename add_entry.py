@@ -5,7 +5,7 @@ from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
 from kivy.core.window import Window
 
-# from database import create_entry
+from db_functions import create_entry
 
 total_entry_num = 3
 
