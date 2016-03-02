@@ -5,8 +5,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 import datetime
 
-engine = create_engine('sqlite:///:memory:', echo=False)
-
 Base = declarative_base()
 
 #######################################################################
@@ -82,6 +80,7 @@ class Plans(Base):
 #  End database models.                                               #
 #######################################################################
 
+engine = create_engine('sqlite:///:entries.db', echo=False)
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
