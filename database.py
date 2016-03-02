@@ -181,6 +181,7 @@ def get_entry_summary(entry):
         summary = entry.summary.content
     except AttributeError:
         summary = None
+    return summary
 
 def get_entry_tasks(entry):
     try:
@@ -197,6 +198,7 @@ def get_entry_completed_tasks(entry):
         completed_tasks = [c_t.content for c_t in completed_tasks]
     except AttributeError:
         completed_tasks = None
+    return completed_tasks
 
 def get_entry_knowledge(entry):
     try:
@@ -204,7 +206,7 @@ def get_entry_knowledge(entry):
         knowledge = [k.content for k in knowledge]
     except AttributeError:
         knowledge = None
-
+    return knowledge
 
 def get_entry_failure_points(entry):
     try:
@@ -213,12 +215,14 @@ def get_entry_failure_points(entry):
         failure_points = [f.content for f in failure_points]
     except AttributeError:
         failure_points = None
+    return failure_points
 
 def get_entry_plans(entry):
     try:
         plans = entry.plans.content
     except AttributeError:
         plans = None
+    return plans
 
 def get_entry_info(entry):
     """Get all of entry's info returned as an EntryContent object."""
