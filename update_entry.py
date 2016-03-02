@@ -1,188 +1,108 @@
+from kivy.base import runTouchApp
+from kivy.lang import Builder
+from kivy.uix.accordion import Accordion, AccordionItem
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
-from kivy.uix.checkbox import CheckBox
+from kivy.uix.listview import ListView
 from kivy.uix.scrollview import ScrollView
+from kivy.uix.dropdown import DropDown
+from kivy.uix.button import Button
+from kivy.uix.togglebutton import ToggleButton
 from kivy.utils import get_color_from_hex
+import datetime
 
-tasks = [
-    {
-        'id': 1,
-        'date': '2016-09-26 16:34:40.278298',  # python datetime
-        'task': 'Be rich',
-        'favorite': True,
-        'tags': 'work',
-        'complete': True},
-    {
-        'id': 2,
-        'date': '2016-09-26 16:46:40.278298',  # python datetime
-        'task': 'Finish A2',
-        'favorite': False,
-        'tags': 'study',
-        'complete': False},
-    {
-        'id': 3,
-        'date': '2016-09-26 18:46:40.278298',  # python datetime
-        'task': 'Eat ramen',
-        'favorite': False,
-        'tags': 'food',
-        'complete': True},
-    {
-        'id': 4,
-        'date': '2016-09-26 18:48:40.278298',  # python datetime
-        'task': 'Sleep',
-        'favorite': True,
-        'tags': 'sleeping',
-        'complete': False},
-    {
-        'id': 2,
-        'date': '2016-09-26 16:46:40.278298',  # python datetime
-        'task': 'Finish A2',
-        'favorite': False,
-        'tags': 'study',
-        'complete': False},
-    {
-        'id': 3,
-        'date': '2016-09-26 18:46:40.278298',  # python datetime
-        'task': 'Eat ramen',
-        'favorite': False,
-        'tags': 'food',
-        'complete': True},
-    {
-        'id': 4,
-        'date': '2016-09-26 18:48:40.278298',  # python datetime
-        'task': 'Sleep',
-        'favorite': True,
-        'tags': 'sleeping',
-        'complete': False},
-    {
-        'id': 2,
-        'date': '2016-09-26 16:46:40.278298',  # python datetime
-        'task': 'Finish A2',
-        'favorite': False,
-        'tags': 'study',
-        'complete': False},
-    {
-        'id': 3,
-        'date': '2016-09-26 18:46:40.278298',  # python datetime
-        'task': 'Eat ramen',
-        'favorite': False,
-        'tags': 'food',
-        'complete': True},
-    {
-        'id': 4,
-        'date': '2016-09-26 18:48:40.278298',  # python datetime
-        'task': 'Sleep',
-        'favorite': True,
-        'tags': 'sleeping',
-        'complete': False},
-    {
-        'id': 2,
-        'date': '2016-09-26 16:46:40.278298',  # python datetime
-        'task': 'Finish A2',
-        'favorite': False,
-        'tags': 'study',
-        'complete': False},
-    {
-        'id': 3,
-        'date': '2016-09-26 18:46:40.278298',  # python datetime
-        'task': 'Eat ramen',
-        'favorite': False,
-        'tags': 'food',
-        'complete': True},
-    {
-        'id': 4,
-        'date': '2016-09-26 18:48:40.278298',  # python datetime
-        'task': 'Sleep',
-        'favorite': True,
-        'tags': 'sleeping',
-        'complete': False},
-    {
-        'id': 2,
-        'date': '2016-09-26 16:46:40.278298',  # python datetime
-        'task': 'Finish A2',
-        'favorite': False,
-        'tags': 'study',
-        'complete': False},
-    {
-        'id': 3,
-        'date': '2016-09-26 18:46:40.278298',  # python datetime
-        'task': 'Eat ramen',
-        'favorite': False,
-        'tags': 'food',
-        'complete': True},
-    {
-        'id': 4,
-        'date': '2016-09-26 18:48:40.278298',  # python datetime
-        'task': 'Sleep',
-        'favorite': True,
-        'tags': 'sleeping',
-        'complete': False},
-    {
-        'id': 2,
-        'date': '2016-09-26 16:46:40.278298',  # python datetime
-        'task': 'Finish A2',
-        'favorite': False,
-        'tags': 'study',
-        'complete': False},
-    {
-        'id': 3,
-        'date': '2016-09-26 18:46:40.278298',  # python datetime
-        'task': 'Eat ramen',
-        'favorite': False,
-        'tags': 'food',
-        'complete': True},
-    {
-        'id': 4,
-        'date': '2016-09-26 18:48:40.278298',  # python datetime
-        'task': 'Sleep',
-        'favorite': True,
-        'tags': 'sleeping',
-        'complete': False}
-]
+entry = {
+    'id': 1,
+    'time_created': '2009-01-05 22:14:39',
+    'time_updated': '2009-01-05 22:14:39',
+    'completed_tasks': ['task1', 'task2', 'task3'],
+    'failure_points': 200,
+    'knowledge': ['knowledge1', 'knowledge2', 'knowledge3'],
+    'plans': ['aaaaaa', 'waaaaaa', 'aeoefjfwnfoiec'],
+    'summary': 'blaaah',
+    'tasks': ['Eat ramen', 'Run till die', 'Sleep all day', 'Do assignment']
+}
 
-# Create a form to add
+sections = {
+    'tasks': 'Goals',
+    'completed_tasks': 'Goals met',
+    'knowledge': 'Knowledge Gained',
+    'plans': 'Plan for Tomorrow'
+}
 
-# Create a task
-class Task(GridLayout):
-    def __init__(self, taskData, **args):
-        super(Task, self).__init__(**args)
+panel_open = False
 
-        # Layout of each task panel
-        self.cols = 2
-        self.size_hint = (0.9, 0.9)
-        self.add_widget(CheckBox())
-        self.add_widget(Label(text=taskData['task']))
+# Create an section (i.e. goals, achievements, etc.)
+class Section(AccordionItem):
+    def __init__(self, section_name, **args):
+        super(Section, self).__init__(**args)
 
+        for each in entry[section_name]:
+            self.add_widget(DetailedData(each))
 
-# Create a list of tasks
-class Tasks(GridLayout):
-    def __init__(self, **args):
-        super(Tasks, self).__init__(**args)
+        # styles
+        self.title = sections[section_name]
+        self.background_color = (1, 1, 1, 1)
 
-        # Layout of the task list
-        self.bind(minimum_height=self.setter('height'))
-        self.size_hint_y = None
-        self.spacing = 0
-        self.cols = 1
-        self.row_default_height = 20
+# Create a data for a section (i.e. content inside the section)
+class DetailedData(BoxLayout):
+    def __init__(self, data, **args):
+        super(DetailedData, self).__init__(**args)
 
-        for taskData in tasks:
-            self.add_widget(Task(taskData))
+        self.add_widget(Label(text=data))
+        #self.add_widget(Button(text='edit'))
+
+        # styles
+        self.background_color = (0, 0, 0, 1)
 
 
 # Scrollable container
-class Container(ScrollView):
+class Container(Accordion):
     def __init__(self, **args):
         super(Container, self).__init__(**args)
 
-        # Layout of the scroll view
-        self.size_hint_x = 0.8
-        self.pos_hint = {'left': 0, 'right': 1, 'top': 0.2}
-        self.add_widget(Tasks())
+        for each in sections.keys():
+            self.add_widget(Section(each))
 
+        # style
+        self.orientation = 'vertical'
+
+
+class ScrollContainer(ScrollView):
+    def __init__(self):
+        super(ScrollContainer, self).__init__()
+
+        self.add_widget(Container())
+
+        # styles
+        self.background_color = (0, 0, 0, 1)
+
+class Header(GridLayout):
+    def __init__(self):
+        super(Header, self).__init__()
+
+        full_date = datetime.datetime.strptime(entry['time_created'], "%Y-%m-%d %H:%M:%S")
+        formatted_date = '{}, {} {}, {}'.format(full_date.strftime("%A"),\
+                                            full_date.strftime("%B"),\
+                                            full_date.strftime("%d"),\
+                                            full_date.year)
+
+        self.add_widget(Label(text=formatted_date))
+        self.add_widget(Label(text=str(entry['failure_points'])))
+
+        # Styles
+        self.cols = 2
+        self.size_hint_y = 0.1
+        self.pos_hint = {'top': 0, 'left': 0}
 
 class UpdateEntry(BoxLayout):
     def __init__(self):
         super(UpdateEntry, self).__init__()
-        self.add_widget(Container())
+
+        self.add_widget(Header())
+        self.add_widget(ScrollContainer())
+
+        # Styles
+        self.orientation = 'vertical'
