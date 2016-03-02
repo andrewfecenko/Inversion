@@ -11,31 +11,34 @@ Base = declarative_base()
 # All database models for entry information.                          #
 #######################################################################
 
-
 class Entry(Base):
     __tablename__ = 'entries'
     id = Column(Integer, primary_key=True)
-    time_created = Column(DateTime, default=datetime.datetime.now(),
-                          nullable=False)
-    time_updated = Column(DateTime, default=datetime.datetime.now(),
-                          nullable=False)
+    time_created = Column(DateTime, default=datetime.datetime.now(), nullable=False)
+    time_updated = Column(DateTime, default=datetime.datetime.now(), nullable=False)
 
     # use one-to-one for summary and plans, one-to-many for rest
     summary = relationship('Summary', uselist=False, back_populates='entries')
+    plan = relationship('Plan', uselist=False, back_populates='entries')
     tasks = relationship('Task', backref='entries', lazy='dynamic')
-    completed_tasks = relationship(
-        'CompletedTask', backref='entries', lazy='dynamic')
+    completed_tasks = relationship('CompletedTask', backref='entries', lazy='dynamic')
     knowledge = relationship('Knowledge', backref='entries', lazy='dynamic')
-    failure_points = relationship(
-        'FailurePoint', backref='entries', lazy='dynamic')
-    plans = relationship('Plans', uselist=False, back_populates='entries')
+    failure_points = relationship('FailurePoint', backref='entries', lazy='dynamic')
 
 
 class Summary(Base):
-    __tablename__ = 'summary'
+    __tablename__ = 'summaries'
     id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
-    entries = relationship('Entry', back_populates='summary')
+    entries = relationship('Entry', back_populates='summaries')
+    content = Column(String(1024))
+
+
+class Plan(Base):
+    __tablename__ = 'plans'
+    id = Column(Integer, primary_key=True)
+    entry_id = Column(Integer, ForeignKey(Entry.id))
+    entries = relationship('Entry', back_populates='plans')
     content = Column(String(1024))
 
 
@@ -49,14 +52,14 @@ class Task(Base):
 
 
 class CompletedTask(Base):
-    __tablename__ = 'completed_task'
+    __tablename__ = 'completed_tasks'
     id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
     content = Column(String(256))
 
 
 class Knowledge(Base):
-    __tablename__ = 'knowledge'
+    __tablename__ = 'knowledges' #plural s to avoid confusion
     id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
     content = Column(String(256))
@@ -69,18 +72,11 @@ class FailurePoint(Base):
     content = Column(String(256))
 
 
-class Plans(Base):
-    __tablename__ = 'plans'
-    id = Column(Integer, primary_key=True)
-    entry_id = Column(Integer, ForeignKey(Entry.id))
-    entries = relationship('Entry', back_populates='plans')
-    content = Column(String(1024))
-
 #######################################################################
 #  End database models.                                               #
 #######################################################################
 
-engine = create_engine('sqlite:///:entries.db', echo=False)
+engine = create_engine('sqlite:///entries.db', echo=False)
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
@@ -92,15 +88,14 @@ class EntryContent:
     """ An EntryContent allows for quick access to the content
     associated with an Entry."""
 
-    def __init__(self, summary, tasks, completed_tasks, knowledge, failure_points,
-                 plans):
+    def __init__(self, summary, plan, tasks, completed_tasks, knowledges, failure_points):
 
         self.summary = summary
+        self.plan = plan
         self.tasks = tasks
         self.completed_tasks = completed_tasks
-        self.knowledge = knowledge
+        self.knowledges = knowledges
         self.failure_points = failure_points
-        self.plans = plans
 
     def list_sections(self):
         return vars(self).keys()
@@ -134,6 +129,12 @@ def create_summary(eid, summary):
     session.commit()
 
 
+def create_plan(eid, plan):
+    new_plan = Plan(entry_id=eid, content=plan)
+    session.add(new_plan)
+    session.commit()
+
+
 def create_task(eid, task_content):
     new_task = Task(entry_id=eid, content=task_content)
     session.add(new_task)
@@ -160,11 +161,6 @@ def create_failure_point(eid, failure_point):
     session.commit()
 
 
-def create_plan(eid, plan):
-    new_plan = Plans(entry_id=eid, content=plan)
-    session.add(new_plan)
-    session.commit()
-
 #######################################################################
 # All functions for retrieving information from the database.         #
 #######################################################################
@@ -180,10 +176,8 @@ def tasks_today():
 
 def get_todays_entry():
     """Get the Entry relation for today."""
-    beg = datetime.datetime.now().replace(
-        hour=0, minute=0, second=0, microsecond=0)
-    end = datetime.datetime.now().replace(
-        hour=23, minute=59, second=59, microsecond=59)
+    beg = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    end = datetime.datetime.now().replace(hour=23, minute=59, second=59, microsecond=59)
 
     for entry in session.query(Entry).all():
         entry_time = entry.time_created
@@ -205,10 +199,18 @@ def get_entry_summary(entry):
     return summary
 
 
+def get_entry_plan(entry):
+    try:
+        plan = entry.plan.content
+    except AttributeError:
+        plan = None
+    return plan
+
+
 def get_entry_tasks(entry):
     try:
         tasks = entry.tasks.filter(Task.entry_id == entry.id)
-        tasks = [task.content for task in tasks]
+        tasks = [t.content for t in tasks]
     except AttributeError:
         tasks = None
     return tasks
@@ -216,9 +218,8 @@ def get_entry_tasks(entry):
 
 def get_entry_completed_tasks(entry):
     try:
-        completed_tasks = entry.completed_tasks.filter(
-            CompletedTask.entry_id == entry.id)
-        completed_tasks = [c_t.content for c_t in completed_tasks]
+        completed_tasks = entry.completed_tasks.filter(CompletedTask.entry_id == entry.id)
+        completed_tasks = [ct.content for ct in completed_tasks]
     except AttributeError:
         completed_tasks = None
     return completed_tasks
@@ -226,42 +227,33 @@ def get_entry_completed_tasks(entry):
 
 def get_entry_knowledge(entry):
     try:
-        knowledge = entry.knowledge.filter(Knowledge.entry_id == entry.id)
-        knowledge = [k.content for k in knowledge]
+        knowledges = entry.knowledges.filter(Knowledge.entry_id == entry.id)
+        knowledges = [k.content for k in knowledge]
     except AttributeError:
-        knowledge = None
-    return knowledge
+        knowledges = None
+    return knowledges
 
 
 def get_entry_failure_points(entry):
     try:
-        failure_points = entry.failure_points.filter(
-            FailurePoint.entry_id == entry.id)
+        failure_points = entry.failure_points.filter(FailurePoint.entry_id == entry.id)
         failure_points = [f.content for f in failure_points]
     except AttributeError:
         failure_points = None
     return failure_points
 
 
-def get_entry_plans(entry):
-    try:
-        plans = entry.plans.content
-    except AttributeError:
-        plans = None
-    return plans
-
-
 def get_entry_info(entry):
     """Get all of entry's info returned as an EntryContent object."""
 
     summary = get_entry_summary(entry)
+    plan = get_entry_plans(entry)
     tasks = get_entry_tasks(entry)
     completed_tasks = get_entry_completed_tasks(entry)
     knowledge = get_entry_knowledge(entry)
     failure_points = get_entry_failure_points(entry)
-    plans = get_entry_plans(entry)
 
-    return EntryContent(summary, tasks, completed_tasks, knowledge, failure_points, plans)
+    return EntryContent(summary, plan, tasks, completed_tasks, knowledge, failure_points)
 
 
 def get_all_entries():
