@@ -18,11 +18,11 @@ class Entry(Base):
     time_updated = Column(DateTime, default=datetime.datetime.now(), nullable=False)
 
     # use one-to-one for summary and plans, one-to-many for rest
-    summaries = relationship('Summary', uselist=False, back_populates='entries')
-    plans = relationship('Plan', uselist=False, back_populates='entries')
+    summary = relationship('Summary', uselist=False, back_populates='entries')
+    plan = relationship('Plan', uselist=False, back_populates='entries')
     tasks = relationship('Task', backref='entries', lazy='dynamic')
     completed_tasks = relationship('CompletedTask', backref='entries', lazy='dynamic')
-    knowledge = relationship('Knowledge', backref='entries', lazy='dynamic')
+    knowledges = relationship('Knowledge', backref='entries', lazy='dynamic')
     failure_points = relationship('FailurePoint', backref='entries', lazy='dynamic')
 
 
@@ -30,7 +30,7 @@ class Summary(Base):
     __tablename__ = 'summaries'
     id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
-    entries = relationship('Entry', back_populates='summaries')
+    entries = relationship('Entry', back_populates='summary')
     content = Column(String(1024))
 
 
@@ -38,7 +38,7 @@ class Plan(Base):
     __tablename__ = 'plans'
     id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
-    entries = relationship('Entry', back_populates='plans')
+    entries = relationship('Entry', back_populates='plan')
     content = Column(String(1024))
 
 
@@ -228,7 +228,7 @@ def get_entry_completed_tasks(entry):
 def get_entry_knowledge(entry):
     try:
         knowledges = entry.knowledges.filter(Knowledge.entry_id == entry.id)
-        knowledges = [k.content for k in knowledge]
+        knowledges = [k.content for k in knowledges]
     except AttributeError:
         knowledges = None
     return knowledges
@@ -283,8 +283,8 @@ def partial_info_get():
     create_completed_task(eid, "finished something")
     create_completed_task(eid, "finished another thing")
 
-    todays_entry = get_entry_info(todays_entry)
-    print_entry_list_repr(todays_entry)
+    todays_entrycontent = get_entry_info(todays_entry)
+    print_entry_list_repr(todays_entrycontent)
 
 partial_info_get()
 
