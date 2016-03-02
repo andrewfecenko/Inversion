@@ -80,7 +80,7 @@ class Plans(Base):
 #  End database models.                                               #
 #######################################################################
 
-engine = create_engine('sqlite:///:entries.db', echo=False)
+engine = create_engine('sqlite:///entries.db', echo=False)
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
