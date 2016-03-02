@@ -3,23 +3,45 @@
 #:import label kivy.uix.label
 #:import sla kivy.adapters.simplelistadapter
 
-<UpdateEntry>:
+<UpdateEntry@BoxLayout>:
 
 	id: view_entry
+	orientation: 'vertical'
 
 #
 #	orientation: 'vertical'
 #    size: root.width, root.height
+    Button:
+        background_color: C('#3498db')
+        size_hint: 1, None
+        size: root.width, root.height * 0.05
+        halign: 'center'
+        text: 'Back'
+        font_size: '30sp'
+        on_release: app.load_window("journal_menu")
 
-#    Button:
-#        background_color: C('#3498db')
-#        size_hint: 1, None
-#        size: root.width, root.height * 0.01
-#        halign: 'center'
-#        text: 'Back'
-#        font_size: '30sp'
-#        on_release: app.load_window("journal_menu")
-#
+    Label:
+        id: header
+        size_hint: 1, None
+        size: root.width, root.height * 0.05
+        pos: self.pos
+        font_size: '20sp'
+
+    Label:
+        id: failure_points
+        size_hint: 1, None
+        size: root.width, root.height * 0.05
+        pos: self.pos
+        font_size: '15sp'
+
+    Accordion:
+        id: container
+        size_hint: 1, None
+        size: root.width, root.height * 0.85
+        orientation: 'vertical'
+        pos: self.pos
+
+
 
 #<TaskList>:
 #    id: task_list
