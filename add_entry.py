@@ -4,8 +4,7 @@ from kivy.uix.button import Button
 from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
 from kivy.core.window import Window
-
-from db_functions import create_entry
+from db_function import create_entry
 
 total_entry_num = 3
 
@@ -41,7 +40,7 @@ class AddEntry(BoxLayout):
 
         print ','.join(self.entry_list)
 
-        # create_entry(entry_list)
+        create_entry(self.entry_list)
 
 
 class Entry(BoxLayout):
