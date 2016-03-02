@@ -10,8 +10,9 @@ engine = create_engine('sqlite:///:memory:', echo=False)
 Base = declarative_base()
 
 #######################################################################
-# All database models for entry information.                                                 #
+# All database models for entry information.                          #
 #######################################################################
+
 
 class Entry(Base):
     __tablename__ = 'entries'
@@ -28,7 +29,7 @@ class Entry(Base):
         'CompletedTask', backref='entries', lazy='dynamic')
     knowledge = relationship('Knowledge', backref='entries', lazy='dynamic')
     failure_points = relationship(
-        'FailurePoints', backref='entries', lazy='dynamic')
+        'FailurePoint', backref='entries', lazy='dynamic')
     plans = relationship('Plans', uselist=False, back_populates='entries')
 
 
@@ -63,7 +64,7 @@ class Knowledge(Base):
     content = Column(String(256))
 
 
-class FailurePoints(Base):
+class FailurePoint(Base):
     __tablename__ = 'failure_points'
     id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
@@ -86,9 +87,12 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+
 class EntryContent:
-    """ An EntryContent allows for quick access to the content associated with an Entry."""
-    
+
+    """ An EntryContent allows for quick access to the content
+    associated with an Entry."""
+
     def __init__(self, summary, tasks, completed_tasks, knowledge, failure_points,
                  plans):
 
@@ -124,33 +128,48 @@ def create_entry(task_list):
     for content in task_list:
         create_task(new_entry.id, content)
 
-def create_summary(entry, summary):
-    entry.summary = Summary(content=summary)
+
+def create_summary(eid, summary):
+    new_summary = Summary(entry_id=eid, content=summary)
+    session.add(new_summary)
+    session.commit()
+
 
 def create_task(eid, task_content):
     new_task = Task(entry_id=eid, content=task_content)
     session.add(new_task)
     session.commit()
 
+
 def create_completed_task(eid, task_content):
-    new_completed_tasks = CompletedTask(entry_id=eid, content=task_content)
+    new_completed_task = CompletedTask(entry_id=eid,
+                                       content=task_content)
     session.add(new_completed_task)
     session.commit()
+
 
 def create_knowledge(eid, knowledge):
     new_knowledge = Knowledge(entry_id=eid, content=knowledge)
     session.add(new_knowledge)
     session.commit()
- 
-def create_failure_point(eid, failure_point):
-    new_failure_point = FailurePoint(entry_id=eid, content=failure_point)
 
-def create_plan(entry, plan):
-    entry.plans = Plans(content=plan)
+
+def create_failure_point(eid, failure_point):
+    new_failure_point = FailurePoint(entry_id=eid,
+                                     content=failure_point)
+    session.add(new_failure_point)
+    session.commit()
+
+
+def create_plan(eid, plan):
+    new_plan = Plans(entry_id=eid, content=plan)
+    session.add(new_plan)
+    session.commit()
 
 #######################################################################
 # All functions for retrieving information from the database.         #
 #######################################################################
+
 
 def tasks_today():
     if not todays_entry_exists():
@@ -158,6 +177,7 @@ def tasks_today():
 
     todays_entry = get_todays_entry()
     return get_entry_tasks(todays_entry)
+
 
 def get_todays_entry():
     """Get the Entry relation for today."""
@@ -173,8 +193,10 @@ def get_todays_entry():
 
     return None
 
+
 def today_entry_exists():
     return get_todays_entry() is not None
+
 
 def get_entry_summary(entry):
     try:
@@ -183,6 +205,7 @@ def get_entry_summary(entry):
         summary = None
     return summary
 
+
 def get_entry_tasks(entry):
     try:
         tasks = entry.tasks.filter(Task.entry_id == entry.id)
@@ -190,6 +213,7 @@ def get_entry_tasks(entry):
     except AttributeError:
         tasks = None
     return tasks
+
 
 def get_entry_completed_tasks(entry):
     try:
@@ -200,6 +224,7 @@ def get_entry_completed_tasks(entry):
         completed_tasks = None
     return completed_tasks
 
+
 def get_entry_knowledge(entry):
     try:
         knowledge = entry.knowledge.filter(Knowledge.entry_id == entry.id)
@@ -208,14 +233,16 @@ def get_entry_knowledge(entry):
         knowledge = None
     return knowledge
 
+
 def get_entry_failure_points(entry):
     try:
         failure_points = entry.failure_points.filter(
-            FailurePoints.entry_id == entry.id)
+            FailurePoint.entry_id == entry.id)
         failure_points = [f.content for f in failure_points]
     except AttributeError:
         failure_points = None
     return failure_points
+
 
 def get_entry_plans(entry):
     try:
@@ -223,6 +250,7 @@ def get_entry_plans(entry):
     except AttributeError:
         plans = None
     return plans
+
 
 def get_entry_info(entry):
     """Get all of entry's info returned as an EntryContent object."""
@@ -236,30 +264,37 @@ def get_entry_info(entry):
 
     return EntryContent(summary, tasks, completed_tasks, knowledge, failure_points, plans)
 
+
 def get_all_entries():
     for entry in session.query(Entry).all():
         yield get_entry_info(entry)
+
 
 def print_entry_list_repr(entry):
     for section in entry.list_repr():
         print section
 
 #######################################################################
-# Extra functions included for development.                           # 
+# Extra functions included for development.                           #
 #######################################################################
+
 
 def partial_info_get():
     """TODO: delete this function."""
     create_entry(["Task one", "Task two", "Task three"])
     todays_entry = get_todays_entry()
 
-    create_summary(todays_entry, "testing")
-    create_plan(todays_entry, "final")
+    eid = todays_entry.id
+    create_summary(eid, "testing")
+    create_plan(eid, "final")
+    create_knowledge(eid, "knowledge")
+    create_failure_point(eid, "failed")
+    create_completed_task(eid, "finished something")
+    create_completed_task(eid, "finished another thing")
 
     todays_entry = get_entry_info(todays_entry)
     print_entry_list_repr(todays_entry)
 
-partial_info_get()
 
 def generate_schema_dot():
     """
