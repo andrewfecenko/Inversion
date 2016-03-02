@@ -18,8 +18,8 @@ class Entry(Base):
     time_updated = Column(DateTime, default=datetime.datetime.now(), nullable=False)
 
     # use one-to-one for summary and plans, one-to-many for rest
-    summary = relationship('Summary', uselist=False, back_populates='entries')
-    plan = relationship('Plan', uselist=False, back_populates='entries')
+    summaries = relationship('Summary', uselist=False, back_populates='entries')
+    plans = relationship('Plan', uselist=False, back_populates='entries')
     tasks = relationship('Task', backref='entries', lazy='dynamic')
     completed_tasks = relationship('CompletedTask', backref='entries', lazy='dynamic')
     knowledge = relationship('Knowledge', backref='entries', lazy='dynamic')
@@ -103,11 +103,11 @@ class EntryContent:
     def list_repr(self):
         listed = []
         listed.append(self.summary)
+        listed.append(self.plan)
         listed.append(self.tasks)
         listed.append(self.completed_tasks)
-        listed.append(self.knowledge)
+        listed.append(self.knowledges)
         listed.append(self.failure_points)
-        listed.append(self.plans)
         return listed
 
 
@@ -247,7 +247,7 @@ def get_entry_info(entry):
     """Get all of entry's info returned as an EntryContent object."""
 
     summary = get_entry_summary(entry)
-    plan = get_entry_plans(entry)
+    plan = get_entry_plan(entry)
     tasks = get_entry_tasks(entry)
     completed_tasks = get_entry_completed_tasks(entry)
     knowledge = get_entry_knowledge(entry)
@@ -285,6 +285,8 @@ def partial_info_get():
 
     todays_entry = get_entry_info(todays_entry)
     print_entry_list_repr(todays_entry)
+
+partial_info_get()
 
 
 def generate_schema_dot():
