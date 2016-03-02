@@ -193,7 +193,7 @@ def get_todays_entry():
     return None
 
 
-def today_entry_exists():
+def todays_entry_exists():
     return get_todays_entry() is not None
 
 
