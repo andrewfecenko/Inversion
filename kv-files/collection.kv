@@ -15,6 +15,66 @@
         text: 'Collection'
         font_size: '30sp'
 
+
+
+    ## Search bar
+    ##search_input: search_box  CRASH
+    ##search_result: search_result  CRASH
+    BoxLayout:
+        height: "40dp"
+        size_hint_y: None
+
+        TextInput:
+            id: search_box
+            size_hint_x: 75
+
+        Button:
+            text: "Search"
+            size_hint_x: 25
+            background_color: C('#848484')
+            on_press: root.search_entry(search_box.text)
+
+    ListView:
+        id: search_result
+        item_strings: []
+
+
+    # ScrollView:
+    #     GridLayout:
+    #         id: entries
+    #         cols: 1
+    #         size_hint_y: None
+    #         height: self.minimum_height
+    #         padding: 0, 20
+    #         spacing: 10
+    #
+    #         # Label:
+    #         #     size: self.texture_size
+    #         #     text: 'test'
+    #
+    #         Button:
+    #             background_color: C('#47b475')
+    #             # size: collection.width, collection.height * 0.1
+    #             # size_hint: (1, None)
+    #             text: "Feb 29"
+    #             font_size: '30sp'
+    #             on_release: app.load_window("journal_menu")
+    #
+    #         Button:
+    #             background_color: C('#ff6d00')
+    #             # size_hint: (1, None)
+    #             # size: collection.width, collection.height * 0.1
+    #             text: "Feb 28"
+    #             font_size: '30sp'
+    #             on_release: app.load_window("#47b475")
+    #
+    #         Button:
+    #             background_color: C('#b03060')
+    #             size: collection.width, collection.height * 0.1
+    #             text: "Feb 27"
+    #             font_size: '30sp'
+    #             on_release: app.load_window("journal_menu")
+
     Button:
         background_color: C('#3498db')
         size_hint: 1, None
