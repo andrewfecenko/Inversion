@@ -1,4 +1,4 @@
-from database import tasks_today, create_entry
+from db_function import tasks_today, create_entry
 
 def basic_test():
     basic_tasks = [u'Task 1', u'Task 2', u'Task 3']

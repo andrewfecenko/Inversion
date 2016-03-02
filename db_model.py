@@ -6,6 +6,8 @@ import datetime
 
 Base = declarative_base()
 
+engine = create_engine('sqlite:///entries.db', echo=False)
+
 #######################################################################
 # All database models for entry information.                          #
 #######################################################################
@@ -72,8 +74,12 @@ class FailurePoint(Base):
 
 
 #######################################################################
-#  End database models.                                               #
+#  Function for creating a database using above models.               #
 #######################################################################
 
-engine = create_engine('sqlite:///entries.db', echo=False)
-Base.metadata.create_all(engine)
+def build_database():
+	Base.metadata.create_all(engine)
+
+def clear_database():
+	for table in reversed(Base.metadata.sorted_tables):
+		engine.execute(table.delete())
