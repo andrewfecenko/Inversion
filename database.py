@@ -21,9 +21,11 @@ class Entry(Base):
     # use one-to-one for summary and plans, one-to-many for rest
     summary = relationship('Summary', uselist=False, back_populates='entries')
     tasks = relationship('Task', backref='entries', lazy='dynamic')
-    completed_tasks = relationship('CompletedTask', backref='entries', lazy='dynamic')
+    completed_tasks = relationship(
+        'CompletedTask', backref='entries', lazy='dynamic')
     knowledge = relationship('Knowledge', backref='entries', lazy='dynamic')
-    failure_points = relationship('FailurePoints', backref='entries', lazy='dynamic')
+    failure_points = relationship(
+        'FailurePoints', backref='entries', lazy='dynamic')
     plans = relationship('Plans', uselist=False, back_populates='entries')
 
 
@@ -84,6 +86,7 @@ def create_task(eid, task_content):
     session.add(new_task)
     session.commit()
 
+
 def create_entry(task_list):
     new_entry = Entry()
     session.add(new_entry)
@@ -91,11 +94,14 @@ def create_entry(task_list):
     for content in task_list:
         create_task(new_entry.id, content)
 
+
 def add_summary(entry, summary):
     entry.summary = Summary(content=summary)
 
+
 def add_plan(entry, plan):
     entry.plans = Plans(content=plan)
+
 
 def tasks_today():
     beg = datetime.datetime.now().replace(
@@ -103,13 +109,13 @@ def tasks_today():
     end = datetime.datetime.now().replace(
         hour=23, minute=59, second=59, microsecond=59)
     out = []
-    time = datetime.datetime.now()
 
     for s in session.query(Task).all():
         cur = s.time_created
         if (cur <= end and cur >= beg):
             out.append(s.content)
     return out
+
 
 def get_todays_entry():
     """Get the Entry relation for today."""
@@ -125,10 +131,11 @@ def get_todays_entry():
 
     return None
 
+
 class EntryContent:
-    
+
     def __init__(self, summary, tasks, completed_tasks, knowledge, failure_points,
-        plans):
+                 plans):
 
         self.summary = summary
         self.tasks = tasks
@@ -136,7 +143,6 @@ class EntryContent:
         self.knowledge = knowledge
         self.failure_points = failure_points
         self.plans = plans
-
 
     def list_sections(self):
         return vars(self).keys()
@@ -150,6 +156,7 @@ class EntryContent:
         listed.append(self.failure_points)
         listed.append(self.plans)
         return listed
+
 
 def get_entry_info(entry):
     """Get all of entry's info returned as an EntryContent object."""
@@ -165,7 +172,8 @@ def get_entry_info(entry):
         tasks = None
 
     try:
-        completed_tasks = entry.completed_tasks.filter(CompletedTask.entry_id == entry.id)
+        completed_tasks = entry.completed_tasks.filter(
+            CompletedTask.entry_id == entry.id)
         completed_tasks = [c_t.content for c_t in completed_tasks]
     except AttributeError:
         completed_tasks = None
@@ -177,7 +185,8 @@ def get_entry_info(entry):
         knowledge = None
 
     try:
-        failure_points = entry.failure_points.filter(FailurePoints.entry_id == entry.id)
+        failure_points = entry.failure_points.filter(
+            FailurePoints.entry_id == entry.id)
         failure_points = [f.content for f in failure_points]
     except AttributeError:
         failure_points = None
@@ -189,13 +198,16 @@ def get_entry_info(entry):
 
     return EntryContent(summary, tasks, completed_tasks, knowledge, failure_points, plans)
 
+
 def get_all_entries():
     for entry in session.query(Entry).all():
         yield get_entry_info(entry)
 
+
 def print_entry_list_repr(entry):
     for section in entry.list_repr():
-        print section 
+        print section
+
 
 def partial_info_get():
     """TODO: delete this function."""
@@ -224,6 +236,3 @@ def generate_schema_dot():
 
     with open('schema.dot', 'w') as f:
         f.write(sadisplay.dot(desc))
-
-
-
