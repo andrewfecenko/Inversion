@@ -1,87 +1,22 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, DateTime, Sequence, ForeignKey
-from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 import datetime
-
-Base = declarative_base()
-
-#######################################################################
-# All database models for entry information.                          #
-#######################################################################
-
-class Entry(Base):
-    __tablename__ = 'entries'
-    id = Column(Integer, primary_key=True)
-    time_created = Column(DateTime, default=datetime.datetime.now(), nullable=False)
-    time_updated = Column(DateTime, default=datetime.datetime.now(), nullable=False)
-
-    # use one-to-one for summary and plans, one-to-many for rest
-    summary = relationship('Summary', uselist=False, back_populates='entries')
-    plan = relationship('Plan', uselist=False, back_populates='entries')
-    tasks = relationship('Task', backref='entries', lazy='dynamic')
-    completed_tasks = relationship('CompletedTask', backref='entries', lazy='dynamic')
-    knowledges = relationship('Knowledge', backref='entries', lazy='dynamic')
-    failure_points = relationship('FailurePoint', backref='entries', lazy='dynamic')
-
-
-class Summary(Base):
-    __tablename__ = 'summaries'
-    id = Column(Integer, primary_key=True)
-    entry_id = Column(Integer, ForeignKey(Entry.id))
-    entries = relationship('Entry', back_populates='summary')
-    content = Column(String(1024))
-
-
-class Plan(Base):
-    __tablename__ = 'plans'
-    id = Column(Integer, primary_key=True)
-    entry_id = Column(Integer, ForeignKey(Entry.id))
-    entries = relationship('Entry', back_populates='plan')
-    content = Column(String(1024))
-
-
-class Task(Base):
-    __tablename__ = 'tasks'
-    id = Column(Integer, Sequence('entry_id_seq'), primary_key=True)
-    entry_id = Column(Integer, ForeignKey(Entry.id))
-    time_created = Column(DateTime, default=datetime.datetime.now())
-    time_updated = Column(DateTime, default=datetime.datetime.now())
-    content = Column(String(256))
-
-
-class CompletedTask(Base):
-    __tablename__ = 'completed_tasks'
-    id = Column(Integer, primary_key=True)
-    entry_id = Column(Integer, ForeignKey(Entry.id))
-    content = Column(String(256))
-
-
-class Knowledge(Base):
-    __tablename__ = 'knowledges' #plural s to avoid confusion
-    id = Column(Integer, primary_key=True)
-    entry_id = Column(Integer, ForeignKey(Entry.id))
-    content = Column(String(256))
-
-
-class FailurePoint(Base):
-    __tablename__ = 'failure_points'
-    id = Column(Integer, primary_key=True)
-    entry_id = Column(Integer, ForeignKey(Entry.id))
-    content = Column(String(256))
-
-
-#######################################################################
-#  End database models.                                               #
-#######################################################################
+from db_model import Entry
+from db_model import Summary
+from db_model import Plan
+from db_model import Task
+from db_model import CompletedTask
+from db_model import Knowledge
+from db_model import FailurePoint
 
 engine = create_engine('sqlite:///entries.db', echo=False)
-Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
 session = Session()
 
+#######################################################################
+# Quick access method for all information of an entry.                #
+#######################################################################
 
 class EntryContent:
 
@@ -261,8 +196,8 @@ def get_all_entries():
         yield get_entry_info(entry)
 
 
-def print_entry_list_repr(entry):
-    for section in entry.list_repr():
+def print_entry_list_repr(entrycontent):
+    for section in entrycontent.list_repr():
         print section
 
 #######################################################################
@@ -286,7 +221,8 @@ def partial_info_get():
     todays_entrycontent = get_entry_info(todays_entry)
     print_entry_list_repr(todays_entrycontent)
 
-partial_info_get()
+#partial_info_get()
+session.close()
 
 
 def generate_schema_dot():
