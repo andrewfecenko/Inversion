@@ -3,8 +3,9 @@ from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
-from kivy.core.window import Window
 from db_function import create_entry
+from db_model import build_database
+
 
 total_entry_num = 3
 
@@ -29,18 +30,18 @@ class AddEntry(BoxLayout):
         for child in self.children[1].children[0].children:
             if child.task_text != '':
                 self.entry_list.append(child.task_text)
-            else:
+
+        if len(self.entry_list) < total_entry_num:
                 content = Button(text='OK', pos_hint={'top': 1}, size_hint=(0.4, 0.25),
                                  background_color=(52, 152, 219, 1), color=(0, 0, 0, 1))
                 popup = Popup(title='Please Fill All Required Field', title_size='20sp', content=content,
                                 auto_dismiss=False, size_hint=(0.4, 0.4))
                 content.bind(on_press=popup.dismiss)
                 popup.open()
-                break
-
-        print ','.join(self.entry_list)
-
-        create_entry(self.entry_list)
+        else:
+            print ','.join(self.entry_list)
+            build_database()
+            create_entry(self.entry_list)
 
 
 class Entry(BoxLayout):
