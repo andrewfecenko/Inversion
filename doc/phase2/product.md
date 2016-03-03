@@ -30,7 +30,9 @@ Figure 3
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/update.png)  
 Figure 4
 
-<img src="https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/collection.png" style="width:200px;"/>
+<img src="https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/collection.png" style="width:200px;"/>  
+
+
 Figure 5 
 
 ### High-level design of your software.
