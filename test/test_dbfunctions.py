@@ -17,7 +17,7 @@ class DBFunctionsTest(unittest.TestCase):
         build_database()
         create_entry(["Task one", "Task two", "Task three"])
         DBFunctionsTest.todays_entry = get_todays_entry()
-        
+
         eid = DBFunctionsTest.todays_entry.id
         create_summary(eid, "Finished a bunch of testing.")
         create_plan(eid, "Go on a walk tomorrow.")
@@ -32,9 +32,24 @@ class DBFunctionsTest(unittest.TestCase):
     def tearDownClass(self):
         clear_database()
 
-   
+
     def test_get_entry_summary(self):
         assert get_entry_summary(DBFunctionsTest.todays_entry) == "Finished a bunch of testing."
 
     def test_get_entry_plan(self):
         assert get_entry_plan(DBFunctionsTest.todays_entry) == "Go on a walk tomorrow."
+
+    def test_get_entry_knowledge(self):
+        assert get_entry_knowledge(DBFunctionsTest.todays_entry) == ["Learned about testing."]
+
+    def test_get_failure_point(self):
+        assert get_entry_failure_points(DBFunctionsTest.todays_entry) == ["Didn't write good tests."]
+
+    def test_get_entry_tasks(self):
+        assert get_entry_tasks(DBFunctionsTest.todays_entry) == ["Task one", "Task two", "Task three"]
+
+    def test_get_completed_task(self):
+        assert get_entry_completed_tasks(DBFunctionsTest.todays_entry) == ["Wrote a test suite.", 
+            "Wrote about writing the test suite inside the test suite."]
+
+    
