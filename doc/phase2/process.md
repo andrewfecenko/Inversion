@@ -2,12 +2,12 @@
 ### Initial Planning
 ###### Your definition of “Scrum master”
 Our Scrum master is Abrar, and his main tasks include:
-- Distributing tasks: He distributes a fair amount of work to each of the group members based individual’s technical skills and experience. Since some of us are more experienced than others, he held several short meetings to ensure that everyone is on the same page and no one is left behind.
-- Managing repository: He always watches out for our repository so that no conflicts or overwrites happen. He also set up a wiki page in our repository to guide us to correctly collaborate on GitHub.
+- Distributing tasks: He distributes a fair amount of work to each of the group members based each individual's technical skills and experience. Since some of us are more experienced than others, he held several short meetings to ensure that everyone was on the same page and that no one was left behind.
+- Managing repository: He always watches out for our repository, so that no conflicts or overwrites happen. He also set up a Wiki page about correctly using Github.
 - Communication: He frequently communicates with both the backend group and the frontend group to let each other know of the current status of our sprint.
 
 ###### How did you estimate task size?
-Each team member first writes their own estimation of tasks on paper and exchages ideas during the meeting. The way to come up with an estimation for each individual is to describe the corresponding feature and ask yourself what the complexity and priority is in implementing it according to your experience. The size of tasks should be relative to one another, and not depended solely on each team member’s personal programming skills. After comparing answers between each team member, we negotiate and reach the final consensus as a team. The rule of thumb is always to keep the average stable velocity of the whole team.
+Each team member first writes their own estimation of tasks on paper and exchages ideas during the meeting. The way to come up with an estimation for each individual is to describe the corresponding feature and ask yourself what the complexity and priority is in implementing it according to your experience. The size of tasks should be relative to one another, and not depended solely on each team member’s personal programming skills. After comparing answers between team members, we negotiate and reach the final consensus as a team. The rule of thumb is always to keep the average stable velocity of the whole team.
 
 ### Sprint Backlog
 ###### What did you initially plan to build?
@@ -71,7 +71,7 @@ The assignment of tasks worked as expected. Despite some reassignments of tasks 
 The interaction between backend group and frontend group was not as efficient as expected. Both groups had their own group meetings, which resulted in lack of communication between the two groups.
 
 - Suggest concrete improvements
-We were not consistant with team meetings and met whenever we could, with only members who could show up participating. We should come up with a more solid weekly meeting times with ideally everyone showing up.
+We were not consistant with team meetings and met whenever we could, but only members who could show up participated. We should come up with a more solid weekly meeting time (with ideally everyone showing up).
 
 
 
