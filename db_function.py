@@ -204,27 +204,6 @@ def print_entry_list_repr(entrycontent):
 # Extra functions included for development.                           #
 #######################################################################
 
-
-def partial_info_get():
-    """TODO: delete this function."""
-    create_entry(["Task one", "Task two", "Task three"])
-    todays_entry = get_todays_entry()
-
-    eid = todays_entry.id
-    create_summary(eid, "testing")
-    create_plan(eid, "final")
-    create_knowledge(eid, "knowledge")
-    create_failure_point(eid, "failed")
-    create_completed_task(eid, "finished something")
-    create_completed_task(eid, "finished another thing")
-
-    todays_entrycontent = get_entry_info(todays_entry)
-    print_entry_list_repr(todays_entrycontent)
-
-#partial_info_get()
-session.close()
-
-
 def generate_schema_dot():
     """
     Generate a .dot file for the current database schema.
