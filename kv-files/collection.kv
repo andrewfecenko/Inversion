@@ -32,48 +32,56 @@
             text: "Search"
             size_hint_x: 25
             background_color: C('#848484')
+            on_press:
             on_press: root.search_entry(search_box.text)
 
-    ListView:
-        id: search_result
-        item_strings: []
+    Label:
+        text: root.search_entry(search_box.text)
+
+    # Button:
+    #     text: root.search_entry(search_box.text)
+    #     background_color: C('#848484')
+        #on_press: <go to details page of the date specified by text>
+
+    #ListView:
+        #id: search_result
+        #item_strings: []
 
 
-    # ScrollView:
-    #     GridLayout:
-    #         id: entries
-    #         cols: 1
-    #         size_hint_y: None
-    #         height: self.minimum_height
-    #         padding: 0, 20
-    #         spacing: 10
-    #
-    #         # Label:
-    #         #     size: self.texture_size
-    #         #     text: 'test'
-    #
-    #         Button:
-    #             background_color: C('#47b475')
-    #             # size: collection.width, collection.height * 0.1
-    #             # size_hint: (1, None)
-    #             text: "Feb 29"
-    #             font_size: '30sp'
-    #             on_release: app.load_window("journal_menu")
-    #
-    #         Button:
-    #             background_color: C('#ff6d00')
-    #             # size_hint: (1, None)
-    #             # size: collection.width, collection.height * 0.1
-    #             text: "Feb 28"
-    #             font_size: '30sp'
-    #             on_release: app.load_window("#47b475")
-    #
-    #         Button:
-    #             background_color: C('#b03060')
-    #             size: collection.width, collection.height * 0.1
-    #             text: "Feb 27"
-    #             font_size: '30sp'
-    #             on_release: app.load_window("journal_menu")
+    # ScrollView of all the entries (displayed as button)
+    ScrollView:
+        GridLayout:
+            id: entries
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 5, 20
+            spacing: 10
+
+            Button:
+                id: button1
+                background_color: C('#47b475')
+                size: collection.width, collection.height * 0.1
+                # size_hint: (1, None)
+                text: "Feb 29"
+                font_size: '30sp'
+                on_release: app.load_window("update_entry")
+
+            Button:
+                id: button2
+                background_color: C('#ff6d00')
+                # size: collection.width, collection.height * 0.1
+                text: "Feb 28"
+                font_size: '30sp'
+                on_release: app.load_window("#update_entry")
+
+            Button:
+                id: button3
+                background_color: C('#b03060')
+                # size: collection.width, collection.height * 0.1
+                text: "Feb 27"
+                font_size: '30sp'
+                on_release: app.load_window("update_entry")
 
     Button:
         background_color: C('#3498db')
