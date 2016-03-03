@@ -199,23 +199,3 @@ def get_all_entries():
 def print_entry_list_repr(entrycontent):
     for section in entrycontent.list_repr():
         print section
-
-#######################################################################
-# Extra functions included for development.                           #
-#######################################################################
-
-def generate_schema_dot():
-    """
-    Generate a .dot file for the current database schema.
-    Render the graphviz directed graphs with:
-        $ dot -Tpng schema.dot > schema.png
-    """
-    import sys
-    import sadisplay
-    reload(sys)
-    sys.setdefaultencoding('utf8')
-
-    desc = sadisplay.describe(globals().values())
-
-    with open('schema.dot', 'w') as f:
-        f.write(sadisplay.dot(desc))
