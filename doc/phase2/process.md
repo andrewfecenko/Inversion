@@ -51,7 +51,7 @@ For the task assignment, our approach is to focus on the skills gap that identif
 - Elaine and Angel collaborated on the “Collection” page.
 
 ### Burndown chart
-
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/burndown.png) 
 
 
 
