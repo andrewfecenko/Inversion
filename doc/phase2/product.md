@@ -48,6 +48,7 @@ We are trying to build a journal mobile application. We want our app to focus on
 - Add “completed” attribute to Task (boolean value)
 - Implement functionality to extract failed tasks and display them.
 - Implement functionality to calculate what tasks are likely to fail.
+
 ###### Frontend
 - Implement the frontend interface so that it can interact with the backend database.
 - Make sure the window size is compatible with most mobile devices.
