@@ -31,6 +31,12 @@ Figure 3
 Figure 4
 
 <img src="https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/collection.png" style="width:200px;"/>
+Figure 5 
 
 ### High-level design of your software.
 We are trying to build a journal mobile application. We want our app to focus on tracking progression and minimizing mistakes. Users enter daily information that they might want in a regular journal. They also include information about what they think were their mistakes for the day. While recording detailed entries of users’ every tasks, our app’s database also analyzes the frequent mistakes or goals that users failed to achieve. Ideally, by highlighting users frequent mistaks and failurs, our app will help users become more productive in their daily life. 
+
+### Technical highlights: interesting bugs, challenges, lessons learned, observations, etc.
+- Frequently committing and merging each other’s code within a large group was challenging. It will be more efficient if everyone is familiar with the git operations.
+- Designing the mapping of flows for the application was considered challenging. As a daily journal application, it is critical to consider how the user would perceive the flow of the application with regards to the main menu. For example, after inputing daily tasks, the user should be directed to ‘update tasks’ so that they can enter more information. But entering the ‘update tasks’ page before ‘add tasks’ page violates the desired flow. How we will manage this mapping by designing the menu system and page redirection is crutial and needs more consideration. 
+- Each member working on a different branch and sending a pull request once a reasonable number of task is done worked better because it prevented potential conflicts and it allowed everyone to see what other members are currently focusing on.
