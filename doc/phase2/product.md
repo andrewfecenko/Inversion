@@ -14,3 +14,19 @@
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/schema.png)  
 Figure 1
+
+###### Frontend
+- Main_window interface: The main window page including Entry, Update Entry, Collection, Setting, Lock, and Favoriate buttons where each one links to an appropriate window respectivly (refer to Figure 2).
+- Add_entry interface: In this page, the user can input their daily goals. There are three initial entries and the user is allowed to add more entries. If the user has less than three goals for the day, they can remove the entry textbox (refer to Figure 3). On submission, the user’s daily goals are recorded in the backend database.
+- Update_entry interface: This page allows users to view and update an individual entry. The entry consists of five sections (Plans for Tomorrow, Goals, Goals Met, and Knowledge Gained), and clicking on the section name opens an accordion panel that contains a list of data in the section (refer to Figure 4). Each section has a form to add new data for the section (new data cannot be displayed dynamically yet).  
+
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/main.png)  
+Figure 2
+
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/add_entry.png)  
+Figure 3
+
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/update.png)  
+Figure 4
+
+
