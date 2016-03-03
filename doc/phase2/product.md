@@ -40,3 +40,17 @@ We are trying to build a journal mobile application. We want our app to focus on
 - Frequently committing and merging each other’s code within a large group was challenging. It will be more efficient if everyone is familiar with the git operations.
 - Designing the mapping of flows for the application was considered challenging. As a daily journal application, it is critical to consider how the user would perceive the flow of the application with regards to the main menu. For example, after inputing daily tasks, the user should be directed to ‘update tasks’ so that they can enter more information. But entering the ‘update tasks’ page before ‘add tasks’ page violates the desired flow. How we will manage this mapping by designing the menu system and page redirection is crutial and needs more consideration. 
 - Each member working on a different branch and sending a pull request once a reasonable number of task is done worked better because it prevented potential conflicts and it allowed everyone to see what other members are currently focusing on.
+
+### What are you plans for the next phase?
+
+###### Backend
+- Create functions for selecting queries regarding certain information. (eg. tasks for Feb. 23, knowledge containing keyword “kivy”, etc.)
+- Add “completed” attribute to Task (boolean value)
+- Implement functionality to extract failed tasks and display them.
+- Implement functionality to calculate what tasks are likely to fail.
+###### Frontend
+- Implement the frontend interface so that it can interact with the backend database.
+- Make sure the window size is compatible with most mobile devices.
+- Improve each section’s interface, especially the size of each buttons, padding and spacing.
+- Merge ‘Favorites’ and ‘Collections’ pages, add ‘Daily mistakes review’, and remove the lock feature.
+- Implement the search box so that it properly filters the entries.
