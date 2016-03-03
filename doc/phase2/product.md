@@ -19,6 +19,7 @@ Figure 1
 - Main_window interface: The main window page including Entry, Update Entry, Collection, Setting, Lock, and Favoriate buttons where each one links to an appropriate window respectivly (refer to Figure 2).
 - Add_entry interface: In this page, the user can input their daily goals. There are three initial entries and the user is allowed to add more entries. If the user has less than three goals for the day, they can remove the entry textbox (refer to Figure 3). On submission, the user’s daily goals are recorded in the backend database.
 - Update_entry interface: This page allows users to view and update an individual entry. The entry consists of five sections (Plans for Tomorrow, Goals, Goals Met, and Knowledge Gained), and clicking on the section name opens an accordion panel that contains a list of data in the section (refer to Figure 4). Each section has a form to add new data for the section (new data cannot be displayed dynamically yet).  
+- Collection interface: This page allows users to look up past entries. There are buttons for each entry that leads to a details page for that day, and a search bar that allows users to search for a specific entry(refer to Figure 5).
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/main.png)  
 Figure 2
@@ -29,4 +30,7 @@ Figure 3
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/update.png)  
 Figure 4
 
+<img src="https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase2/images/collection.png" style="width:200px;"/>
 
+### High-level design of your software.
+We are trying to build a journal mobile application. We want our app to focus on tracking progression and minimizing mistakes. Users enter daily information that they might want in a regular journal. They also include information about what they think were their mistakes for the day. While recording detailed entries of users’ every tasks, our app’s database also analyzes the frequent mistakes or goals that users failed to achieve. Ideally, by highlighting users frequent mistaks and failurs, our app will help users become more productive in their daily life. 
