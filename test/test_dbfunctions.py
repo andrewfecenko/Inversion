@@ -2,7 +2,7 @@ import unittest
 
 from db_function import create_entry, create_summary, create_plan,create_task, create_completed_task, create_knowledge, create_failure_point
 from db_function import tasks_today, get_todays_entry, get_entry_summary
-from db_function import get_entry_plan, get_entry_tasks,get_entry_completed_tasks, get_entry_knowledge, get_entry_failure_points,get_entry_info, get_all_entries, print_entry_list_repr
+from db_function import get_entry_plan, get_entry_tasks,get_entry_completed_tasks, get_entry_knowledge, get_entry_failure_points,get_entry_info, get_all_entries
 
 from db_model import build_database, clear_database
 
