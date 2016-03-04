@@ -81,8 +81,7 @@ def build_database():
 	Base.metadata.create_all(engine)
 
 def clear_database():
-	for table in reversed(Base.metadata.sorted_tables):
-		engine.execute(table.delete())
+    Base.metadata.drop_all(engine)
 
 
 #######################################################################                                               

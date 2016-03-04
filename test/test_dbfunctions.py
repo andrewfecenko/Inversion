@@ -3,6 +3,7 @@ import unittest
 from db_function import create_entry, create_summary, create_plan,create_task, create_completed_task, create_knowledge, create_failure_point
 from db_function import tasks_today, get_todays_entry, get_entry_summary
 from db_function import get_entry_plan, get_entry_tasks,get_entry_completed_tasks, get_entry_knowledge, get_entry_failure_points,get_entry_info, get_all_entries, print_entry_list_repr
+
 from db_model import build_database, clear_database
 
 
@@ -14,6 +15,7 @@ class DBFunctionsTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
 
+        clear_database()
         build_database()
         create_entry(["Task one", "Task two", "Task three"])
         DBFunctionsTest.todays_entry = get_todays_entry()
@@ -31,7 +33,6 @@ class DBFunctionsTest(unittest.TestCase):
     @classmethod
     def tearDownClass(self):
         clear_database()
-
 
     def test_get_entry_summary(self):
         assert get_entry_summary(DBFunctionsTest.todays_entry) == "Finished a bunch of testing."
@@ -51,5 +52,3 @@ class DBFunctionsTest(unittest.TestCase):
     def test_get_completed_task(self):
         assert get_entry_completed_tasks(DBFunctionsTest.todays_entry) == ["Wrote a test suite.", 
             "Wrote about writing the test suite inside the test suite."]
-
-    
