@@ -81,5 +81,25 @@ def build_database():
 	Base.metadata.create_all(engine)
 
 def clear_database():
-	for table in reversed(Base.metadata.sorted_tables):
-		engine.execute(table.delete())
+    Base.metadata.drop_all(engine)
+
+
+#######################################################################                                               
+# Extra functions included for development.                           #
+#######################################################################
+
+def generate_schema_dot():
+    """
+    Generate a .dot file for the current database schema.
+    Render the graphviz directed graphs with:
+        $ dot -Tpng schema.dot > schema.png
+    """
+    import sys
+    import sadisplay
+    sys.setdefaultencoding('utf8')
+    reload(sys)
+
+    desc = sadisplay.describe(globals().values())
+
+    with open('schema.dot', 'w') as f:
+        f.write(sadisplay.dot(desc))

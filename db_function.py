@@ -9,6 +9,8 @@ from db_model import CompletedTask
 from db_model import Knowledge
 from db_model import FailurePoint
 
+from collections import namedtuple
+
 engine = create_engine('sqlite:///entries.db', echo=False)
 
 Session = sessionmaker(bind=engine)
@@ -18,33 +20,8 @@ session = Session()
 # Quick access method for all information of an entry.                #
 #######################################################################
 
-class EntryContent:
-
-    """ An EntryContent allows for quick access to the content
-    associated with an Entry."""
-
-    def __init__(self, summary, plan, tasks, completed_tasks, knowledges, failure_points):
-
-        self.summary = summary
-        self.plan = plan
-        self.tasks = tasks
-        self.completed_tasks = completed_tasks
-        self.knowledges = knowledges
-        self.failure_points = failure_points
-
-    def list_sections(self):
-        return vars(self).keys()
-
-    def list_repr(self):
-        listed = []
-        listed.append(self.summary)
-        listed.append(self.plan)
-        listed.append(self.tasks)
-        listed.append(self.completed_tasks)
-        listed.append(self.knowledges)
-        listed.append(self.failure_points)
-        return listed
-
+EntryContent = namedtuple('EntryContent', ['summary', 'plan', 'tasks',
+        'completed_tasks', 'knowledges', 'failure_points'])
 
 #######################################################################
 # All functions for entering new entry information into the database. #
@@ -194,49 +171,3 @@ def get_entry_info(entry):
 def get_all_entries():
     for entry in session.query(Entry).all():
         yield get_entry_info(entry)
-
-
-def print_entry_list_repr(entrycontent):
-    for section in entrycontent.list_repr():
-        print section
-
-#######################################################################
-# Extra functions included for development.                           #
-#######################################################################
-
-
-def partial_info_get():
-    """TODO: delete this function."""
-    create_entry(["Task one", "Task two", "Task three"])
-    todays_entry = get_todays_entry()
-
-    eid = todays_entry.id
-    create_summary(eid, "testing")
-    create_plan(eid, "final")
-    create_knowledge(eid, "knowledge")
-    create_failure_point(eid, "failed")
-    create_completed_task(eid, "finished something")
-    create_completed_task(eid, "finished another thing")
-
-    todays_entrycontent = get_entry_info(todays_entry)
-    print_entry_list_repr(todays_entrycontent)
-
-#partial_info_get()
-session.close()
-
-
-def generate_schema_dot():
-    """
-    Generate a .dot file for the current database schema.
-    Render the graphviz directed graphs with:
-        $ dot -Tpng schema.dot > schema.png
-    """
-    import sys
-    import sadisplay
-    reload(sys)
-    sys.setdefaultencoding('utf8')
-
-    desc = sadisplay.describe(globals().values())
-
-    with open('schema.dot', 'w') as f:
-        f.write(sadisplay.dot(desc))
