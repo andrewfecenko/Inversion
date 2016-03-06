@@ -3,6 +3,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 
 from kivy.config import Config
+from kivy.core.window import Window
 from kivy.core.text import LabelBase
 from kivy.lang import Builder
 
@@ -102,8 +103,7 @@ class JournalApp(App):
         self.journal.load_window(key)
 
 if __name__ == "__main__":
-    Config.set('graphics', 'width', '600')
-    Config.set('graphics', 'height', '600')
 
+    Window.size = (600, 850)
     LabelBase.register(name='Modern Pictograms', fn_regular='images/modernpics.ttf')
     JournalApp().run()

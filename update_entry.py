@@ -30,11 +30,11 @@ sections = {
 
 # Create a data for a section (i.e. content inside the section)
 class DetailedData(BoxLayout):
-    def __init__(self, section_name, **args):
-        super(DetailedData, self).__init__(**args)
+    def __init__(self, section_name, **kwargs):
+        super(DetailedData, self).__init__(**kwargs)
 
         self.size_hint = (1, None)
-        self.size = (Window.width, Window.height * 0.65)
+        self.size = (Window.width, Window.height)
         self.orientation = 'vertical'
 
         # Record new data to the section
@@ -99,8 +99,8 @@ class DetailedData(BoxLayout):
             create_plan(entry['eid'], input_value)
 
 class UpdateEntry(BoxLayout):
-    def __init__(self):
-        super(UpdateEntry, self).__init__()
+    def __init__(self, **kwargs):
+        super(UpdateEntry, self).__init__(**kwargs)
 
         self.setHeader()
         self.setSections()
