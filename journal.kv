@@ -4,7 +4,7 @@
 <GridLayout>:
     cols: 2
     spacing: 10
-    row_default_height: (0.5 * (self.width - self.spacing[0]) - self.padding[0])
+    row_default_height: (0.715 * (self.width - self.spacing[0]) - self.padding[0])
     row_force_default: True
 
 <Button>:
@@ -28,7 +28,7 @@
         on_release: app.load_window("enter_tasks")
 
     GridLayout:
-        
+
         cols: 1
 
         Button:
@@ -61,5 +61,5 @@
     Button:
         id: review_mistakes
         background_color: C('#e74c3c')
-        text: '[font=Modern Pictograms][size=120]X[/size][/font]\nReview Mistakes'
+        text: '[font=Modern Pictograms][size=120]X[/size][/font]\nYesterday\'s Mistakes'
         on_release: app.load_window("review_mistakes")
