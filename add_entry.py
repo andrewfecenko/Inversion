@@ -32,16 +32,23 @@ class AddEntry(BoxLayout):
                 self.entry_list.append(child.task_text)
 
         if len(self.entry_list) < total_entry_num:
-                content = Button(text='OK', pos_hint={'top': 1}, size_hint=(0.4, 0.25),
-                                 background_color=(52, 152, 219, 1), color=(0, 0, 0, 1))
-                popup = Popup(title='Please Fill All Required Field', title_size='20sp', content=content,
-                                auto_dismiss=False, size_hint=(0.4, 0.4))
-                content.bind(on_press=popup.dismiss)
-                popup.open()
+            content = Button(text='OK', pos_hint={'top': 1}, size_hint=(0.4, 0.25),
+                             background_color=(52, 152, 219, 1), color=(0, 0, 0, 1))
+            popup = Popup(title='Please fill all entries.', title_size='20sp', content=content,
+                            auto_dismiss=False, size_hint=(0.4, 0.4))
+            content.bind(on_press=popup.dismiss)
+            popup.open()
         else:
             print ','.join(self.entry_list)
             build_database()
             create_entry(self.entry_list)
+            content = Button(text='OK', pos_hint={'top': 1}, size_hint=(0.4, 0.25),
+                background_color=(52, 152, 219, 1), color=(0, 0, 0, 1))
+            popup = Popup(title='Day entries submitted.', title_size='20sp', content=content,
+                auto_dismiss=False, size_hint=(0.4, 0.4))
+            content.bind(on_press=popup.dismiss)
+            popup.open()
+
 
 
 class Entry(BoxLayout):
