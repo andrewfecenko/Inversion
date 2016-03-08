@@ -1,9 +1,13 @@
+from kivy.core.text import LabelBase
 from kivy.uix.accordion import AccordionItem
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 import datetime
 from kivy.core.window import Window
 from  kivy.uix.button import Button
+from kivy.uix.scrollview import ScrollView
+from kivy.uix.stacklayout import StackLayout
 from kivy.uix.textinput import TextInput
 from db_function import create_task, create_summary, create_plan
 
@@ -29,59 +33,19 @@ sections = {
 
 
 # Create a data for a section (i.e. content inside the section)
-class DetailedData(BoxLayout):
+class DetailedData(ScrollView):
     def __init__(self, section_name, **kwargs):
         super(DetailedData, self).__init__(**kwargs)
-
-        self.size_hint = (1, None)
-        self.size = (Window.width, Window.height)
-        self.orientation = 'vertical'
-
-        # Record new data to the section
-        self.form = BoxLayout()
-        self.form.cols = 2
-        self.form.size_hint = (1, None)
-        self.form.height = self.height * 0.05
-
-        # input form
-        self.input = TextInput()
-        self.input.size_hint = (1, None)
-        self.input.font_size = '15sp'
-        self.input.height = 30
-        self.form.add_widget(self.input)
-
-        # input button
-        self.add_button = Button()
-        self.add_button.text = '+'
-        self.add_button.size_hint = (1, None)
-        self.add_button.font_size = '15sp'
-        self.add_button.background_color = (1,1,1,0.2)
-        self.add_button.color = (0, 1, 0, 1)
-        self.add_button.height = 30
-        self.add_button.bind(on_release=self.submit_form)
-        self.form.add_widget(self.add_button)
 
         # Add data and edit button
         # TODO: make the edit button work
         for each in entry[section_name]:
-            detail = BoxLayout()
-            detail.cols = 2
-            detail.size_hint = (1, None)
-            detail.height = self.height * 0.05
-            detail.width = self.width
+            detail = Detail(each)
+            self.ids['detailed_data'].add_widget(detail)
 
-            label = Label(text=each)
-            label.size_hint = (1, None)
-            label.font_size = '15sp'
-            detail.add_widget(label)
-
-            edit = Label(text = 'Edit')
-            edit.size_hint = (1, None)
-            edit.font_size = '15sp'
-            detail.add_widget(edit)
-            self.add_widget(detail)
-
-        self.add_widget(self.form)
+        # Add form at the end of the list
+        form = Form()
+        self.ids['detailed_data'].add_widget(form)
 
 
     # Handle onclick
@@ -98,16 +62,27 @@ class DetailedData(BoxLayout):
         elif section_name == 'plans':
             create_plan(entry['eid'], input_value)
 
+
+class Detail(BoxLayout):
+    def __init__(self, content, **kwargs):
+        super(Detail, self).__init__(**kwargs)
+        self.ids.content.text = content
+
+
+class Form(BoxLayout):
+    def __init__(self, **kwargs):
+        super(Form, self).__init__(**kwargs)
+
+
 class UpdateEntry(BoxLayout):
     def __init__(self, **kwargs):
         super(UpdateEntry, self).__init__(**kwargs)
 
-        self.setHeader()
-        self.setSections()
-
+        self.set_header()
+        self.set_sections()
 
     # Set a header for the entry (date and failure points
-    def setHeader(self):
+    def set_header(self):
 
         # Set date
         full_date = datetime.datetime.strptime(entry['time_created'], "%Y-%m-%d %H:%M:%S")
@@ -122,7 +97,7 @@ class UpdateEntry(BoxLayout):
         self.ids.failure_points.text = points
 
     # Set sections for the entry
-    def setSections(self):
+    def set_sections(self):
         for each in sections:
             item = AccordionItem()
             item.pos = (0,0)
