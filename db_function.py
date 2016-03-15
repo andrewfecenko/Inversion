@@ -74,9 +74,58 @@ def create_failure_point(eid, failure_point):
 
 
 #######################################################################
-# All functions for retrieving information from the database.         #
+# All functions for entering new entry information into the database. #
 #######################################################################
 
+def delete_entry(task_list):
+    new_entry = Entry()
+    session.add(new_entry)
+    session.commit()
+    for content in task_list:
+        create_task(new_entry.id, content)
+
+
+def delete_summary(eid, summary):
+    new_summary = Summary(entry_id=eid, content=summary)
+    session.add(new_summary)
+    session.commit()
+
+
+def delete_plan(eid, plan):
+    new_plan = Plan(entry_id=eid, content=plan)
+    session.add(new_plan)
+    session.commit()
+
+
+def delete_task(eid, task_content):
+    new_task = Task(entry_id=eid, content=task_content)
+    session.add(new_task)
+    session.commit()
+
+
+def delete_completed_task(eid, task_content):
+    new_completed_task = CompletedTask(entry_id=eid,
+                                       content=task_content)
+    session.add(new_completed_task)
+    session.commit()
+
+
+def delete_knowledge(eid, knowledge):
+    new_knowledge = Knowledge(entry_id=eid, content=knowledge)
+    session.add(new_knowledge)
+    session.commit()
+
+
+def delete_failure_point(eid, failure_point):
+    new_failure_point = FailurePoint(entry_id=eid,
+                                     content=failure_point)
+    session.add(new_failure_point)
+    session.commit()
+
+
+#######################################################################
+# All functions for retrieving information from the database.         #
+#######################################################################
 
 def tasks_today():
     if not todays_entry_exists():
