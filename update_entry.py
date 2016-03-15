@@ -12,7 +12,10 @@ from kivy.uix.textinput import TextInput
 from db_function import *
 
 if todays_entry_exists():
-    entry = get_todays_entry()
+    print('here')
+    entry = get_days_entry()
+else:
+    entry = None
 
 # entry = {
 #     'eid': 1,
@@ -58,7 +61,7 @@ class DetailedData(ScrollView):
         else:
             section = None
 
-        if section == None:
+        if not section:
             section = []
 
         for each in section:
@@ -74,15 +77,21 @@ class DetailedData(ScrollView):
     # TODO: dynamically add the new data to the list
     def submit_form(self, section_name):
         input_value = self.input.text
-        print(input_value)
+
         if input_value == '':
             return None
-        if section_name == 'tasks':
-            create_task(entry['eid'], input_value)
-        elif section_name == 'summary':
-            create_summary(entry['eid'], input_value)
+        elif section_name == 'tasks':
+            create_task(entry.id, input_value)
+        elif section_name == 'summaries':
+            create_summary(entry.id, input_value)
         elif section_name == 'plans':
-            create_plan(entry['eid'], input_value)
+            create_plan(entry.id, input_value)
+        elif section_name == 'knowledge':
+            create_knowledge(entry.id, input_value)
+        elif section_name == 'failure_points':
+            create_failure_point(entry.id, input_value)
+        elif section_name == 'completed_tasks':
+            create_completed_task(entry.id, input_value)
 
 
 class Detail(BoxLayout):
@@ -100,18 +109,15 @@ class UpdateEntry(BoxLayout):
     def __init__(self, **kwargs):
         super(UpdateEntry, self).__init__(**kwargs)
 
-        self.set_header()
-
-
-        if todays_entry_exists():
+        if entry:
+            self.set_header()
             self.set_sections()
 
     # Set a header for the entry (date and failure points
     def set_header(self):
 
         # Set date
-
-        full_date = datetime.datetime.strptime(str(get_todays_entry().time_created), "%Y-%m-%d %H:%M:%S.%f")
+        full_date = datetime.datetime.strptime(str(get_days_entry().time_created), "%Y-%m-%d %H:%M:%S.%f")
         formatted_date = '{}, {} {}, {}'.format(full_date.strftime("%A"),\
                                             full_date.strftime("%B"),\
                                             full_date.strftime("%d"),\
