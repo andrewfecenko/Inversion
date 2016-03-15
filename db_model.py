@@ -23,13 +23,13 @@ class Entry(Base):
     summary = relationship('Summary', uselist=False, back_populates='entries')
     plan = relationship('Plan', uselist=False, back_populates='entries')
     tasks = relationship('Task', 
-    	backref=backref('entries', cascade="all, delete-orphan"), lazy='dynamic')
+    	backref=backref('entries', cascade="all"), lazy='dynamic')
     completed_tasks = relationship('CompletedTask',
-    	backref=backref('entries', cascade="all, delete-orphan"), lazy='dynamic')
+    	backref=backref('entries', cascade="all"), lazy='dynamic')
     knowledges = relationship('Knowledge',
-    	backref=backref('entries', cascade="all, delete-orphan"), lazy='dynamic')
+    	backref=backref('entries', cascade="all"), lazy='dynamic')
     failure_points = relationship('FailurePoint',
-    	backref=backref('entries', cascade="all, delete-orphan"), lazy='dynamic')
+    	backref=backref('entries', cascade="all"), lazy='dynamic')
 
 
 class Summary(Base):
