@@ -20,14 +20,14 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 #######################################################################
-# Quick access method for all information of an entry.                #
+# Quick access method for all information of an entry                 #
 #######################################################################
 
 EntryContent = namedtuple('EntryContent', ['summary', 'plan', 'tasks',
         'completed_tasks', 'knowledges', 'failure_points'])
 
 #######################################################################
-# All functions for entering new entry information into the database. #
+# All functions for entering new entry information into the database  #
 #######################################################################
 
 def create_entry(task_list):
@@ -84,7 +84,7 @@ def create_failure_point(eid, failure_point):
 
 
 #######################################################################
-# All functions for entering new entry information into the database. #
+# All functions for deleting entry information from the database      #
 #######################################################################
 
 def delete_entry(id):
@@ -130,59 +130,8 @@ def delete_failure_point(id):
 
 
 #######################################################################
-# All functions for retrieving information from the database.         #
+# All functions for retrieving entry information from the database    #
 #######################################################################
-
-def tasks_today(givenday=None):
-    if givenday == None:	# retrieve today's entry
-        if not todays_entry_exists():
-            return []
-        days_entry = get_days_entry()
-    else:					# retrieve givenday's entry
-        if not days_entry_exists(givenday):
-            return []
-        days_entry = get_days_entry(givenday)
-    return get_entry_tasks(days_entry)
-
-
-'''def get_todays_entry():
-    """Get the Entry relation for today."""
-    beg = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-    end = datetime.datetime.now().replace(hour=23, minute=59, second=59, microsecond=59)
-
-    for entry in session.query(Entry).all():
-        entry_time = entry.time_created
-        if (entry_time <= end and entry_time >= beg):
-            return entry
-    return None
-'''
-def get_tasks_keyword(keyword):
-    list_tasks = []
-    for task in session.query(Task).all():
-        if (task.content.lower()).find(keyword.lower()) != -1:
-            list_tasks.append(task)
-            print task.content
-    return list_tasks
-
-
-def get_days_entry(givenday=datetime.datetime.now()):
-    beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
-    end = givenday.replace(hour=23, minute=59, second=59, microsecond=59)
-
-    for entry in session.query(Entry).all():
-        entry_time = entry.time_created
-        if (entry_time <= end and entry_time >= beg):
-            return entry
-    return None
-
-
-def todays_entry_exists():
-    return get_days_entry() is not None
-
-
-def days_entry_exists(givenday):
-	return get_days_entry(givenday) is not None
-
 
 def get_entry_summary(entry):
     try:
@@ -203,7 +152,6 @@ def get_entry_plan(entry):
 def get_entry_tasks(entry):
     try:
         tasks = entry.tasks.all()
-        print tasks
         tasks = [t.content for t in tasks]
     except AttributeError:
         tasks = None
@@ -255,7 +203,42 @@ def get_all_entries():
         yield get_entry_info(entry)
 
 
-### FOR TESTING
+#######################################################################
+# All functions for query filtering according to given input          #
+#######################################################################
+
+def tasks_today(givenday=None):
+    if givenday == None:	# retrieve today's entry
+        if get_days_entry() is None:
+            return []
+        days_entry = get_days_entry()
+    else:					# retrieve givenday's entry
+        if get_days_entry(givenday) is None:
+            return []
+        days_entry = get_days_entry(givenday)
+    return get_entry_tasks(days_entry)
+
+
+def get_days_entry(givenday=datetime.datetime.now()):
+    beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
+    end = givenday.replace(hour=23, minute=59, second=59, microsecond=59)
+
+    for entry in session.query(Entry).all():
+        entry_time = entry.time_created
+        if (entry_time <= end and entry_time >= beg):
+            return entry
+    return None
+
+
+def get_tasks_keyword(keyword):
+    tasks = session.query(Task).filter(Task.content.contains(keyword))
+    tasks = [t.content for t in tasks]
+    return tasks
+
+
+#######################################################################
+# All functions for testing                                           #
+#######################################################################
 
 def partial_info_get():
     """TODO: delete this function."""
@@ -277,7 +260,8 @@ def partial_info_get():
 
     todays_entry = get_entry_info(todays_entry)
     print(todays_entry)
-    get_tasks_keyword("task")
+    print(get_tasks_keyword("task"))
+
     clear_database()
 
 partial_info_get()
