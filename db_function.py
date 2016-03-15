@@ -156,6 +156,14 @@ def tasks_today(givenday=None):
             return entry
     return None
 '''
+def get_tasks_keyword(keyword):
+    list_tasks = []
+    for task in session.query(Task).all():
+        if (task.content.lower()).find(keyword.lower()) != -1:
+            list_tasks.append(task)
+            print task.content
+    return list_tasks
+
 
 def get_days_entry(givenday=datetime.datetime.now()):
     beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -269,6 +277,7 @@ def partial_info_get():
 
     todays_entry = get_entry_info(todays_entry)
     print(todays_entry)
+    get_tasks_keyword("task")
     clear_database()
 
 partial_info_get()
