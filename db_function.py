@@ -88,43 +88,43 @@ def create_failure_point(eid, failure_point):
 #######################################################################
 
 def delete_entry(id):
-    new_entry = Entry.query.get(id)
+    new_entry = session.query(Entry).get(id)
     session.delete(new_entry)
     session.commit()
 
 
 def delete_summary(id):
-    summary = Summary.query.get(id)
+    summary = session.query(Summary).get(id)
     session.delete(summary)
     session.commit()
 
 
 def delete_plan(id):
-    plan = Plan.query.get(id)
+    plan = session.query(Plan).get(id)
     session.delete(plan)
     session.commit()
 
 
 def delete_task(id):
-    task = Task.query.get(id)
+    task = session.query(Task).query.get(id)
     session.delete(task)
     session.commit()
 
 
 def delete_completed_task(id):
-    ctask = CompletedTask.query.get(id)
+    ctask = session.query(CompletedTask).get(id)
     session.delete(ctask)
     session.commit()
 
 
 def delete_knowledge(id):
-    knowledge = Knowledge.query.get(id)
+    knowledge = session.query(Knowledge).get(id)
     session.delete(knowledge)
     session.commit()
 
 
 def delete_failure_point(id):
-    failure = FailurePoint.query.get(id)
+    failure = session.query(FailurePoint).get(id)
     session.delete(failure)
     session.commit()
 
@@ -194,7 +194,8 @@ def get_entry_plan(entry):
 
 def get_entry_tasks(entry):
     try:
-        tasks = entry.tasks.filter(Task.entry_id == entry.id)
+        tasks = entry.tasks.all()
+        print tasks
         tasks = [t.content for t in tasks]
     except AttributeError:
         tasks = None
@@ -203,7 +204,7 @@ def get_entry_tasks(entry):
 
 def get_entry_completed_tasks(entry):
     try:
-        completed_tasks = entry.completed_tasks.filter(CompletedTask.entry_id == entry.id)
+        completed_tasks = entry.completed_tasks.all()
         completed_tasks = [ct.content for ct in completed_tasks]
     except AttributeError:
         completed_tasks = None
@@ -212,7 +213,7 @@ def get_entry_completed_tasks(entry):
 
 def get_entry_knowledge(entry):
     try:
-        knowledges = entry.knowledges.filter(Knowledge.entry_id == entry.id)
+        knowledges = entry.knowledges.all()
         knowledges = [k.content for k in knowledges]
     except AttributeError:
         knowledges = None
@@ -221,7 +222,7 @@ def get_entry_knowledge(entry):
 
 def get_entry_failure_points(entry):
     try:
-        failure_points = entry.failure_points.filter(FailurePoint.entry_id == entry.id)
+        failure_points = entry.failure_points.all()
         failure_points = [f.content for f in failure_points]
     except AttributeError:
         failure_points = None
@@ -250,6 +251,7 @@ def get_all_entries():
 
 def partial_info_get():
     """TODO: delete this function."""
+    clear_database()
     build_database()
 
     create_entry(["Task one", "Task two", "Task three"])
