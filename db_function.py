@@ -50,6 +50,7 @@ def create_plan(eid, plan):
     new_plan = Plan(entry_id=eid, content=plan)
     session.add(new_plan)
     session.commit()
+    return new_plan.id
 
 
 def create_task(eid, task_content):
@@ -255,13 +256,14 @@ def partial_info_get():
     todays_entry = get_days_entry(datetime.datetime.now())
 
     eid = todays_entry.id
-    create_summary(eid, "testing")
-    create_plan(eid, "final")
-    create_knowledge(eid, "knowledge")
-    create_failure_point(eid, "failed")
-    create_completed_task(eid, "finished something")
-    create_completed_task(eid, "finished another thing")
+    sid = create_summary(eid, "testing")
+    pid = create_plan(eid, "final")
+    kid = create_knowledge(eid, "knowledge")
+    fid = create_failure_point(eid, "failed")
+    cid1 = create_completed_task(eid, "finished something")
+    cid2 = create_completed_task(eid, "finished another thing")
 
+    delete_completed_task(cid1)
 
     todays_entry = get_entry_info(todays_entry)
     print(todays_entry)
