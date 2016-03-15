@@ -22,14 +22,10 @@ class Entry(Base):
     # use one-to-one for summary and plans, one-to-many for rest
     summary = relationship('Summary', uselist=False, back_populates='entries')
     plan = relationship('Plan', uselist=False, back_populates='entries')
-    tasks = relationship('Task', 
-    	backref=backref('entries', cascade="all"), lazy='dynamic')
-    completed_tasks = relationship('CompletedTask',
-    	backref=backref('entries', cascade="all"), lazy='dynamic')
-    knowledges = relationship('Knowledge',
-    	backref=backref('entries', cascade="all"), lazy='dynamic')
-    failure_points = relationship('FailurePoint',
-    	backref=backref('entries', cascade="all"), lazy='dynamic')
+    tasks = relationship('Task', backref='entries', cascade="all", lazy='dynamic')
+    completed_tasks = relationship('CompletedTask', backref='entries', cascade="all", lazy='dynamic')
+    knowledges = relationship('Knowledge', backref='entries', cascade="all", lazy='dynamic')
+    failure_points = relationship('FailurePoint', backref='entries', cascade="all", lazy='dynamic')
 
 
 class Summary(Base):
