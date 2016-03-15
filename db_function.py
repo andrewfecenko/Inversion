@@ -304,8 +304,8 @@ def partial_info_get():
 
     delete_completed_task(cid1)
     update_completed_task(cid2, "new content")
-    todays_entry = get_entry_info(todays_entry)
-    print(todays_entry)
+    todays_entry_content = get_entry_info(todays_entry)
+    print(todays_entry_content)
     print(get_tasks_keyword("task"))
 
     clear_database()
