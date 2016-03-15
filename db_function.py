@@ -127,12 +127,16 @@ def delete_failure_point(eid, failure_point):
 # All functions for retrieving information from the database.         #
 #######################################################################
 
-def tasks_today():
-    if not todays_entry_exists():
-        return []
-
-    todays_entry = get_todays_entry()
-    return get_entry_tasks(todays_entry)
+def tasks_today(givenday=None):
+	if givenday == None:	# retrieve today's entry
+		if not days_entry_exists():
+			return []
+		days_entry = get_days_entry()
+	else:					# retrieve givenday's entry
+		if not days_entry_exists(givenday):
+			return []
+		days_entry = get_days_entry(givenday)
+    return get_entry_tasks(days_entry)
 
 
 def get_todays_entry():
@@ -144,7 +148,17 @@ def get_todays_entry():
         entry_time = entry.time_created
         if (entry_time <= end and entry_time >= beg):
             return entry
+    return None
 
+
+def get_days_entry(givenday=datetime.datetime.now()):
+	beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
+    end = givenday.replace(hour=23, minute=59, second=59, microsecond=59)
+
+    for entry in session.query(Entry).all():
+        entry_time = entry.time_created
+        if (entry_time <= end and entry_time >= beg):
+            return entry
     return None
 
 
