@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, Sequence, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref
 import datetime
 
 Base = declarative_base()
@@ -21,10 +22,10 @@ class Entry(Base):
     # use one-to-one for summary and plans, one-to-many for rest
     summary = relationship('Summary', uselist=False, back_populates='entries')
     plan = relationship('Plan', uselist=False, back_populates='entries')
-    tasks = relationship('Task', backref='entries', lazy='dynamic')
-    completed_tasks = relationship('CompletedTask', backref='entries', lazy='dynamic')
-    knowledges = relationship('Knowledge', backref='entries', lazy='dynamic')
-    failure_points = relationship('FailurePoint', backref='entries', lazy='dynamic')
+    tasks = relationship('Task', backref='entries', cascade="all", lazy='dynamic')
+    completed_tasks = relationship('CompletedTask', backref='entries', cascade="all", lazy='dynamic')
+    knowledges = relationship('Knowledge', backref='entries', cascade="all", lazy='dynamic')
+    failure_points = relationship('FailurePoint', backref='entries', cascade="all", lazy='dynamic')
 
 
 class Summary(Base):
