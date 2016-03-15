@@ -236,5 +236,22 @@ def get_all_entries():
         yield get_entry_info(entry)
 
 
-if __name__ == '__main__':
-	pass
+### FOR TESTING
+
+def partial_info_get():
+    """TODO: delete this function."""
+    create_entry(["Task one", "Task two", "Task three"])
+    todays_entry = get_days_entry()
+
+    eid = todays_entry.id
+    create_summary(eid, "testing")
+    create_plan(eid, "final")
+    create_knowledge(eid, "knowledge")
+    create_failure_point(eid, "failed")
+    create_completed_task(eid, "finished something")
+    create_completed_task(eid, "finished another thing")
+
+    todays_entry = get_entry_info(todays_entry)
+    print_entry_list_repr(todays_entry)
+
+partial_info_get()
