@@ -125,7 +125,7 @@ def delete_failure_point(id):
 
 def tasks_today(givenday=None):
 	if givenday == None:	# retrieve today's entry
-		if not days_entry_exists():
+		if not todays_entry_exists():
 			return []
 		days_entry = get_days_entry()
 	else:					# retrieve givenday's entry
@@ -135,7 +135,7 @@ def tasks_today(givenday=None):
     return get_entry_tasks(days_entry)
 
 
-def get_todays_entry():
+'''def get_todays_entry():
     """Get the Entry relation for today."""
     beg = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     end = datetime.datetime.now().replace(hour=23, minute=59, second=59, microsecond=59)
@@ -145,7 +145,7 @@ def get_todays_entry():
         if (entry_time <= end and entry_time >= beg):
             return entry
     return None
-
+'''
 
 def get_days_entry(givenday=datetime.datetime.now()):
 	beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -159,7 +159,11 @@ def get_days_entry(givenday=datetime.datetime.now()):
 
 
 def todays_entry_exists():
-    return get_todays_entry() is not None
+    return get_days_entry() is not None
+
+
+def days_entry_exists(givenday):
+	return get_days_entry(givenday) is not None
 
 
 def get_entry_summary(entry):
@@ -230,3 +234,7 @@ def get_entry_info(entry):
 def get_all_entries():
     for entry in session.query(Entry).all():
         yield get_entry_info(entry)
+
+
+if __name__ == '__main__':
+	pass
