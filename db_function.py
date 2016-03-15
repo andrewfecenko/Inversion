@@ -77,49 +77,45 @@ def create_failure_point(eid, failure_point):
 # All functions for entering new entry information into the database. #
 #######################################################################
 
-def delete_entry(task_list):
-    new_entry = Entry()
-    session.add(new_entry)
-    session.commit()
-    for content in task_list:
-        create_task(new_entry.id, content)
-
-
-def delete_summary(eid, summary):
-    new_summary = Summary(entry_id=eid, content=summary)
-    session.add(new_summary)
+def delete_entry(id):
+    new_entry = Entry.query.get(id)
+    session.delete(new_entry)
     session.commit()
 
 
-def delete_plan(eid, plan):
-    new_plan = Plan(entry_id=eid, content=plan)
-    session.add(new_plan)
+def delete_summary(id):
+    summary = Summary.query.get(id)
+    session.delete(summary)
     session.commit()
 
 
-def delete_task(eid, task_content):
-    new_task = Task(entry_id=eid, content=task_content)
-    session.add(new_task)
+def delete_plan(id):
+    plan = Plan.query.get(id)
+    session.delete(plan)
     session.commit()
 
 
-def delete_completed_task(eid, task_content):
-    new_completed_task = CompletedTask(entry_id=eid,
-                                       content=task_content)
-    session.add(new_completed_task)
+def delete_task(id):
+    task = Task.query.get(id)
+    session.delete(task)
     session.commit()
 
 
-def delete_knowledge(eid, knowledge):
-    new_knowledge = Knowledge(entry_id=eid, content=knowledge)
-    session.add(new_knowledge)
+def delete_completed_task(id):
+    ctask = CompletedTask.query.get(id)
+    session.delete(ctask)
     session.commit()
 
 
-def delete_failure_point(eid, failure_point):
-    new_failure_point = FailurePoint(entry_id=eid,
-                                     content=failure_point)
-    session.add(new_failure_point)
+def delete_knowledge(id):
+    knowledge = Knowledge.query.get(id)
+    session.delete(knowledge)
+    session.commit()
+
+
+def delete_failure_point(id):
+    failure = FailurePoint.query.get(id)
+    session.delete(failure)
     session.commit()
 
 
