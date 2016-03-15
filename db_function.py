@@ -204,6 +204,52 @@ def get_all_entries():
 
 
 #######################################################################
+# All functions for updating entry information in the database        #
+#######################################################################
+
+def update_entry(id, newcontent):
+    new_entry = session.query(Entry).get(id)
+    session.delete(new_entry)
+    session.commit()
+
+
+def update_summary(id, newcontent):
+    summary = session.query(Summary).get(id)
+    session.delete(summary)
+    session.commit()
+
+
+def update_plan(id, newcontent):
+    plan = session.query(Plan).get(id)
+    session.delete(plan)
+    session.commit()
+
+
+def update_task(id, newcontent):
+    task = session.query(Task).query.get(id)
+    session.delete(task)
+    session.commit()
+
+
+def update_completed_task(id, newcontent):
+    ctask = session.query(CompletedTask).get(id)
+    session.delete(ctask)
+    session.commit()
+
+
+def update_knowledge(id, newcontent):
+    knowledge = session.query(Knowledge).get(id)
+    session.delete(knowledge)
+    session.commit()
+
+
+def update_failure_point(id, newcontent):
+    failure = session.query(FailurePoint).get(id)
+    session.delete(failure)
+    session.commit()
+
+
+#######################################################################
 # All functions for query filtering according to given input          #
 #######################################################################
 
