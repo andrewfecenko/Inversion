@@ -50,7 +50,7 @@ class Plan(Base):
 
 class Task(Base):
     __tablename__ = 'tasks'
-    id = Column(Integer, Sequence('entry_id_seq'), primary_key=True, cascade="all, delete-orphan")
+    id = Column(Integer, Sequence('entry_id_seq'), primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
     time_created = Column(DateTime, default=datetime.datetime.now())
     time_updated = Column(DateTime, default=datetime.datetime.now())
@@ -59,21 +59,21 @@ class Task(Base):
 
 class CompletedTask(Base):
     __tablename__ = 'completed_tasks'
-    id = Column(Integer, primary_key=True, cascade="all, delete-orphan")
+    id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
     content = Column(String(256))
 
 
 class Knowledge(Base):
     __tablename__ = 'knowledges' #plural s to avoid confusion
-    id = Column(Integer, primary_key=True, cascade="all, delete-orphan")
+    id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
     content = Column(String(256))
 
 
 class FailurePoint(Base):
     __tablename__ = 'failure_points'
-    id = Column(Integer, primary_key=True, cascade="all, delete-orphan")
+    id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
     content = Column(String(256))
 
