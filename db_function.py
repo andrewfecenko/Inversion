@@ -310,4 +310,4 @@ def partial_info_get():
 
     clear_database()
 
-partial_info_get()
+#partial_info_get()
