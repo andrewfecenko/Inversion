@@ -9,6 +9,9 @@ from db_model import CompletedTask
 from db_model import Knowledge
 from db_model import FailurePoint
 
+from db_model import build_database
+from db_model import clear_database
+
 from collections import namedtuple
 
 engine = create_engine('sqlite:///entries.db', echo=False)
@@ -33,12 +36,14 @@ def create_entry(task_list):
     session.commit()
     for content in task_list:
         create_task(new_entry.id, content)
+    return new_entry.id
 
 
 def create_summary(eid, summary):
     new_summary = Summary(entry_id=eid, content=summary)
     session.add(new_summary)
     session.commit()
+    return new_summary.id
 
 
 def create_plan(eid, plan):
@@ -51,6 +56,7 @@ def create_task(eid, task_content):
     new_task = Task(entry_id=eid, content=task_content)
     session.add(new_task)
     session.commit()
+    return new_task.id
 
 
 def create_completed_task(eid, task_content):
@@ -58,12 +64,14 @@ def create_completed_task(eid, task_content):
                                        content=task_content)
     session.add(new_completed_task)
     session.commit()
+    return new_completed_task.id
 
 
 def create_knowledge(eid, knowledge):
     new_knowledge = Knowledge(entry_id=eid, content=knowledge)
     session.add(new_knowledge)
     session.commit()
+    return new_knowledge.id
 
 
 def create_failure_point(eid, failure_point):
@@ -71,6 +79,7 @@ def create_failure_point(eid, failure_point):
                                      content=failure_point)
     session.add(new_failure_point)
     session.commit()
+    return new_failure_point.id
 
 
 #######################################################################
@@ -124,14 +133,14 @@ def delete_failure_point(id):
 #######################################################################
 
 def tasks_today(givenday=None):
-	if givenday == None:	# retrieve today's entry
-		if not todays_entry_exists():
-			return []
-		days_entry = get_days_entry()
-	else:					# retrieve givenday's entry
-		if not days_entry_exists(givenday):
-			return []
-		days_entry = get_days_entry(givenday)
+    if givenday == None:	# retrieve today's entry
+        if not todays_entry_exists():
+            return []
+        days_entry = get_days_entry()
+    else:					# retrieve givenday's entry
+        if not days_entry_exists(givenday):
+            return []
+        days_entry = get_days_entry(givenday)
     return get_entry_tasks(days_entry)
 
 
@@ -148,7 +157,7 @@ def tasks_today(givenday=None):
 '''
 
 def get_days_entry(givenday=datetime.datetime.now()):
-	beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
+    beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
     end = givenday.replace(hour=23, minute=59, second=59, microsecond=59)
 
     for entry in session.query(Entry).all():
@@ -240,8 +249,10 @@ def get_all_entries():
 
 def partial_info_get():
     """TODO: delete this function."""
+    build_database()
+
     create_entry(["Task one", "Task two", "Task three"])
-    todays_entry = get_days_entry()
+    todays_entry = get_days_entry(datetime.datetime.now())
 
     eid = todays_entry.id
     create_summary(eid, "testing")
@@ -251,7 +262,9 @@ def partial_info_get():
     create_completed_task(eid, "finished something")
     create_completed_task(eid, "finished another thing")
 
+
     todays_entry = get_entry_info(todays_entry)
-    print_entry_list_repr(todays_entry)
+    print(todays_entry)
+    clear_database()
 
 partial_info_get()
