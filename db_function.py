@@ -138,7 +138,7 @@ def get_entry_summary(entry):
         summary = entry.summary.content
     except AttributeError:
         summary = None
-    return summary
+    return summary, entry.summary.id
 
 
 def get_entry_plan(entry):
@@ -146,7 +146,7 @@ def get_entry_plan(entry):
         plan = entry.plan.content
     except AttributeError:
         plan = None
-    return plan
+    return plan, entry.plan.id
 
 
 def get_entry_tasks(entry):
@@ -162,39 +162,42 @@ def get_entry_tasks(entry):
 def get_entry_completed_tasks(entry):
     try:
         completed_tasks = entry.completed_tasks.all()
+        ctid_list = [ct.id for ct in completed_tasks]
         completed_tasks = [ct.content for ct in completed_tasks]
     except AttributeError:
         completed_tasks = None
-    return completed_tasks
+    return completed_tasks, ctid_list
 
 
 def get_entry_knowledge(entry):
     try:
         knowledges = entry.knowledges.all()
+        kid_list = [k.id for k in knowledges]
         knowledges = [k.content for k in knowledges]
     except AttributeError:
         knowledges = None
-    return knowledges
+    return knowledges, kid_list
 
 
 def get_entry_failure_points(entry):
     try:
         failure_points = entry.failure_points.all()
+        fid_list = [f.id for f in failure_points]
         failure_points = [f.content for f in failure_points]
     except AttributeError:
         failure_points = None
-    return failure_points
+    return failure_points, fid_list
 
 
 def get_entry_info(entry):
     """Get all of entry's info returned as an EntryContent object."""
 
-    summary = get_entry_summary(entry)
-    plan = get_entry_plan(entry)
+    summary = get_entry_summary(entry)[0]
+    plan = get_entry_plan(entry)[0]
     tasks = get_entry_tasks(entry)[0]
-    completed_tasks = get_entry_completed_tasks(entry)
-    knowledges = get_entry_knowledge(entry)
-    failure_points = get_entry_failure_points(entry)
+    completed_tasks = get_entry_completed_tasks(entry)[0]
+    knowledges = get_entry_knowledge(entry)[0]
+    failure_points = get_entry_failure_points(entry)[0]
 
     return EntryContent(summary, plan, tasks, completed_tasks, knowledges, failure_points)
 
@@ -263,7 +266,7 @@ def tasks_today(givenday=None):
         if get_days_entry(givenday) is None:
             return []
         days_entry = get_days_entry(givenday)
-    return get_entry_tasks(days_entry)
+    return get_entry_tasks(days_entry)[0]
 
 
 def get_days_entry(givenday=datetime.datetime.now()):
@@ -309,7 +312,5 @@ def partial_info_get():
     todays_entry_content = get_entry_info(todays_entry)
     print(todays_entry_content)
     print(get_tasks_keyword("task"))
-
-    clear_database()
 
 #partial_info_get()
