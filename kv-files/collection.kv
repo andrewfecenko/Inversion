@@ -10,16 +10,12 @@
     ## add entry main label
     Label:
         size_hint: 1, None
-        size: collection.width, collection.height * 0.15
+        size: collection.width, collection.height * 0.08
         halign: 'center'
         text: 'Collection'
-        font_size: '30sp'
+        font_size: '23sp'
 
 
-
-    ## Search bar
-    ##search_input: search_box  CRASH
-    ##search_result: search_result  CRASH
     BoxLayout:
         height: "40dp"
         size_hint_y: None
@@ -37,15 +33,7 @@
 
     Label:
         text: root.search_entry(search_box.text)
-
-    # Button:
-    #     text: root.search_entry(search_box.text)
-    #     background_color: C('#848484')
-        #on_press: <go to details page of the date specified by text>
-
-    #ListView:
-        #id: search_result
-        #item_strings: []
+        size: collection.width, collection.height * 0.3
 
 
     # ScrollView of all the entries (displayed as button)
@@ -84,9 +72,9 @@
                 on_release: app.load_window("update_entry")
 
     Button:
-        background_color: C('#3498db')
+        background_color: C('#808080')
         size_hint: 1, None
-        size: collection.width, collection.height * 0.08
+        size: collection.width * 0.5, collection.height * 0.05
         halign: 'center'
         text: 'Back'
         font_size: '30sp'
