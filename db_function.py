@@ -313,6 +313,4 @@ def partial_info_get():
     print(todays_entry_content)
     print(get_tasks_keyword("task"))
 
-    clear_database()
-
-partial_info_get()
+#partial_info_get()

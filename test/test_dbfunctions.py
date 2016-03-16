@@ -35,20 +35,20 @@ class DBFunctionsTest(unittest.TestCase):
         clear_database()
 
     def test_get_entry_summary(self):
-        assert get_entry_summary(DBFunctionsTest.todays_entry) == "Finished a bunch of testing."
+        assert get_entry_summary(DBFunctionsTest.todays_entry)[0] == "Finished a bunch of testing."
 
     def test_get_entry_plan(self):
-        assert get_entry_plan(DBFunctionsTest.todays_entry) == "Go on a walk tomorrow."
+        assert get_entry_plan(DBFunctionsTest.todays_entry)[0] == "Go on a walk tomorrow."
 
     def test_get_entry_knowledge(self):
-        assert get_entry_knowledge(DBFunctionsTest.todays_entry) == ["Learned about testing."]
+        assert get_entry_knowledge(DBFunctionsTest.todays_entry)[0] == ["Learned about testing."]
 
     def test_get_failure_point(self):
-        assert get_entry_failure_points(DBFunctionsTest.todays_entry) == ["Didn't write good tests."]
+        assert get_entry_failure_points(DBFunctionsTest.todays_entry)[0] == ["Didn't write good tests."]
 
     def test_get_entry_tasks(self):
-        assert get_entry_tasks(DBFunctionsTest.todays_entry) == ["Task one", "Task two", "Task three"]
+        assert get_entry_tasks(DBFunctionsTest.todays_entry)[0] == ["Task one", "Task two", "Task three"]
 
     def test_get_completed_task(self):
-        assert get_entry_completed_tasks(DBFunctionsTest.todays_entry) == ["Wrote a test suite.", 
+        assert get_entry_completed_tasks(DBFunctionsTest.todays_entry)[0] == ["Wrote a test suite.", 
             "Wrote about writing the test suite inside the test suite."]
