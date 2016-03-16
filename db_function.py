@@ -209,43 +209,43 @@ def get_all_entries():
 
 def update_entry(id, newcontent):
     new_entry = session.query(Entry).get(id)
-    session.delete(new_entry)
+    new_entry.content = newcontent
     session.commit()
 
 
 def update_summary(id, newcontent):
     summary = session.query(Summary).get(id)
-    session.delete(summary)
+    summary.content = newcontent
     session.commit()
 
 
 def update_plan(id, newcontent):
     plan = session.query(Plan).get(id)
-    session.delete(plan)
+    plan.content = newcontent
     session.commit()
 
 
 def update_task(id, newcontent):
-    task = session.query(Task).query.get(id)
-    session.delete(task)
+    task = session.query(Task).get(id)
+    task.content = newcontent
     session.commit()
 
 
 def update_completed_task(id, newcontent):
     ctask = session.query(CompletedTask).get(id)
-    session.delete(ctask)
+    ctask.content = newcontent
     session.commit()
 
 
 def update_knowledge(id, newcontent):
     knowledge = session.query(Knowledge).get(id)
-    session.delete(knowledge)
+    knowledge.content = newcontent
     session.commit()
 
 
 def update_failure_point(id, newcontent):
     failure = session.query(FailurePoint).get(id)
-    session.delete(failure)
+    failure.content = newcontent
     session.commit()
 
 
@@ -303,11 +303,11 @@ def partial_info_get():
     cid2 = create_completed_task(eid, "finished another thing")
 
     delete_completed_task(cid1)
-
-    todays_entry = get_entry_info(todays_entry)
-    print(todays_entry)
+    update_completed_task(cid2, "new content")
+    todays_entry_content = get_entry_info(todays_entry)
+    print(todays_entry_content)
     print(get_tasks_keyword("task"))
 
     clear_database()
 
-partial_info_get()
+#partial_info_get()
