@@ -2,6 +2,9 @@
 #:import C kivy.utils.get_color_from_hex
 
 <Collection>:
+    canvas.before:
+        Color:
+            rgba: 24,24,24,1
 
     id: collection
     orientation: 'vertical'
@@ -12,7 +15,7 @@
         size_hint: 1, None
         size: collection.width, collection.height * 0.08
         halign: 'center'
-        text: 'Collection'
+        text: 'All tasks'
         font_size: '23sp'
 
 
@@ -72,6 +75,9 @@
                 on_release: app.load_window("update_entry")
 
     Button:
+        background_normal: 'normal.png'
+        background_down: 'down.png'
+        border: 30,30,30,30
         background_color: C('#808080')
         size_hint: 1, None
         size: collection.width * 0.5, collection.height * 0.05
