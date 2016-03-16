@@ -50,7 +50,7 @@ class DetailedData(ScrollView):
             if section:
                 section = [section]
         elif section_name == 'plans':
-            section = [get_entry_plan(entry)]
+            section = get_entry_plan(entry)
             if section:
                 section = [section]
         elif section_name == 'knowledge':
@@ -61,17 +61,19 @@ class DetailedData(ScrollView):
             section = get_entry_completed_tasks(entry)
         else:
             section = None
-
         if not section:
             section = []
 
-        for each in section:
-            detail = Detail(each)
+        # Add entries for the section
+        items = section[0]
+        ids = section[1]
+        for i in range(0, len(ids)):
+            detail = Detail(items[i], ids[i])
             self.ids['detailed_data'].add_widget(detail)
 
-        # Add form at the end of the list
-        form = Form()
-        self.ids['detailed_data'].add_widget(form)
+        # Add form at the end of the list if the section can contain multiple entries
+        if section not in ['summaries', 'plans']:
+            self.ids['detailed_data'].add_widget(Form())
 
 
     # Handle onclick
@@ -96,25 +98,25 @@ class DetailedData(ScrollView):
 
 
 class Detail(BoxLayout):
-    def __init__(self, content, section_name, **kwargs):
+    def __init__(self, item, id, **kwargs):
         super(Detail, self).__init__(**kwargs)
-        self.ids.content.text = content
-        self.section = section_name
+        self.item = item
+        self.id = id
+        self.ids.content.text = item
 
     def delete_data(self, section_name):
-
         if self.section == 'tasks':
-            delete_task(entry.id)
+            delete_task(self.id)
         elif self.section == 'summaries':
-            delete_summary(entry.id)
+            delete_summary(self.id)
         elif self.section == 'plans':
-            delete_plan(entry.id)
+            delete_plan(self.id)
         elif self.section == 'knowledge':
-            delete_knowledge(entry.id)
+            delete_knowledge(self.id)
         elif self.section == 'failure_points':
-            delete_failure_point(entry.id)
+            delete_failure_point(self.id)
         elif self.section == 'completed_tasks':
-            delete_completed_task(entry.id)
+            delete_completed_task(self.id)
 
 
 class Form(BoxLayout):
