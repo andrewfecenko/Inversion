@@ -11,11 +11,8 @@ from kivy.uix.stacklayout import StackLayout
 from kivy.uix.textinput import TextInput
 from db_function import *
 
-if todays_entry_exists():
-    print('here')
-    entry = get_days_entry()
-else:
-    entry = None
+entry = get_days_entry()
+
 
 # entry = {
 #     'eid': 1,
@@ -50,8 +47,12 @@ class DetailedData(ScrollView):
             section = get_entry_tasks(entry)
         elif section_name == 'summaries':
             section = get_entry_summary(entry)
+            if section:
+                section = [section]
         elif section_name == 'plans':
-            section = get_entry_plan(entry)
+            section = [get_entry_plan(entry)]
+            if section:
+                section = [section]
         elif section_name == 'knowledge':
             section = get_entry_knowledge(entry)
         elif section_name == 'failure_points':
@@ -95,9 +96,25 @@ class DetailedData(ScrollView):
 
 
 class Detail(BoxLayout):
-    def __init__(self, content, **kwargs):
+    def __init__(self, content, section_name, **kwargs):
         super(Detail, self).__init__(**kwargs)
         self.ids.content.text = content
+        self.section = section_name
+
+    def delete_data(self, section_name):
+
+        if self.section == 'tasks':
+            delete_task(entry.id)
+        elif self.section == 'summaries':
+            delete_summary(entry.id)
+        elif self.section == 'plans':
+            delete_plan(entry.id)
+        elif self.section == 'knowledge':
+            delete_knowledge(entry.id)
+        elif self.section == 'failure_points':
+            delete_failure_point(entry.id)
+        elif self.section == 'completed_tasks':
+            delete_completed_task(entry.id)
 
 
 class Form(BoxLayout):
