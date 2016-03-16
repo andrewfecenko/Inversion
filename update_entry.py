@@ -11,8 +11,8 @@ from kivy.uix.stacklayout import StackLayout
 from kivy.uix.textinput import TextInput
 from db_function import *
 
+build_database()
 entry = get_days_entry()
-
 
 # entry = {
 #     'eid': 1,
@@ -47,28 +47,20 @@ class DetailedData(ScrollView):
             section = get_entry_tasks(entry)
         elif section_name == 'summaries':
             section = get_entry_summary(entry)
-            if section:
-                section = [section]
         elif section_name == 'plans':
             section = get_entry_plan(entry)
-            if section:
-                section = [section]
         elif section_name == 'knowledge':
             section = get_entry_knowledge(entry)
         elif section_name == 'failure_points':
             section = get_entry_failure_points(entry)
         elif section_name == 'completed_tasks':
             section = get_entry_completed_tasks(entry)
-        else:
-            section = None
-        if not section:
-            section = []
 
         # Add entries for the section
         items = section[0]
         ids = section[1]
         for i in range(0, len(ids)):
-            detail = Detail(items[i], ids[i])
+            detail = Detail(items[i], ids[i], section_name)
             self.ids['detailed_data'].add_widget(detail)
 
         # Add form at the end of the list if the section can contain multiple entries
@@ -98,13 +90,14 @@ class DetailedData(ScrollView):
 
 
 class Detail(BoxLayout):
-    def __init__(self, item, id, **kwargs):
+    def __init__(self, item, item_id, section_name, **kwargs):
         super(Detail, self).__init__(**kwargs)
         self.item = item
-        self.id = id
-        self.ids.content.text = item
+        self.id = str(item_id)
+        self.ids.content.text = self.item
+        self.section = section_name
 
-    def delete_data(self, section_name):
+    def delete_data(self):
         if self.section == 'tasks':
             delete_task(self.id)
         elif self.section == 'summaries':
@@ -117,6 +110,9 @@ class Detail(BoxLayout):
             delete_failure_point(self.id)
         elif self.section == 'completed_tasks':
             delete_completed_task(self.id)
+
+    # def update_data(self):
+
 
 
 class Form(BoxLayout):
