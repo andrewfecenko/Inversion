@@ -135,19 +135,19 @@ def delete_failure_point(id):
 
 def get_entry_summary(entry):
     try:
-        summary = [entry.summary.content]
-        sid = [entry.summary.id]
+        summary = entry.summary.content
+        sid = entry.summary.id
     except AttributeError:
-        summary, sid = [], []
+        summary, sid = None, None
     return summary, sid
 
 
 def get_entry_plan(entry):
     try:
-        plan = [entry.plan.content]
-        pid = [entry.plan.id]
+        plan = entry.plan.content
+        pid = entry.plan.id
     except AttributeError:
-        plan, pid = [], []
+        plan, pid = None, None
     return plan, pid
 
 

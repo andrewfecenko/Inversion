@@ -4,21 +4,19 @@
 
 <DetailedData@ScrollView>:
     size: self.size
-    pos_hint: { 'center_x' : .5}
 
     GridLayout:
         id: detailed_data
         cols: 1
-        size_hint: 0.9, None
-        pos_hint: { 'center_x' : .5}
+        size_hint: 1, None
         height: self.minimum_height
-        row_force_default: True
-        row_default_height: 0.5
 
 
 <Detail@BoxLayout>:
     id: detail
-    size_hint: 1, 0.01
+    pos_hint: { 'center_x' : 0.5 }
+    size_hint: 0.8, None
+    height: 30
 
 #    canvas:
 #        Color:
@@ -29,7 +27,7 @@
 
     Label:
         id: content
-        size_hint: 0.8, None
+        size_hint: 0.6, None
         height: 30
         text_size: self.size
         halign: "left"
@@ -40,22 +38,20 @@
         background_color: C("#000000")
         color: C("#FFFFFF")
         text:
-            ('[font=Modern Pictograms][size=20]'
+            ('[font=Modern Pictograms][size=30]'
             'R[/size][/font]')
         size_hint: 0.1, None
         height: 30
-        font_size: '15sp'
 
     Button:
         id: delete_btn
         background_color: C("#000000")
         color: C("#FFFFFF")
         text:
-            ('[font=Modern Pictograms][size=20]'
+            ('[font=Modern Pictograms][size=30]'
             'X[/size][/font]')
         size_hint: 0.1, None
         height: 30
-        font_size: '15sp'
         on_release: detail.delete_data()
 
 <Form@BoxLayout>:

@@ -56,6 +56,9 @@ class DetailedData(ScrollView):
         elif section_name == 'completed_tasks':
             section = get_entry_completed_tasks(entry)
 
+        if section == (None, None):
+            section = [], []
+
         # Add entries for the section
         items = section[0]
         ids = section[1]
