@@ -152,10 +152,11 @@ def get_entry_plan(entry):
 def get_entry_tasks(entry):
     try:
         tasks = entry.tasks.all()
+        tid_list = [t.id for t in tasks]
         tasks = [t.content for t in tasks]
     except AttributeError:
         tasks = None
-    return tasks
+    return tasks, tid_list
 
 
 def get_entry_completed_tasks(entry):
@@ -190,12 +191,12 @@ def get_entry_info(entry):
 
     summary = get_entry_summary(entry)
     plan = get_entry_plan(entry)
-    tasks = get_entry_tasks(entry)
+    tasks = get_entry_tasks(entry)[0]
     completed_tasks = get_entry_completed_tasks(entry)
-    knowledge = get_entry_knowledge(entry)
+    knowledges = get_entry_knowledge(entry)
     failure_points = get_entry_failure_points(entry)
 
-    return EntryContent(summary, plan, tasks, completed_tasks, knowledge, failure_points)
+    return EntryContent(summary, plan, tasks, completed_tasks, knowledges, failure_points)
 
 
 def get_all_entries():
@@ -304,6 +305,7 @@ def partial_info_get():
 
     delete_completed_task(cid1)
     update_completed_task(cid2, "new content")
+    update_summary(sid, 'new summary')
     todays_entry_content = get_entry_info(todays_entry)
     print(todays_entry_content)
     print(get_tasks_keyword("task"))
