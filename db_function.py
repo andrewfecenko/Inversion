@@ -136,17 +136,19 @@ def delete_failure_point(id):
 def get_entry_summary(entry):
     try:
         summary = entry.summary.content
+        sid = entry.summary.id
     except AttributeError:
-        summary = None
-    return summary, entry.summary.id
+        summary, sid = None, None
+    return summary, sid
 
 
 def get_entry_plan(entry):
     try:
         plan = entry.plan.content
+        pid = entry.plan.id
     except AttributeError:
-        plan = None
-    return plan, entry.plan.id
+        plan, pid = None, None
+    return plan, pid
 
 
 def get_entry_tasks(entry):
@@ -155,7 +157,7 @@ def get_entry_tasks(entry):
         tid_list = [t.id for t in tasks]
         tasks = [t.content for t in tasks]
     except AttributeError:
-        tasks = None
+        tasks, tid_list = [], []
     return tasks, tid_list
 
 
@@ -165,7 +167,7 @@ def get_entry_completed_tasks(entry):
         ctid_list = [ct.id for ct in completed_tasks]
         completed_tasks = [ct.content for ct in completed_tasks]
     except AttributeError:
-        completed_tasks = None
+        completed_tasks, ctid_list = [], []
     return completed_tasks, ctid_list
 
 
@@ -175,7 +177,7 @@ def get_entry_knowledge(entry):
         kid_list = [k.id for k in knowledges]
         knowledges = [k.content for k in knowledges]
     except AttributeError:
-        knowledges = None
+        knowledges, kid_list = [], []
     return knowledges, kid_list
 
 
@@ -185,7 +187,7 @@ def get_entry_failure_points(entry):
         fid_list = [f.id for f in failure_points]
         failure_points = [f.content for f in failure_points]
     except AttributeError:
-        failure_points = None
+        failure_points, fid_list = [], []
     return failure_points, fid_list
 
 
