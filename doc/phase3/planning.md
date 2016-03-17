@@ -20,10 +20,10 @@ commonly appearing  mistakes based on the most frequent nouns and verbs appearin
 ### Updated plan
 Due to team members having busy schedules, we started work late on the project. Some of the features we were planning to implement by March 16th will be delayed to March 28th (Demo day).
 
-#### Front-end
+##### Front-end
 - Creating UI for yesterday’s mistakes and the mistakes summary page was delayed. 
 - Making all of the pages (except for the Add entry page and Update entry page) consistent was delayed.
-- Making the Collection page (refer to collection.py)  retrieve data from the database was delayed.
+- Making the Collection page (refer to [collect.py](https://github.com/csc301-winter-2016/project-team12/blob/master/collect.py))  retrieve data from the database was delayed.
 
-#### Back-end
+##### Back-end
 - Implementing functions to extract most common nouns and verbs from a sentence was delayed. 
