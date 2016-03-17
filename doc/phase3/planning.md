@@ -42,15 +42,19 @@ In the initial planning meeting, we wished to finish the main features of the mi
 - screenshots of adding and updating tasks process
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase3/images/screenshot-addentry.png)
+
 Add entry
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase3/images/screenshot-updateentry1.png)
+
 Open update entry page
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase3/images/screenshot-updateentry2.png)
+
 Add entry
 
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase3/images/screenshot-updateentry3.png)
+
 View added entry
 
 ###### Suggestions on improvement & Interesting insights
