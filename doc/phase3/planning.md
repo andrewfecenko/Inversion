@@ -58,7 +58,7 @@ Add entry
 View added entry
 
 ###### Suggestions on improvement & Interesting insights
-We plan to start early in the next phase. As we have to keep working to finish the desired features of our app by the demo date (the 28th), we will try to keep the current work flowing going until the last demo on the April 4th (which is not that far from 28th). One interesting observation was that even though we self-assigned tasks through Github instead of actually having a meeting to discuss distribution of work, members took on (and completed) tasks. We hope to meet more often in the next phase, preferably offline, as we discovered offline meeting help greatly in advancing our progress.
+We plan to start early in the next phase. As we have to keep working to finish the desired features of our app by the demo date (the 28th), we will try to keep the current work flow going until the last demo on the April 4th (which is not that far from 28th). One interesting observation was that even though we self-assigned tasks through Github instead of actually having a meeting to discuss distribution of work, members took on (and completed) tasks. We hope to meet more often in the next phase, preferably offline, as we discovered offline meeting help greatly in advancing our progress.
 
 While most members struggled to familiarize themselves with new technologies such as Kivy and SQLAlchemy in the previous phase, there were fewer technical issues in this phase. For most problems we encountered (like database not working as expected, or kivy display limiting grid options), we were able to solve it by discussing with other team members.
 
