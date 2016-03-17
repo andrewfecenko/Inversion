@@ -21,7 +21,7 @@ We used Github for source version control. For each feature, a member created th
 
 
 ### Burndown Chart
-![](https://github.com/csc301-winter-2016/project-team12/doc/phase3/images/burndown.png) 
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase3/images/burndown.png) 
 
 Y-axis represent days. Large, Medium, Small size tasks were converted to 3, 2, 1 days. In this phase, we could not quite finish all the tasks we planned to. We plan to finish the remaining work by the demonstration day.
 
@@ -35,10 +35,10 @@ In the initial planning meeting for each phase, we brainstormed all the to-dos f
 We decided to approach task distribution within phase 3 this way due to heavy workload everyone was experiencing in March. Instead of having frequent offline meetings, group members agreed to self-assign tasks once issues according to our implementation plan were created by our scrum master, Abrar. In case more than one person were working on the same issue, we left it empty since github issues only lets one asignee.
 
 - All L-size issues
-![](https://github.com/csc301-winter-2016/project-team12/doc/phase3/images/l-size.png)
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase3/images/l-size.png)
 
 - All M-size issues
-![](https://github.com/csc301-winter-2016/project-team12/doc/phase3/images/m-size.png)
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase3/images/m-size.png)
 
 - All S-size issues
-![](https://github.com/csc301-winter-2016/project-team12/doc/phase3/images/s-size.png) 
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase3/images/s-size.png) 
