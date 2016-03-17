@@ -28,11 +28,11 @@ Y-axis represent days. Large, Medium, Small size tasks were converted to 3, 2, 1
 
 ### Work Distribution
 ##### Distribution using issues:
-In the initial planning meeting for each phase, we brainstormed all the to-dos for the coming phase and assign them different size. Then we will enter them into issues on github repository. We do not assign issue to specific team member, but each team member will have to self-assign some issues to implement. Once done, he/she is responsed to send a pull request to merge his/her work into the master branch for project and close the issue.
+In the initial planning meeting for each phase, we brainstormed all the features to implement for the phase and assigned them different sizes. Then we entereed them into issues on our Github repository. Each team member self-assigned themselves tasks.
 
 
 ###### Rationale behind our decisions
-We decided to approach task distribution within phase 3 this way due to heavy workload everyone was experiencing in March. Instead of having frequent offline meetings, group members agreed to self-assign tasks once issues according to our implementation plan were created by our scrum master, Abrar. In case more than one person were working on the same issue, we left it empty since github issues only lets one asignee.
+We decided to approach task distribution within phase 3 this way due to the heavy workload everyone was experiencing in March. Instead of having frequent offline meetings, group members agreed to self-assign tasks once issues rose according to our implementation plan. In case more than one person was working on the same issue, we left it empty, because Github issues only allows one assignee.
 
 - All L-size issues
 ![](https://github.com/csc301-winter-2016/project-team12/blob/master/doc/phase3/images/l-size.png)
