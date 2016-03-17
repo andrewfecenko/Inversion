@@ -16,3 +16,14 @@ commonly appearing  mistakes based on the most frequent nouns and verbs appearin
 - Implement functions to update information in the database. 
 - Implement functions to filter an entry given a specific day. 
 - Implement functions to extract most common nouns and verbs from a sentence (used to get information about mistakes).
+
+### Updated plan
+Due to team members having busy schedules, we started work late on the project. Some of the features we were planning to implement by March 16th will be delayed to March 28th (Demo day).
+
+#### Front-end
+- Creating UI for yesterday’s mistakes and the mistakes summary page was delayed. 
+- Making all of the pages (except for the Add entry page and Update entry page) consistent was delayed.
+- Making the Collection page (refer to collection.py)  retrieve data from the database was delayed.
+
+#### Back-end
+- Implementing functions to extract most common nouns and verbs from a sentence was delayed. 
