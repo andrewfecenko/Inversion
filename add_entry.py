@@ -1,8 +1,11 @@
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.scrollview import ScrollView
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
+from kivy.uix.textinput import TextInput
 from db_function import create_entry
 from db_model import build_database
 
@@ -19,6 +22,7 @@ class AddEntry(BoxLayout):
         # TODO: create method to check if day's tasks have already been entered
         self.added_tasks = False
         self.entry_list = []
+        self.task_grid.bind(minimum_height=self.task_grid.setter('height'))
 
     def add_new(self):
         global total_entry_num
@@ -50,7 +54,6 @@ class AddEntry(BoxLayout):
             popup.open()
 
 
-
 class Entry(BoxLayout):
     name = StringProperty('')
 
@@ -64,7 +67,3 @@ class Entry(BoxLayout):
             self.parent.remove_widget(self)
             global total_entry_num
             total_entry_num -= 1
-
-
-
-
