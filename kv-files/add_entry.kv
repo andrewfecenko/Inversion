@@ -4,23 +4,33 @@
 <Entry@BoxLayout>:
     id: entry
 	task_text: self.ids.task_text.text
+	orientation:'vertical'
+	size_hint:(None, None)
+	size: (1200, 200)
 	spacing: 20
     padding: 20
-	orientation: 'vertical'
+
+#    canvas:
+#        Color:
+#            rgba: 0.5, 0.5, 0.5, 1
+#        Rectangle:
+#            pos: self.pos
+#            size: self.size
 
     BoxLayout:
         orientation: 'horizontal'
-        size_hint: 1, 0.1
+        size_hint: 1, 0.7
+        height: 20
 
         Label:
-            size_hint: 0.9, 1
+            size_hint: 0.9, 0.1
             font_size: '20sp'
             text: entry.name
 
 
         Button:
             background_color: C('#3498db')
-            size_hint: 0.1, 1
+            size_hint: 0.1, 0.1
             halign: 'center'
             text: '—'
             font_size: '20sp'
@@ -28,7 +38,7 @@
 
     TextInput:
     	id: task_text
-    	size_hint: 1, 0.9
+    	size_hint: 1, 0.3
         multiline: True
         font_size: '20sp'
         padding: [5, 5]
@@ -40,6 +50,7 @@
 	id: add_entry
     orientation: 'vertical'
     padding: [0,0,0,20]
+    task_grid: task_grid
 
     BoxLayout:
 	    orientation: 'horizontal'
@@ -70,25 +81,30 @@
             font_size: '20sp'
             on_release: add_entry.submit_tasks()
 
+
+
     ScrollView:
         size_hint: 1, 0.8
+        pos_hint: {'x': 0, 'top': 1}
+
 
         GridLayout:
             id: task_grid
+            size_hint_y: None
             cols: 1
-            size_hint: 1, None
-            height: self.minimum_height
-            row_default_height: '10dp'
+            row_default_height: '20dp'
             row_force_default: True
+            spacing: 0, 0
+            padding: 0, 0
 
             Entry:
-    		    name: 'task 1'
+                name: 'task 1'
 
-    	    Entry:
-    		    name: 'task 2'
+            Entry:
+                name: 'task 2'
 
-    	    Entry:
-    		    name: 'task 3'
+            Entry:
+                name: 'task 3'
 
     Button:
         background_color: C('#3498db')
