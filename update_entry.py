@@ -46,9 +46,11 @@ class DetailedData(ScrollView):
         if section_name == 'tasks':
             section = get_entry_tasks(entry)
         elif section_name == 'summaries':
-            section = get_entry_summary(entry)
+            tmp = get_entry_summary(entry)
+            section = [tmp[0]], [tmp[1]]
         elif section_name == 'plans':
-            section = get_entry_plan(entry)
+            tmp = get_entry_plan(entry)
+            section = [tmp[0]], [tmp[1]]
         elif section_name == 'knowledge':
             section = get_entry_knowledge(entry)
         elif section_name == 'failure_points':
@@ -56,40 +58,20 @@ class DetailedData(ScrollView):
         elif section_name == 'completed_tasks':
             section = get_entry_completed_tasks(entry)
 
-        if section == (None, None):
+        if section == ([None], [None]):
             section = [], []
+
 
         # Add entries for the section
         items = section[0]
         ids = section[1]
         for i in range(0, len(ids)):
             detail = Detail(items[i], ids[i], section_name)
-            self.ids['detailed_data'].add_widget(detail)
+            self.ids['detail_container'].add_widget(detail)
 
         # Add form at the end of the list if the section can contain multiple entries
         if section not in ['summaries', 'plans']:
-            self.ids['detailed_data'].add_widget(Form())
-
-
-    # Handle onclick
-    # TODO: dynamically add the new data to the list
-    def submit_form(self, section_name):
-        input_value = self.input.text
-
-        if input_value == '':
-            return None
-        elif section_name == 'tasks':
-            create_task(entry.id, input_value)
-        elif section_name == 'summaries':
-            create_summary(entry.id, input_value)
-        elif section_name == 'plans':
-            create_plan(entry.id, input_value)
-        elif section_name == 'knowledge':
-            create_knowledge(entry.id, input_value)
-        elif section_name == 'failure_points':
-            create_failure_point(entry.id, input_value)
-        elif section_name == 'completed_tasks':
-            create_completed_task(entry.id, input_value)
+            self.ids['detail_container'].add_widget(Form(section_name))
 
 
 class Detail(BoxLayout):
@@ -117,10 +99,32 @@ class Detail(BoxLayout):
     # def update_data(self):
 
 
-
 class Form(BoxLayout):
-    def __init__(self, **kwargs):
+    def __init__(self,section_name, **kwargs):
         super(Form, self).__init__(**kwargs)
+        self.section = section_name;
+
+    # Handle onclick
+    # TODO: dynamically add the new data to the list
+    def submit_form(self):
+        input_value = self.ids.input_field.text
+
+        print(input_value)
+
+        if input_value == '':
+            return None
+        elif self.section == 'tasks':
+            create_task(entry.id, input_value)
+        elif self.section == 'summaries':
+            create_summary(entry.id, input_value)
+        elif self.section == 'plans':
+            create_plan(entry.id, input_value)
+        elif self.section == 'knowledge':
+            create_knowledge(entry.id, input_value)
+        elif self.section == 'failure_points':
+            create_failure_point(entry.id, input_value)
+        elif self.section == 'completed_tasks':
+            create_completed_task(entry.id, input_value)
 
 
 class UpdateEntry(BoxLayout):

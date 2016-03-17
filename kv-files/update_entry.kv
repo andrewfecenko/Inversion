@@ -3,10 +3,11 @@
 #:import label kivy.uix.label
 
 <DetailedData@ScrollView>:
+    id: detailed_data
     size: self.size
 
     GridLayout:
-        id: detailed_data
+        id: detail_container
         cols: 1
         size_hint: 1, None
         height: self.minimum_height
@@ -14,9 +15,12 @@
 
 <Detail@BoxLayout>:
     id: detail
+    valign: 'middle'
+    spacing: 0
     pos_hint: { 'center_x' : 0.5 }
     size_hint: 0.8, None
     height: 30
+    padding: [20, 0, 20, 0]
 
 #    canvas:
 #        Color:
@@ -61,6 +65,7 @@
     pos_hint: { 'center_x' : .5 }
 
     TextInput:
+        id: input_field
         size_hint: 0.8, None
         font_size: '15sp'
         foreground_color: C('#FFFFFF')
@@ -76,12 +81,28 @@
         background_color: C("#000000")
         color: C("#00D904")
         height: 30
-        on_release: detailed_data.submit_form()
+        on_release: form.submit_form()
 
 <UpdateEntry@BoxLayout>:
 
 	id: view_entry
 	orientation: 'vertical'
+	padding: 15
+
+    Label:
+        id: header
+        size_hint: 1, None
+        size: root.width, root.height * 0.1
+        pos: self.pos
+        font_size: '25sp'
+
+    Accordion:
+        id: container
+        size_hint: 1, None
+        size: root.width, root.height * 0.85
+        orientation: 'vertical'
+        pos: self.pos
+
 
     Button:
         background_color: C('#3B3B3B')
@@ -91,20 +112,6 @@
         text: 'Back'
         font_size: '30sp'
         on_release: app.load_window("journal_menu")
-
-    Label:
-        id: header
-        size_hint: 1, None
-        size: root.width, root.height * 0.05
-        pos: self.pos
-        font_size: '20sp'
-
-    Accordion:
-        id: container
-        size_hint: 1, None
-        size: root.width, root.height * 0.85
-        orientation: 'vertical'
-        pos: self.pos
 
 
 
