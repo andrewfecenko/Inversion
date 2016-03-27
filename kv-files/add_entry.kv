@@ -5,51 +5,60 @@
     id: entry
 	task_text: self.ids.task_text.text
 	orientation:'vertical'
-	size_hint:(None, None)
-	size: (1200, 200)
+    valign: 'top'
+    size_hint: (1, None)
 	spacing: 20
     padding: 20
 
-#    canvas:
-#        Color:
-#            rgba: 0.5, 0.5, 0.5, 1
-#        Rectangle:
-#            pos: self.pos
-#            size: self.size
+    canvas:
+        Color:
+            rgba: 0.5, 0.5, 0.5, 0.5
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
     BoxLayout:
-        orientation: 'horizontal'
-        size_hint: 1, 0.7
-        height: 20
-
-        Label:
-            size_hint: 0.9, 0.1
-            font_size: '20sp'
-            text: entry.name
+        orientation: 'vertical'
+        size_hint: 1, 0.3
 
 
-        Button:
-            background_color: C('#3498db')
-            size_hint: 0.1, 0.1
-            halign: 'center'
-            text: '—'
-            font_size: '20sp'
-            on_release: entry.remove()
+        BoxLayout:
+            orientation: 'vertical'
+
+            Button:
+                background_color: C('#660000')
+                pos_hint: {'x': 0.91, 'center_y': .1}
+                size_hint: 0, 0.3
+                text: '—'
+                font_size: '30sp'
+                on_release: entry.remove()
+
+            Label:
+                font_name: 'RobotoCondensed'
+                size_hint: 1, 1
+                font_size: '25sp'
+                markup: True
+                text: '[b]—'+ entry.name + '—[/b]'
+
+
+
+
 
     TextInput:
     	id: task_text
-    	size_hint: 1, 0.3
+    	size_hint: 1, 0.7
         multiline: True
         font_size: '20sp'
         padding: [5, 5]
-
-
 
 
 <AddEntry>:
 	id: add_entry
     orientation: 'vertical'
     padding: [0,0,0,20]
+    row_default_height: '20dp'
+    row_force_default: True
+    spacing: 10, 10
     task_grid: task_grid
 
     BoxLayout:
@@ -62,31 +71,30 @@
 	    	background_color: C('#3498db')
 	    	size_hint: 0.4, 0.9
 	    	halign: 'center'
-	        text: 'Back'
-	        font_size: '20sp'
+	        text: '[size=45][font=RobotoCondensed][b][color=FFFFFF]Back[/color][/b][/font][/size]'
 	        on_release: app.load_window("journal_menu")
 
         ## add entry main label
         Label:
+            font_name: 'RobotoCondensed'
             size_hint: 1, 1
             halign: 'center'
             text: 'Tasks For Today'
-            font_size: '20sp'
+            font_size: '25sp'
 
         Button:
             background_color: C('#3498db')
             size_hint: 0.4, 0.9
             halign: 'center'
-            text: 'Submit'
-            font_size: '20sp'
+            text: '[size=45][font=RobotoCondensed][b][color=FFFFFF]Submit[/color][/b][/font][/size]'
             on_release: add_entry.submit_tasks()
 
 
 
     ScrollView:
-        size_hint: 1, 0.8
-        pos_hint: {'x': 0, 'top': 1}
-
+        size_hint: 1, 0.9
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        do_scroll_x: False
 
         GridLayout:
             id: task_grid
@@ -94,24 +102,18 @@
             cols: 1
             row_default_height: '20dp'
             row_force_default: True
-            spacing: 0, 0
-            padding: 0, 0
+            spacing: 20
+            padding: 20
 
             Entry:
-                name: 'task 1'
+                name: 'TASK 1'
 
-            Entry:
-                name: 'task 2'
-
-            Entry:
-                name: 'task 3'
 
     Button:
         background_color: C('#3498db')
         size_hint: None, 0.1
         pos_hint:{'center_x':.5}
         halign: 'center'
-        text: 'Add new entry'
-        font_size: '20sp'
+        text: '[size=45][font=RobotoCondensed][b][color=FFFFFF]New Entry[/color][/b][/font][/size]'
         width: add_entry.width - 40
         on_release: add_entry.add_new()
