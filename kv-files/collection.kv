@@ -34,45 +34,45 @@
             on_press:
             on_press: root.search_entry(search_box.text)
 
-    Label:
-        text: root.search_entry(search_box.text)
-        size: collection.width, collection.height * 0.3
+#    Label:
+#        text: root.search_entry(search_box.text)
+#        size: collection.width, collection.height * 0.3
 
 
     # ScrollView of all the entries (displayed as button)
     ScrollView:
         GridLayout:
-            id: entries
+            id: scrollview
             cols: 1
             size_hint_y: None
             height: self.minimum_height
             padding: 5, 20
             spacing: 10
 
-            Button:
-                id: button1
-                background_color: C('#47b475')
-                size: collection.width, collection.height * 0.1
-                # size_hint: (1, None)
-                text: "Feb 29"
-                font_size: '30sp'
-                on_release: app.load_window("update_entry")
+#            Button:
+#                id: button1
+#                background_color: C('#47b475')
+#                size: collection.width, collection.height * 0.1
+#                # size_hint: (1, None)
+#                text: "Feb 29"
+#                font_size: '30sp'
+#                on_release: app.load_window("update_entry")
 
-            Button:
-                id: button2
-                background_color: C('#ff6d00')
-                # size: collection.width, collection.height * 0.1
-                text: "Feb 28"
-                font_size: '30sp'
-                on_release: app.load_window("#update_entry")
+#            Button:
+#                id: button2
+#                background_color: C('#ff6d00')
+#                # size: collection.width, collection.height * 0.1
+#                text: "Feb 28"
+#                font_size: '30sp'
+#                on_release: app.load_window("#update_entry")
 
-            Button:
-                id: button3
-                background_color: C('#b03060')
-                # size: collection.width, collection.height * 0.1
-                text: "Feb 27"
-                font_size: '30sp'
-                on_release: app.load_window("update_entry")
+#            Button:
+#                id: button3
+#                background_color: C('#b03060')
+#                # size: collection.width, collection.height * 0.1
+#                text: "Feb 27"
+#                font_size: '30sp'
+#                on_release: app.load_window("update_entry")
 
     Button:
         background_normal: 'normal.png'
