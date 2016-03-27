@@ -15,7 +15,7 @@
         size_hint: 1, None
         size: collection.width, collection.height * 0.08
         halign: 'center'
-        text: 'All tasks'
+        text: "Collection"
         font_size: '23sp'
 
 
@@ -31,7 +31,6 @@
             text: "Search"
             size_hint_x: 25
             background_color: C('#848484')
-            on_press:
             on_press: root.search_entry(search_box.text)
 
 #    Label:
@@ -39,15 +38,15 @@
 #        size: collection.width, collection.height * 0.3
 
 
-    # ScrollView of all the entries (displayed as button)
-    ScrollView:
-        GridLayout:
-            id: scrollview
-            cols: 1
-            size_hint_y: None
-            height: self.minimum_height
-            padding: 5, 20
-            spacing: 10
+#    # ScrollView of all the entries (displayed as button)
+#    ScrollView:
+#        GridLayout:
+#            id: scrollview
+#            cols: 1
+#            size_hint_y: None
+#            height: self.minimum_height
+#            padding: 5, 20
+#            spacing: 10
 
 #            Button:
 #                id: button1
@@ -74,14 +73,14 @@
 #                font_size: '30sp'
 #                on_release: app.load_window("update_entry")
 
-    Button:
-        background_normal: 'normal.png'
-        background_down: 'down.png'
-        border: 30,30,30,30
-        background_color: C('#808080')
-        size_hint: 1, None
-        size: collection.width * 0.5, collection.height * 0.05
-        halign: 'center'
-        text: 'Back'
-        font_size: '30sp'
-        on_release: app.load_window("journal_menu")
+#    Button:
+#        background_normal: 'normal.png'
+#        background_down: 'down.png'
+#        border: 30,30,30,30
+#        background_color: C('#808080')
+#        size_hint: 1, None
+#        size: collection.width * 0.5, collection.height * 0.05
+#        halign: 'center'
+#        text: 'Back'
+#        font_size: '30sp'
+#        on_release: app.load_window("journal_menu")
