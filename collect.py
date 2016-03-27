@@ -2,6 +2,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.label import Label
 
 #from db_function import *
 
@@ -30,6 +31,7 @@ class Collection(BoxLayout):
         #Back button
         btn_back = Button(size_hint=(1, None))
         btn_back.text = "Back"
+        btn_back.background_color = (0.502, 0.502, 0.502, 1)
         self.add_widget(btn_back)
 
 
@@ -50,18 +52,31 @@ class Collection(BoxLayout):
     def search_entry(self, text):
         
         result = ""
+        found = False
         if text != "":
             result = "No entry for this date."
             for i in range(0, len(self.entry_list)):
                 if self.entry_list[i] == text:
                     result = self.entry_list[i]
+                    found = True
                     break
-                    
-            btn = Button(size_hint=(1, None))
-            btn.text = result
+                
+            if found:            
+                btn = Button(size_hint=(1, None))
+                btn.text = result
+                self.gridlayout.clear_widgets()
+                self.gridlayout.add_widget(btn)
 
-            self.gridlayout.clear_widgets()
-            self.gridlayout.add_widget(btn)
+            else: #generate label instead
+                label = Label(text=result)
+                self.gridlayout.clear_widgets()
+                self.gridlayout.add_widget(label)
+
+        else: #search bar empty/cleared
+            self.gridlayout = self.generate_entry_buttons(self.entry_list)
+            self.scrollview.clear_widgets()
+            self.scrollview.add_widget(self.gridlayout)
+            
         return result
 
 
