@@ -8,9 +8,22 @@ from kivy.properties import StringProperty
 from kivy.uix.textinput import TextInput
 from db_function import create_entry
 from db_model import build_database
+from update_entry import UpdateEntry
+from kivy.core.text import LabelBase
+KIVY_FONTS = [
+    {
+        "name": "RobotoCondensed",
+        "fn_regular": "data/fonts/RobotoCondensed-Light.ttf",
+        "fn_bold": "data/fonts/RobotoCondensed-Regular.ttf",
+        "fn_italic": "data/fonts/RobotoCondensed-LightItalic.ttf",
+        "fn_bolditalic": "data/fonts/RobotoCondensed-Italic.ttf"
+    }
+]
 
+for font in KIVY_FONTS:
+    LabelBase.register(**font)
 
-total_entry_num = 3
+total_entry_num = 1
 
 
 class AddEntry(BoxLayout):
@@ -27,7 +40,7 @@ class AddEntry(BoxLayout):
     def add_new(self):
         global total_entry_num
         total_entry_num += 1
-        new = Entry(name="task " + str(total_entry_num))
+        new = Entry(name="TASK " + str(total_entry_num))
         self.children[1].children[0].add_widget(new)
 
     def submit_tasks(self):
@@ -36,22 +49,24 @@ class AddEntry(BoxLayout):
                 self.entry_list.append(child.task_text)
 
         if len(self.entry_list) < total_entry_num:
-            content = Button(text='OK', pos_hint={'top': 1}, size_hint=(0.4, 0.25),
+            content = Button(text='OK', pos_hint={'y': 2.1}, font_size='20sp', size_hint=(0.5, 0.2),
                              background_color=(52, 152, 219, 1), color=(0, 0, 0, 1))
-            popup = Popup(title='Please fill all entries.', title_size='20sp', content=content,
-                            auto_dismiss=False, size_hint=(0.4, 0.4))
+            popup = Popup(title='Please fill all entries.', separator_height="0", title_size='20sp', content=content,
+                            auto_dismiss=False, size_hint=(0.3, 0.2))
             content.bind(on_press=popup.dismiss)
             popup.open()
         else:
             print ','.join(self.entry_list)
             build_database()
-            create_entry(self.entry_list)
-            content = Button(text='OK', pos_hint={'top': 1}, size_hint=(0.4, 0.25),
-                background_color=(52, 152, 219, 1), color=(0, 0, 0, 1))
-            popup = Popup(title='Day entries submitted.', title_size='20sp', content=content,
-                auto_dismiss=False, size_hint=(0.4, 0.4))
+            content = Button(text='OK', pos_hint={'y': 2.1}, font_size='20sp', size_hint=(0.5, 0.2),
+                             background_color=(52, 152, 219, 1), color=(0, 0, 0, 1))
+            popup = Popup(title='Day entries submitted!', separator_height="0", title_size='20sp', content=content,
+                            auto_dismiss=False, size_hint=(0.3, 0.2))
             content.bind(on_press=popup.dismiss)
             popup.open()
+            self.clear_widgets()
+            self.add_widget(UpdateEntry())
+
 
 
 class Entry(BoxLayout):
