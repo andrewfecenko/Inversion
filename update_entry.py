@@ -9,10 +9,10 @@ from  kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.textinput import TextInput
+
+from collect import Collection
 from db_function import *
 
-build_database()
-entry = get_days_entry()
 
 # entry = {
 #     'eid': 1,
@@ -41,68 +41,73 @@ class DetailedData(ScrollView):
     def __init__(self, section_name, **kwargs):
         super(DetailedData, self).__init__(**kwargs)
 
+        self.section_name = section_name
+        self.set_contents()
+
+    def set_contents(self):
         # Add data and edit button
         # TODO: make the edit button work
-        if section_name == 'tasks':
+        if self.section_name == 'tasks':
             section = get_entry_tasks(entry)
-        elif section_name == 'summaries':
+        elif self.section_name == 'summaries':
             tmp = get_entry_summary(entry)
             section = [tmp[0]], [tmp[1]]
-        elif section_name == 'plans':
+        elif self.section_name == 'plans':
             tmp = get_entry_plan(entry)
             section = [tmp[0]], [tmp[1]]
-        elif section_name == 'knowledge':
+        elif self.section_name == 'knowledge':
             section = get_entry_knowledge(entry)
-        elif section_name == 'failure_points':
+        elif self.section_name == 'failure_points':
             section = get_entry_failure_points(entry)
-        elif section_name == 'completed_tasks':
+        elif self.section_name == 'completed_tasks':
             section = get_entry_completed_tasks(entry)
 
         if section == ([None], [None]):
             section = [], []
 
+        # Add form at the end of the list if the section can contain multiple entries
+        if self.section_name not in ['summaries', 'plans'] or \
+                (self.section_name in ['summaries', 'plans'] and section == ([], [])):
+            self.ids['detail_container'].add_widget(Form(self))
 
         # Add entries for the section
         items = section[0]
         ids = section[1]
         for i in range(0, len(ids)):
-            detail = Detail(items[i], ids[i], section_name)
+            detail = Detail(items[i], ids[i], self)
             self.ids['detail_container'].add_widget(detail)
-
-        # Add form at the end of the list if the section can contain multiple entries
-        if section not in ['summaries', 'plans']:
-            self.ids['detail_container'].add_widget(Form(section_name))
 
 
 class Detail(BoxLayout):
-    def __init__(self, item, item_id, section_name, **kwargs):
+    def __init__(self, item, item_id, section, **kwargs):
         super(Detail, self).__init__(**kwargs)
         self.item = item
         self.id = str(item_id)
-        self.ids.content.text = self.item
-        self.section = section_name
+        self.ids['content'].text = self.item
+        self.section = section
 
     def delete_data(self):
-        if self.section == 'tasks':
+        if self.section.section_name == 'tasks':
             delete_task(self.id)
-        elif self.section == 'summaries':
+        elif self.section.section_name == 'summaries':
             delete_summary(self.id)
-        elif self.section == 'plans':
+        elif self.section.section_name == 'plans':
             delete_plan(self.id)
-        elif self.section == 'knowledge':
+        elif self.section.section_name == 'knowledge':
             delete_knowledge(self.id)
-        elif self.section == 'failure_points':
+        elif self.section.section_name == 'failure_points':
             delete_failure_point(self.id)
-        elif self.section == 'completed_tasks':
+        elif self.section.section_name == 'completed_tasks':
             delete_completed_task(self.id)
 
-    # def update_data(self):
+        self.section.ids['detail_container'].clear_widgets()
+        self.section.set_contents()
 
 
 class Form(BoxLayout):
-    def __init__(self,section_name, **kwargs):
+    def __init__(self,section, **kwargs):
         super(Form, self).__init__(**kwargs)
-        self.section = section_name;
+        self.section = section
 
     # Handle onclick
     # TODO: dynamically add the new data to the list
@@ -113,27 +118,38 @@ class Form(BoxLayout):
 
         if input_value == '':
             return None
-        elif self.section == 'tasks':
+        elif self.section.section_name == 'tasks':
             create_task(entry.id, input_value)
-        elif self.section == 'summaries':
+        elif self.section.section_name == 'summaries':
             create_summary(entry.id, input_value)
-        elif self.section == 'plans':
+        elif self.section.section_name == 'plans':
             create_plan(entry.id, input_value)
-        elif self.section == 'knowledge':
+        elif self.section.section_name == 'knowledge':
             create_knowledge(entry.id, input_value)
-        elif self.section == 'failure_points':
+        elif self.section.section_name == 'failure_points':
             create_failure_point(entry.id, input_value)
-        elif self.section == 'completed_tasks':
+        elif self.section.section_name == 'completed_tasks':
             create_completed_task(entry.id, input_value)
+
+        self.section.ids['detail_container'].clear_widgets()
+        self.section.set_contents()
 
 
 class UpdateEntry(BoxLayout):
     def __init__(self, **kwargs):
         super(UpdateEntry, self).__init__(**kwargs)
 
+        build_database()
+        global entry
+        entry = get_days_entry()
+
+        self.set_header()
+
         if entry:
-            self.set_header()
             self.set_sections()
+
+        global page
+        page = self
 
     # Set a header for the entry (date and failure points
     def set_header(self):
@@ -145,7 +161,6 @@ class UpdateEntry(BoxLayout):
                                             full_date.strftime("%d"),\
                                             full_date.year)
         self.ids.header.text = formatted_date
-
 
     # Set sections for the entry
     def set_sections(self):

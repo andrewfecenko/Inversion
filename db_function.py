@@ -106,7 +106,7 @@ def delete_plan(id):
 
 
 def delete_task(id):
-    task = session.query(Task).query.get(id)
+    task = session.query(Task).get(id)
     session.delete(task)
     session.commit()
 
