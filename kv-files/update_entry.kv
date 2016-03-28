@@ -20,18 +20,18 @@
     pos_hint: { 'center_x' : 0.5 }
     size_hint: 0.8, None
     height: 30
-    padding: [20, 0, 20, 0]
-
-#    canvas:
-#        Color:
-#            rgba: 0.5, 0.5, 0.5, 1
-#        Rectangle:
-#            pos: self.pos
-#            size: self.size
+    padding: [20, 20, 20, 20]
+    # canvas:
+    #    Color:
+    #        rgba: 0.5, 0.5, 0.5, 1
+    #    Rectangle:
+    #        pos: self.pos
+    #        size: self.size
 
     Label:
         id: content
-        size_hint: 0.6, None
+        color: C("#FFFFFF")
+        size_hint: 0.8, None
         height: 30
         text_size: self.size
         halign: "left"
@@ -40,17 +40,18 @@
     Button:
         id: update_btn
         background_color: C("#000000")
-        color: C("#FFFFFF")
+        color: C("#56E39A")
         text:
             ('[font=Modern Pictograms][size=30]'
             'R[/size][/font]')
         size_hint: 0.1, None
         height: 30
+        on_release: detail.update_data()
 
     Button:
         id: delete_btn
         background_color: C("#000000")
-        color: C("#FFFFFF")
+        color: C("#ff9999")
         text:
             ('[font=Modern Pictograms][size=30]'
             'X[/size][/font]')
@@ -58,29 +59,55 @@
         height: 30
         on_release: detail.delete_data()
 
+<EditForm@BoxLayout>:
+    id: edit_form
+    size_hint: 0.9, 1
+    height: 35
+    pos_hint: { 'center_x' : .5 }
+
+    TextInput:
+        id: input_field
+        size_hint: 0.9, None
+        font_size: '20sp'
+        foreground_color: C('#FFFFFF')
+        background_color: C('#303030')
+        height: 35
+
+    Button:
+        text:
+            ('[font=Modern Pictograms][size=30]'
+            'R[/size][/font]')
+        size_hint: 0.1, None
+        font_size: '20sp'
+        background_color: C("#000000")
+        color: C("#00D904")
+        height: 35
+        on_release: edit_form.submit_form()
+
 <Form@BoxLayout>:
     id: form
     size_hint: 0.9, 1
     height: 30
     pos_hint: { 'center_x' : .5 }
+    padding: [20, 20, 20, 20]
 
     TextInput:
         id: input_field
-        size_hint: 0.8, None
-        font_size: '15sp'
+        size_hint: 0.9, None
+        font_size: '20sp'
         foreground_color: C('#FFFFFF')
         background_color: C('#303030')
-        height: 30
+        height: 35
 
     Button:
         text:
             ('[font=Modern Pictograms][size=30]'
             '+[/size][/font]')
-        size_hint: 0.2, None
-        font_size: '15sp'
+        size_hint: 0.1, None
+        font_size: '20sp'
         background_color: C("#000000")
         color: C("#00D904")
-        height: 30
+        height: 35
         on_release: form.submit_form()
 
 <UpdateEntry@BoxLayout>:
@@ -103,14 +130,13 @@
         orientation: 'vertical'
         pos: self.pos
 
-
     Button:
         background_color: C('#3B3B3B')
         size_hint: 1, None
         size: root.width, root.height * 0.05
         halign: 'center'
         text: 'Back'
-        font_size: '30sp'
+        font_size: '25sp'
         on_release: app.load_window("journal_menu")
 
 
