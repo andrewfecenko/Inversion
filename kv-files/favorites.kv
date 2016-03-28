@@ -1,25 +1,133 @@
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
 
-<Favorites>:
+<Mistake@BoxLayout>:
+    id: mistake
+	orientation:'vertical'
+    valign: 'top'
+    size_hint: (1, None)
+	spacing: 20
+    padding: 20
 
+    canvas:
+        Color:
+            rgba: 0.5, 0.5, 0.5, 0.2
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            font_name: 'RobotoCondensed'
+            size_hint: 1, 0.1
+            font_size: '25sp'
+            markup: True
+            text: '—' + mistake.date + '—'
+
+        Label:
+            font_name: 'RobotoCondensed'
+            size_hint: 1, 1
+            font_size: '25sp'
+            markup: True
+            text: '[b]' + mistake.mistake +'[/b]'
+
+
+<Analyzer@BoxLayout>:
+    id: analyzer
+	orientation:'vertical'
+    valign: 'top'
+    size_hint: (1, 1)
+	spacing: 20
+    padding: 20
+
+    canvas:
+        Color:
+            rgba: 0.5, 0.5, 0.5, 0.2
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        font_name: 'RobotoCondensed'
+        size_hint: 1, 0.1
+        font_size: '25sp'
+        markup: True
+        text: '[b]' + analyzer.title +'[/b]'
+
+    Label:
+        font_name: 'RobotoCondensed'
+        size_hint: 1, 0.1
+        font_size: '25sp'
+        markup: True
+        text: '[b]' + analyzer.content +'[/b]'
+
+    Image:
+        source: analyzer.chart
+        size_hint: 1, 0.8
+
+
+
+
+<Favorites>:
     id: favorites
     orientation: 'vertical'
-    padding: 15
+    padding: [0,0,0,20]
+    row_default_height: '20dp'
+    row_force_default: True
+    spacing: 10, 10
+#    mistake_grid: mistake_grid
 
-    ## add entry main label
-    Label:
-        size_hint: 1, None
-        size: favorites.width, favorites.height * 0.15
-        halign: 'center'
-        text: 'Favorites'
-        font_size: '30sp'
+    BoxLayout:
+	    orientation: 'horizontal'
+    	spacing: 10
+    	size_hint: 1, 0.1
+    	padding: 20
 
-    Button:
-        background_color: C('#3498db')
-        size_hint: 1, None
-        size: favorites.width, favorites.height * 0.08
-        halign: 'center'
-        text: 'Back'
-        font_size: '30sp'
-        on_release: app.load_window("journal_menu")
+        Button:
+            background_color: C('#3498db')
+            size_hint: 0.4, 0.9
+            halign: 'center'
+            font_size: '25sp'
+            font_name: 'RobotoCondensed'
+            text: '[b][color=FFFFFF]Back[/color][/b]'
+            on_release: app.load_window("journal_menu")
+
+
+        ## mistake label
+        Label:
+            font_name: 'RobotoCondensed'
+            size_hint: 1, 1
+            halign: 'center'
+            text: 'Mistakes Summary'
+            font_size: '25sp'
+
+        Label:
+            size_hint: 0.4, 0.9
+            halign: 'center'
+
+
+    Accordion:
+        id: container
+        size_hint: 1, 0.9
+        size: root.width, root.height * 0.5
+        orientation: 'vertical'
+        pos: self.pos
+
+#    ScrollView:
+#        size: self.size
+#
+#        GridLayout:
+#            id: mistake_grid
+#            size_hint_y: None
+#            cols: 1
+#            row_default_height: '20dp'
+#            row_force_default: True
+#            spacing: 20
+#            padding: 20
+
+
+
+    BoxLayout:
+        size_hint: 1, 0.01
