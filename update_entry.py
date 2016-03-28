@@ -92,6 +92,39 @@ class Detail(BoxLayout):
         self.section.ids['detail_container'].clear_widgets()
         self.section.set_contents()
 
+    def update_data(self):
+        self.clear_widgets()
+        self.add_widget(EditForm(self))
+
+
+class EditForm(BoxLayout):
+    def __init__(self, detail, **kwargs):
+        super(EditForm, self).__init__(**kwargs)
+        self.detail = detail
+        self.ids.input_field.text = detail.item
+
+    # Handle onclick
+    def submit_form(self):
+        input_value = self.ids.input_field.text
+
+        if input_value == '':
+            return None
+        elif self.detail.section.section_name == 'tasks':
+            update_task(self.detail.id, input_value)
+        elif self.detail.section.section_name == 'summaries':
+            update_summary(self.detail.id, input_value)
+        elif self.detail.section.section_name == 'plans':
+            update_plan(self.detail.id, input_value)
+        elif self.detail.section.section_name == 'knowledge':
+            update_knowledge(self.detail.id, input_value)
+        elif self.detail.section.section_name == 'failure_points':
+            update_failure_point(self.detail.id, input_value)
+        elif self.detail.section.section_name == 'completed_tasks':
+            update_completed_task(self.detail.id, input_value)
+
+        self.detail.section.ids['detail_container'].clear_widgets()
+        self.detail.section.set_contents()
+
 
 class Form(BoxLayout):
     def __init__(self, section, **kwargs):
@@ -101,8 +134,6 @@ class Form(BoxLayout):
     # Handle onclick
     def submit_form(self):
         input_value = self.ids.input_field.text
-
-        print(input_value)
 
         if input_value == '':
             return None
