@@ -4,15 +4,19 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 
+#from main import Journal
+from update_entry import UpdateEntry
+from functools import partial
 #from db_function import *
 
 
 class Collection(BoxLayout):
 
 # TODO:
-# connect with db
-# Fix sizing problem
-# Make it ~beautiful~
+# Connect with db
+# Give buttons actions (change window)
+# Fix sizing problem and color
+# Be consistent with other windows
 
     def __init__(self, **kwargs):
         super(Collection, self).__init__(**kwargs)
@@ -21,7 +25,7 @@ class Collection(BoxLayout):
         self.entry_list = ["0227", "0228", "0229"]
         
         self.scrollview = ScrollView(size_hint=(None, None), size=(700, 400),
-            pos_hint={'center_x':.5, 'center_y':.5}, id="1")
+            pos_hint={'center_x':.5, 'center_y':.5})
         
         self.gridlayout = self.generate_entry_buttons(self.entry_list)
 
@@ -29,10 +33,10 @@ class Collection(BoxLayout):
         self.add_widget(self.scrollview)
 
         #Back button
-        btn_back = Button(size_hint=(1, None))
-        btn_back.text = "Back"
-        btn_back.background_color = (0.502, 0.502, 0.502, 1)
-        self.add_widget(btn_back)
+#        btn_back = Button(text='Back', size_hint=(1, None))
+#        btn_back.background_color = (0.502, 0.502, 0.502, 1)
+##        btn_back.bind(on_press=partial(self.change_window, "Journal()"))
+#        self.add_widget(btn_back)
 
 
     def generate_entry_buttons(self, entry_list):
@@ -44,9 +48,17 @@ class Collection(BoxLayout):
         for i in range(0, len(self.entry_list)):
             btn = Button(size_hint=(1, None))
             btn.text = self.entry_list[i]
+            btn.background_color = (0.278, 0.706, 0.459, 1)
+#            btn.bind(on_press=partial(self.change_window, "UpdateEntry()"))
             gridlayout.add_widget(btn)
             
         return gridlayout
+
+
+#    def change_window(self, *args):
+#        window = args[1]
+#        self.clear_widgets()
+#        self.add_widget(window)
 
         
     def search_entry(self, text):
@@ -64,6 +76,7 @@ class Collection(BoxLayout):
             if found:            
                 btn = Button(size_hint=(1, None))
                 btn.text = result
+                btn.background_color = (0.278, 0.706, 0.459, 1)
                 self.gridlayout.clear_widgets()
                 self.gridlayout.add_widget(btn)
 
@@ -72,7 +85,7 @@ class Collection(BoxLayout):
                 self.gridlayout.clear_widgets()
                 self.gridlayout.add_widget(label)
 
-        else: #search bar empty/cleared
+        else: #i.e. search bar empty/cleared
             self.gridlayout = self.generate_entry_buttons(self.entry_list)
             self.scrollview.clear_widgets()
             self.scrollview.add_widget(self.gridlayout)
