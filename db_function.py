@@ -24,7 +24,7 @@ session = Session()
 #######################################################################
 
 EntryContent = namedtuple('EntryContent', ['summary', 'plan', 'tasks',
-        'completed_tasks', 'knowledges', 'failure_points'])
+        'completed_tasks', 'knowledges', 'failure_points', 'time_created'])
 
 #######################################################################
 # All functions for entering new entry information into the database  #
@@ -190,7 +190,6 @@ def get_entry_failure_points(entry):
         failure_points, fid_list = [], []
     return failure_points, fid_list
 
-
 def get_entry_info(entry):
     """Get all of entry's info returned as an EntryContent object."""
 
@@ -201,7 +200,7 @@ def get_entry_info(entry):
     knowledges = get_entry_knowledge(entry)[0]
     failure_points = get_entry_failure_points(entry)[0]
 
-    return EntryContent(summary, plan, tasks, completed_tasks, knowledges, failure_points)
+    return EntryContent(summary, plan, tasks, completed_tasks, knowledges, failure_points, entry.time_created)
 
 
 def get_all_entries():

@@ -10,6 +10,8 @@ from db_function import create_entry
 from db_model import build_database
 from update_entry import UpdateEntry
 from kivy.core.text import LabelBase
+from db_function import *
+
 KIVY_FONTS = [
     {
         "name": "RobotoCondensed",
@@ -32,6 +34,14 @@ class AddEntry(BoxLayout):
 
     def __init__(self, **kwargs):
         super(AddEntry, self).__init__(**kwargs)
+
+        build_database()
+        entry = get_days_entry()
+        if entry:
+            self.clear_widgets()
+            self.add_widget(UpdateEntry())
+
+
         # TODO: create method to check if day's tasks have already been entered
         self.added_tasks = False
         self.entry_list = []
@@ -64,6 +74,7 @@ class AddEntry(BoxLayout):
                             auto_dismiss=False, size_hint=(0.3, 0.2))
             content.bind(on_press=popup.dismiss)
             popup.open()
+            create_entry(self.entry_list)
             self.clear_widgets()
             self.add_widget(UpdateEntry())
 

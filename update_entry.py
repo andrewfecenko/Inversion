@@ -1,18 +1,7 @@
-from kivy.core.text import LabelBase
 from kivy.uix.accordion import AccordionItem
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.label import Label
-import datetime
-from kivy.core.window import Window
-from  kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
-from kivy.uix.stacklayout import StackLayout
-from kivy.uix.textinput import TextInput
-
-from collect import Collection
 from db_function import *
-
 
 # entry = {
 #     'eid': 1,
@@ -105,12 +94,11 @@ class Detail(BoxLayout):
 
 
 class Form(BoxLayout):
-    def __init__(self,section, **kwargs):
+    def __init__(self, section, **kwargs):
         super(Form, self).__init__(**kwargs)
         self.section = section
 
     # Handle onclick
-    # TODO: dynamically add the new data to the list
     def submit_form(self):
         input_value = self.ids.input_field.text
 
@@ -136,16 +124,19 @@ class Form(BoxLayout):
 
 
 class UpdateEntry(BoxLayout):
-    def __init__(self, **kwargs):
+    def __init__(self, given_day=None, **kwargs):
         super(UpdateEntry, self).__init__(**kwargs)
 
         build_database()
         global entry
-        entry = get_days_entry()
 
-        self.set_header()
+        if not given_day:
+            entry = get_days_entry()
+        else:
+            entry = get_days_entry(given_day)
 
         if entry:
+            self.set_header()
             self.set_sections()
 
         global page
@@ -156,17 +147,17 @@ class UpdateEntry(BoxLayout):
 
         # Set date
         full_date = datetime.datetime.strptime(str(get_days_entry().time_created), "%Y-%m-%d %H:%M:%S.%f")
-        formatted_date = '{}, {} {}, {}'.format(full_date.strftime("%A"),\
-                                            full_date.strftime("%B"),\
-                                            full_date.strftime("%d"),\
-                                            full_date.year)
+        formatted_date = '{} {} {}, {}'.format(full_date.strftime("%A"),
+                                               full_date.strftime("%B"),
+                                               full_date.strftime("%d"),
+                                               full_date.year)
         self.ids.header.text = formatted_date
 
     # Set sections for the entry
     def set_sections(self):
         for each in sections:
             item = AccordionItem()
-            item.pos = (0,0)
+            item.pos = (0, 0)
             item.title = sections[each]
             detail = DetailedData(each)
             item.add_widget(detail)
