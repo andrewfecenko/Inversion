@@ -2,6 +2,7 @@ from kivy.uix.accordion import AccordionItem
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.scrollview import ScrollView
 from db_function import *
+import collections
 
 # entry = {
 #     'eid': 1,
@@ -15,14 +16,14 @@ from db_function import *
 #     'tasks': ['Eat ramen', 'Run till die', 'Sleep all day', 'Do assignment']
 # }
 
-sections = {
-    'tasks': 'Goals',
-    'completed_tasks': 'Goals met',
-    'knowledge': 'Knowledge Gained',
-    'plans': 'Plans for Tomorrow',
-    'summaries': 'Summary',
-    'failure_points': 'Failures'
-}
+sections = collections.OrderedDict(
+    (('tasks', 'Tasks'),
+    ('completed_tasks', 'Tasks Achieved'),
+    ('failure_points', 'Mistakes'),
+    ('knowledge', 'Knowledge Gained'),
+    ('plans', 'Plan for Tomorrow'),
+    ('summaries', 'Summary'))
+)
 
 
 # Create a data for a section (i.e. content inside the section)
