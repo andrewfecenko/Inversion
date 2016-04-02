@@ -23,6 +23,7 @@ class Mistake(Base):
     __tablename__ = 'mistakes'
     id = Column(Integer, primary_key=True)
     entry_id = Column(Integer, ForeignKey(Entry.id))
+    time_created = Column(DateTime, default=datetime.datetime.now(), nullable=False)
     is_om = Column(Boolean)
     noun = Column(String(256))
     cost = Column(Integer)
