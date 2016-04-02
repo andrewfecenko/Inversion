@@ -8,9 +8,12 @@ from datetime import datetime, timedelta
 class ReviewMistakes(BoxLayout):
 
     def __init__(self, **kwargs):
+
         super(ReviewMistakes, self).__init__(**kwargs)
         yesterday = datetime.today() - timedelta(days=1)
-        self.yesterdays_mistakes = get_days_entry(givenday=yesterday)
+        yesterdays_entry = get_days_entry(givenday=yesterday)
+        self.yesterdays_mistakes = get_entry_failure_points(yesterdays_entry)[0]
+        print(self.yesterdays_mistakes) 
         self.generate_label_widgets()
         self.display_mistakes()
 
