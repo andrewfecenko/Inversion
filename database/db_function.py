@@ -89,13 +89,8 @@ def delete_mistake(id):
 
 def get_day_mistake_category(eid, is_om):
     mistake_ids = get_mistakes_entry_id(eid)
-    mistakes = []
-
-    for id in mistake_ids:
-        mistake = get_mistake(id)
-        if mistake.is_om == is_om:
-            mistakes.append(mistake)
-
+    mistakes = [get_mistake(id) for id in mistake_ids]
+    mistakes = get_mistake_category(mistakes, is_om)
     return mistakes
 
 def get_mistake_range(begin, end):
