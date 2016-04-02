@@ -276,6 +276,8 @@ def tasks_today(givenday=None):
         days_entry = get_days_entry(givenday)
     return get_entry_tasks(days_entry)[0]
 
+def get_entry(eid):
+    return session.query(Entry).get(eid)
 
 def get_days_entry(givenday=datetime.datetime.now()):
     beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)

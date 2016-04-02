@@ -33,21 +33,41 @@ class DBFunctionsTest(unittest.TestCase):
     def test_get_entry_summary(self):
         assert get_entry_summary(DBFunctionsTest.todays_entry)[0] == "Finished a bunch of testing."
 
+    def test_summary_content(self):
+        assert DBFunctionsTest.todays_entry_content.summary ==  "Finished a bunch of testing."
+
     def test_get_entry_plan(self):
         assert get_entry_plan(DBFunctionsTest.todays_entry)[0] == "Go on a walk tomorrow."
+
+    def test_entry_plan(self):
+        assert DBFunctionsTest.todays_entry_content.plan ==  "Go on a walk tomorrow."
 
     def test_get_entry_knowledge(self):
         assert get_entry_knowledge(DBFunctionsTest.todays_entry)[0] == ["Learned about testing."]
 
+    def test_entry_knowledge(self):
+        assert DBFunctionsTest.todays_entry_content.knowledges == ["Learned about testing."] 
+
     def test_get_failure_point(self):
         assert get_entry_failure_points(DBFunctionsTest.todays_entry)[0] == ["Didn't write good tests."]
+
+    def test_entry_failure_point(self):
+        assert DBFunctionsTest.todays_entry_content.failure_points == ["Didn't write good tests."] 
 
     def test_get_entry_tasks(self):
         assert get_entry_tasks(DBFunctionsTest.todays_entry)[0] == ["Task one", "Task two", "Task three"]
 
+    def test_entry_tasks(self):
+        assert DBFunctionsTest.todays_entry_content.tasks == ["Task one", "Task two", "Task three"]
+
     def test_get_completed_task(self):
         assert get_entry_completed_tasks(DBFunctionsTest.todays_entry)[0] == ["Wrote a test suite.", 
             "Wrote about writing the test suite inside the test suite."]
+
+    def test_entry_completed(self):
+        assert DBFunctionsTest.todays_entry_content.completed_tasks == ["Wrote a test suite.",
+            "Wrote about writing the test suite inside the test suite."]
+
 
 class DBFunctionsCollectionTest(unittest.TestCase):
 
@@ -59,27 +79,25 @@ class DBFunctionsCollectionTest(unittest.TestCase):
         build_database()
 
         yesterday = datetime.datetime.today() - datetime.timedelta(days=1)
-        create_alt_entry(['First', 'Second', 'Third'], yesterday)
+        entry_yesterday = create_alt_entry(['First', 'Second', 'Third'], yesterday)
 
-        past_first = datetime.datetime(2016, 3, 5)
-        past_second = datetime.datetime(2015, 4, 12)
-        past_third = datetime.datetime(2014, 12, 13)
+        day_first = datetime.datetime(2016, 3, 5)
+        day_second = datetime.datetime(2015, 4, 12)
+        day_third = datetime.datetime(2014, 12, 13)
 
-        create_alt_entry(['First', 'Second', 'Third'], past_first)
-        create_alt_entry(['First', 'Second', 'Third'], past_second)
-        create_alt_entry(['First', 'Second', 'Third'], past_third)
-
+        entry_first = create_alt_entry(['First', 'Second', 'Third'], day_first)
+        entry_second = create_alt_entry(['First', 'Second', 'Third'], day_second)
+        entry_third = create_alt_entry(['First', 'Second', 'Third'], day_third)
 
     @classmethod
     def tearDownClass(self):
+        entries = []
         clear_database()
 
     def test_get_all_entries_count(self):
         num_entries = 0
         all_entries = get_all_entries()
+
         if all_entries is None:
             assert False
-        for entry in all_entries:
-            num_entries += 1
-        
-        assert num_entries == 4
+        assert sum(1 for _ in all_entries) == 4
