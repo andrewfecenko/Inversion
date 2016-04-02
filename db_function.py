@@ -38,6 +38,13 @@ def create_entry(task_list):
         create_task(new_entry.id, content)
     return new_entry.id
 
+def create_alt_entry(task_list, givenday=datetime.datetime.now()):
+    new_entry = Entry(time_created=givenday)
+    session.add(new_entry)
+    session.commit()
+    for content in task_list:
+        create_task(new_entry.id, content)
+    return new_entry.id
 
 def create_summary(eid, summary):
     new_summary = Summary(entry_id=eid, content=summary)
@@ -269,6 +276,8 @@ def tasks_today(givenday=None):
         days_entry = get_days_entry(givenday)
     return get_entry_tasks(days_entry)[0]
 
+def get_entry(eid):
+    return session.query(Entry).get(eid)
 
 def get_days_entry(givenday=datetime.datetime.now()):
     beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)

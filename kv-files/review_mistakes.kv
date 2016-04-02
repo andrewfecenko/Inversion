@@ -15,6 +15,11 @@
         text: 'Review Mistakes'
         font_size: '30sp'
 
+    BoxLayout:
+        id: mistakes
+        orientation: 'vertical'
+        spacing: 2
+        font_size: '20sp'
     Button:
     	background_color: C('#3498db')
     	size_hint: 1, None
@@ -22,4 +27,4 @@
     	halign: 'center'
         text: 'Back'
         font_size: '30sp'
-        on_release: app.load_window("journal_menu")
+        on_release: app.load_window('journal_menu')
