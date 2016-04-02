@@ -1,10 +1,6 @@
 import unittest
-
-from db_function import create_entry, create_summary, create_plan,create_task, create_completed_task, create_knowledge, create_failure_point
-from db_function import tasks_today, get_days_entry, get_entry_summary
-from db_function import get_entry_plan, get_entry_tasks,get_entry_completed_tasks, get_entry_knowledge, get_entry_failure_points,get_entry_info, get_all_entries
-
-from db_model import build_database, clear_database
+import datetime
+from db_function import *
 
 
 class DBFunctionsTest(unittest.TestCase):
@@ -52,3 +48,38 @@ class DBFunctionsTest(unittest.TestCase):
     def test_get_completed_task(self):
         assert get_entry_completed_tasks(DBFunctionsTest.todays_entry)[0] == ["Wrote a test suite.", 
             "Wrote about writing the test suite inside the test suite."]
+
+class DBFunctionsCollectionTest(unittest.TestCase):
+
+
+    @classmethod
+    def setUpClass(self):
+
+        clear_database()
+        build_database()
+
+        yesterday = datetime.datetime.today() - datetime.timedelta(days=1)
+        create_alt_entry(['First', 'Second', 'Third'], yesterday)
+
+        past_first = datetime.datetime(2016, 3, 5)
+        past_second = datetime.datetime(2015, 4, 12)
+        past_third = datetime.datetime(2014, 12, 13)
+
+        create_alt_entry(['First', 'Second', 'Third'], past_first)
+        create_alt_entry(['First', 'Second', 'Third'], past_second)
+        create_alt_entry(['First', 'Second', 'Third'], past_third)
+
+
+    @classmethod
+    def tearDownClass(self):
+        clear_database()
+
+    def test_get_all_entries_count(self):
+        num_entries = 0
+        all_entries = get_all_entries()
+        if all_entries is None:
+            assert False
+        for entry in all_entries:
+            num_entries += 1
+        
+        assert num_entries == 4

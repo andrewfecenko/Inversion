@@ -38,6 +38,13 @@ def create_entry(task_list):
         create_task(new_entry.id, content)
     return new_entry.id
 
+def create_alt_entry(task_list, givenday=datetime.datetime.now()):
+    new_entry = Entry(time_created=givenday)
+    session.add(new_entry)
+    session.commit()
+    for content in task_list:
+        create_task(new_entry.id, content)
+    return new_entry.id
 
 def create_summary(eid, summary):
     new_summary = Summary(entry_id=eid, content=summary)
