@@ -28,6 +28,8 @@ class Mistake(Base):
     noun = Column(String(256))
     cost = Column(Integer)
 
+Base.metadata.create_all(engine)
+
 #######################################################################
 #  Function for creating a database using above models.               #
 #######################################################################
