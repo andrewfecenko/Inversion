@@ -86,6 +86,11 @@ def get_mistake_noun(id):
     noun = mistake.noun
     return noun
 
+def get_mistake_date(id):
+	mistake = session.query(Mistake).get(id)
+	date = mistake.time_created
+	return date
+
 def get_mistake_cost(id):
     mistake = session.query(Mistake).get(id)
     cost = mistake.cost
