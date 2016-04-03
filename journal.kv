@@ -74,19 +74,12 @@
             padding: [2, 0, 2, 2]
             Button:
                 id: List
-                text: "List"
+                text: "Archive"
                 background_color: C('#818181')
+                on_release: app.load_window('archive')
         BoxLayout:
             padding: [0, 0, 2, 2]
             Button:
                 id: Stat
                 text: "Stat"
                 background_color: C('#818181')
-        BoxLayout:
-            padding: [0, 0, 2, 2]
-            Button:
-                id: Archive
-                text: "Archive"
-                background_color: C('#818181')
-
-

@@ -1,7 +1,7 @@
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
 
-<Commission>:
+<Archive>:
     id: journal
     orientation: 'vertical'
     size_hint: 1, 1
@@ -13,34 +13,25 @@
             pos: self.pos
             size: self.size
 
-    BoxLayout:
-        id: input_field
-        orientation: 'horizontal'
-        size_hint: 1, 0.05
+    Label:
+        size_hint: 1, 0.2
+        post_hint_y: 0
+        font_size: 40
+        halign: 'center'
+        text: 'Mistakes Archive'
+        color: C('#53F0BC')
 
-        TextInput:
-            id: noun
-            size_hint: 0.3, 1
+    ScrollView:
+        id: mistake_scroll
+        size_hint: 1, 0.7 
+        Label:
+            size_hint: 1, 0.2
+            post_hint_y: 0
+            font_size: 40
             halign: 'center'
-            font_size: '20sp'
-            foreground_color: C('#818181')
-            background_color: C('#FFFFFF')
-        TextInput:
-            id: cost
-            size_hint: 0.3, 1
-            halign: 'center'
-            font_size: '20sp'
-            foreground_color: C('#818181')
-            background_color: C('#FFFFFF')
-        Button:
-            id: submit
-            size_hint: 0.1, 1
-            text: "+"
-            background_color: C('#818181')
+            text: 'Mistakes Archive'
+            color: C('#53F0BC')
 
-    GridLayout:
-        id: mistakes
-        size_hint: 1, 0.9
 
     GridLayout:
         id: menu

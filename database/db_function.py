@@ -1,7 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 
 from db_model import Entry
-from db_model import Mistakes
+from db_model import Mistake
 from db_model import engine
 
 from db_model import build_database
