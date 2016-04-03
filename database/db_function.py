@@ -63,8 +63,8 @@ def get_all_entries():
 # All functions for setting or getting information about a mistake    #
 #######################################################################
 
-def create_mistake(eid, is_om, noun, cost):
-    mistake = Mistake(entry_id=eid, is_om=is_om, noun=noun, cost=cost)
+def create_mistake(eid, is_om, verb, noun, cost):
+    mistake = Mistake(entry_id=eid, is_om=is_om, verb=verb, noun=noun, cost=cost)
     session.add(mistake)
     session.commit()
     return mistake.id
@@ -72,6 +72,11 @@ def create_mistake(eid, is_om, noun, cost):
 def get_mistake(id):
     mistake = session.query(Mistake).get(id)
     return mistake
+
+def get_mistake_verb(id):
+    mistake = session.query(Mistake).get(id)
+    verb = mistake.verb
+    return verb
 
 def get_mistake_noun(id):
     mistake = session.query(Mistake).get(id)
@@ -82,6 +87,11 @@ def get_mistake_cost(id):
     mistake = session.query(Mistake).get(id)
     cost = mistake.cost
     return cost
+
+def update_mistake_verb(id, verb):
+    mistake = session.query(Mistake).get(id)
+    mistake.verb = verb
+    session.commit()
 
 def update_mistake_noun(id, noun):
     mistake = session.query(Mistake).get(id)
@@ -104,11 +114,10 @@ def delete_mistake(id):
 #######################################################################
 
 def get_mistakes_category_id(eid, is_om):
-    mistake_ids = get_entry_mistakes_id(eid)
-    mistakes = [get_mistake(id) for id in mistake_ids]
-    mistakes = get_mistakes_category(mistakes, is_om)
-    mistakes_id = [m.id for m in mistakes]
-    return mistakes_id
+	mistakes = session.query(Mistake).filter(Mistake.entry_id == eid).\
+		filter(Mistake.is_om == is_om)
+	mistakes_id = [m.id for m in mistakes]
+	return mistakes_id
 
 def get_mistakes_range_id(begin, end):
     mistakes = session.query(Mistake).filter(Mistake.time_created <= end).\
@@ -116,18 +125,30 @@ def get_mistakes_range_id(begin, end):
     mistakes_id = [m.id for m in mistakes]
     return mistakes_id
 
-def get_mistakes_category(mistakes, is_om):
-    category_mistakes = filter(lambda x: x.is_om == is_om, mistakes)
-    return category_mistakes
 
+#######################################################################
+# All functions relating keywords (verb, noun)                        #
+#######################################################################
+
+def get_mistakes_with_verb(verb):
+	mistakes = session.query(Mistake).filter(Mistake.verb == verb)
+	mistakes_id = [m.id for m in mistakes]
+	return mistakes_id
+
+def get_mistakes_with_keyword(keyword):
+	mistakes = session.query(Mistake).filter(Mistake.noun.contains(keyword))
+	mistakes_id = [m.id for m in mistakes]
+	return mistakes_id
 
 #######################################################################
 # All functions for statistics                                        #
 #######################################################################
 
 def get_all_days():
-    days = session.query(Entry).all()
-    days = sorted(set([e.time_created for e in days]))
+    #days = session.query(Entry).all()
+    #days = sorted(set([e.time_created for e in days]))
+    days = session.query(Entry.time_created).distinct()
+    days = [d[0] for d in days]
     return days
 
 def get_day_cost(givenday=datetime.datetime.now()):
@@ -179,16 +200,16 @@ def partial_info_get():
 
     eid = create_entry()
 
-    mid1 = create_mistake(eid, True, 'Didn\'t work', 50)
-    mid2 = create_mistake(eid, False, 'Bought too much food', 30)
+    mid1 = create_mistake(eid, True, 'Did not', 'work out', 50)
+    mid2 = create_mistake(eid, False, 'Bought', 'too much food', 30)
 
     omid_list = get_mistakes_category_id(eid, True)
     cmid_list = get_mistakes_category_id(eid, False)
 
     for omid in omid_list:
-        print("Omission mistake: {}-{} costs ${}".format(omid, get_mistake_noun(omid), get_mistake_cost(omid)))
+        print("Omission mistake: {} {} costs ${}".format(get_mistake_verb(omid), get_mistake_noun(omid), get_mistake_cost(omid)))
     for cmid in cmid_list:
-        print("Commission mistake: {}-{} costs ${}".format(cmid, get_mistake_noun(cmid), get_mistake_cost(cmid)))
+        print("Commission mistake: {} {} costs ${}".format(get_mistake_verb(cmid), get_mistake_noun(cmid), get_mistake_cost(cmid)))
 
     print(get_daily_cost())
     print(get_daily_mistake_num())
