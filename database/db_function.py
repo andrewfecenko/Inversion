@@ -8,6 +8,7 @@ from db_model import build_database
 from db_model import clear_database
 
 import datetime
+from isoweek import Week
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -45,6 +46,10 @@ def get_entry(givenday=datetime.datetime.now()):
 
     return None
 
+def get_entry_by_id(eid):
+    entry = session.query(Entry).get(eid)
+    return entry
+
 def get_entry_mistakes_id(eid):
     entry = session.query(Entry).get(eid)
     try:
@@ -67,7 +72,11 @@ def get_all_entries_id():
 #######################################################################
 
 def create_mistake(eid, is_om, verb, noun, cost):
-    mistake = Mistake(entry_id=eid, is_om=is_om, verb=verb, noun=noun, cost=cost)
+    entry = get_entry_by_id(eid)
+    givenday = datetime.datetime.now()
+    time = givenday.replace(month=entry.time_created.month, day=entry.time_created.day)
+    
+    mistake = Mistake(entry_id=eid, is_om=is_om, verb=verb, noun=noun, cost=cost, time_created=time)
     session.add(mistake)
     session.commit()
     return mistake.id
@@ -87,9 +96,9 @@ def get_mistake_noun(id):
     return noun
 
 def get_mistake_date(id):
-	mistake = session.query(Mistake).get(id)
-	date = mistake.time_created
-	return date
+    mistake = session.query(Mistake).get(id)
+    date = mistake.time_created
+    return date
 
 def get_mistake_cost(id):
     mistake = session.query(Mistake).get(id)
@@ -122,10 +131,10 @@ def delete_mistake(id):
 #######################################################################
 
 def get_mistakes_category_id(eid, is_om):
-	mistakes = session.query(Mistake).filter(Mistake.entry_id == eid).\
-		filter(Mistake.is_om == is_om)
-	mistakes_id = [m.id for m in mistakes]
-	return mistakes_id
+    mistakes = session.query(Mistake).filter(Mistake.entry_id == eid).\
+        filter(Mistake.is_om == is_om)
+    mistakes_id = [m.id for m in mistakes]
+    return mistakes_id
 
 def get_mistakes_range_id(begin, end):
     mistakes = session.query(Mistake).filter(Mistake.time_created <= end).\
@@ -139,25 +148,72 @@ def get_mistakes_range_id(begin, end):
 #######################################################################
 
 def get_mistakes_with_verb(verb):
-	mistakes = session.query(Mistake).filter(Mistake.verb == verb)
-	mistakes_id = [m.id for m in mistakes]
-	return mistakes_id
+    mistakes = session.query(Mistake).filter(Mistake.verb == verb)
+    mistakes_id = [m.id for m in mistakes]
+    return mistakes_id
 
 def get_mistakes_with_keyword(keyword):
-	mistakes = session.query(Mistake).filter(Mistake.noun.contains(keyword))
-	mistakes_id = [m.id for m in mistakes]
-	return mistakes_id
+    mistakes = session.query(Mistake).filter(Mistake.noun.contains(keyword))
+    mistakes_id = [m.id for m in mistakes]
+    return mistakes_id
+
 
 #######################################################################
-# All functions for statistics                                        #
+# All functions for extracting distinct timestamps                    #
 #######################################################################
 
 def get_all_days():
-    #days = session.query(Entry).all()
-    #days = sorted(set([e.time_created for e in days]))
-    days = session.query(Entry.time_created).distinct()
-    days = [d[0] for d in days]
+    days = session.query(Entry).all()
+    days = sorted(set([e.time_created for e in days]))
+    #days = session.query(Entry.time_created).distinct()
+    #days = [d[0] for d in days]
+    #print("all days: {}".format(days))
     return days
+
+def get_all_weeks():
+    weeks = session.query(Entry).all()
+    weeks = sorted(set([e.time_created.isocalendar()[1] for e in weeks]))
+    #print("all weeks: {}".format(weeks))
+    return weeks
+
+def get_all_months():
+    months = session.query(Entry).all()
+    months = sorted(set([e.time_created.month for e in months]))
+    #print("all months: {}".format(months))
+    return months
+
+
+#######################################################################
+# All functions for generating accumulated data                       #
+#######################################################################
+
+def get_daily(day_f):
+    daily = [day_f(d) for d in get_all_days()]
+    return daily
+
+def get_weekly(range_f):
+    weeks = get_all_weeks()
+    weekly = []
+    for w in weeks:
+        d = Week(2016, w).sunday()
+        beg = datetime.datetime(d.year, d.month, d.day, 0, 0)
+        end = datetime.datetime(d.year, d.month, d.day+7, 0, 0)
+        weekly.append(range_f(beg, end))
+    return weekly
+
+def get_monthly(range_f):
+    months = get_all_months()
+    monthly = []
+    for m in months:
+        beg = datetime.datetime(2016, m, 1, 0, 0)
+        end = datetime.datetime(2016, m+1, 1, 0, 0)
+        monthly.append(range_f(beg, end))
+    return monthly
+
+
+#######################################################################
+# All functions for cost statistics                                   #
+#######################################################################
 
 def get_day_cost(givenday=datetime.datetime.now()):
     beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -177,8 +233,18 @@ def get_range_cost(begin, end):
     return total
 
 def get_daily_cost():
-    daily_cost = [get_day_cost(d) for d in get_all_days()]
-    return daily_cost
+    return get_daily(get_day_cost)
+
+def get_weekly_cost():
+    return get_weekly(get_range_cost)
+
+def get_monthly_cost():
+    return get_monthly(get_range_cost)
+
+
+#######################################################################
+# All functions for mistake number statistics                         #
+#######################################################################
 
 def get_day_mistake_num(givenday=datetime.datetime.now()):
     beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -197,12 +263,22 @@ def get_daily_mistake_num():
     daily_num = [get_day_mistake_num(d) for d in get_all_days()]
     return daily_num
 
+def get_daily_mistake_num():
+    return get_daily(get_day_mistake_num)
+
+def get_weekly_mistake_num():
+    return get_weekly(get_range_mistake_num)
+
+def get_monthly_mistake_num():
+    return get_monthly(get_range_mistake_num)
+
 
 #######################################################################
 # All functions for testing                                           #
 #######################################################################
 
 def partial_info_get():
+    '''
     clear_database()
     build_database()
 
@@ -218,8 +294,16 @@ def partial_info_get():
         print("Omission mistake: {} {} costs ${}".format(get_mistake_verb(omid), get_mistake_noun(omid), get_mistake_cost(omid)))
     for cmid in cmid_list:
         print("Commission mistake: {} {} costs ${}".format(get_mistake_verb(cmid), get_mistake_noun(cmid), get_mistake_cost(cmid)))
+    '''
+    print("Daily cost: {}".format(get_daily_cost()))
+    print("Weekly cost: {}".format(get_weekly_cost()))
+    print("Monthly cost: {}".format(get_monthly_cost()))
+    print("")
 
-    print(get_daily_cost())
-    print(get_daily_mistake_num())
+    print("Daily mistkae #: {}".format(get_daily_mistake_num()))
+    print("Weekly mistake #: {}".format(get_weekly_mistake_num()))
+    print("Monthly mistake #: {}".format(get_monthly_mistake_num()))
+    print("")
 
-#partial_info_get()
+if __name__ == '__main__':
+    partial_info_get()
