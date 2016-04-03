@@ -4,7 +4,7 @@
 <Button>:
     background_normal: 'images/button_normal.png'
     background_down: 'images/button_down.png'
-    font_size: 24
+    font_size: 20
     halign: 'center'
     markup: True
 
@@ -69,7 +69,8 @@
         id: menu
         cols: 4
         rows: 1
-        size_hint: 1, 0.05
+        size_hint: 1, None
+        size: root.width, root.height * 0.05
 
         BoxLayout:
             padding: [2, 0, 0, 2]

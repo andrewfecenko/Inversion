@@ -1,8 +1,9 @@
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
 
+
 <Commission>:
-    id: journal
+    id: commission
     orientation: 'vertical'
     size_hint: 1, 1
 
@@ -13,40 +14,95 @@
             pos: self.pos
             size: self.size
 
+
+    # Input area
     BoxLayout:
-        id: input_field
+        id: form
+        size_hint: 1, 0.07
         orientation: 'horizontal'
-        size_hint: 1, 0.05
+        padding: 5
+
+        Button:
+            id: verb
+            text: 'Commited'
+            on_release: dropdown.open(self)
+            size_hint: 0.35, 1
+            halign: 'center'
+            color: C('#65E1D4')
+            background_color: C('#F6F6F6')
+
+            DropDown:
+                id: dropdown
+                on_parent: self.dismiss()
+                on_select: verb.text = '{}'.format(args[1])
+
+                Button:
+                    text: 'Bought'
+                    size_hint_y: None
+                    height: '48dp'
+                    background_color: C('#F6F6F6')
+                    color:C('#878787')
+                    on_release: dropdown.select('Bought')
+
+                Button:
+                    text: 'Ate'
+                    size_hint_y: None
+                    background_color: C('#F6F6F6')
+                    color:C('#878787')
+                    height: '48dp'
+                    on_release: dropdown.select('Ate')
+
+                Button:
+                    text: 'Killed'
+                    size_hint_y: None
+                    height: '48dp'
+                    background_color: C('#F6F6F6')
+                    color:C('#878787')
+                    on_release: dropdown.select('Killed')
 
         TextInput:
             id: noun
-            size_hint: 0.3, 1
+            size_hint: 0.35, 1
             halign: 'center'
             font_size: '20sp'
-            foreground_color: C('#818181')
+            foreground_color: C('#52B2A8')
             background_color: C('#FFFFFF')
         TextInput:
             id: cost
-            size_hint: 0.3, 1
+            size_hint: 0.2, 1
             halign: 'center'
             font_size: '20sp'
-            foreground_color: C('#818181')
+            foreground_color: C('#52B2A8')
             background_color: C('#FFFFFF')
         Button:
             id: submit
             size_hint: 0.1, 1
-            text: "+"
-            background_color: C('#818181')
+            text:
+                ('[font=Modern Pictograms][size=30]'
+                '-[/size][/font]')
+            background_color: C('#FF7D7D')
+            on_release: commission.submit_form()
 
-    GridLayout:
-        id: mistakes
-        size_hint: 1, 0.9
+    ScrollView:
+        id: scroll_view
+        size_hint: 1, 1
+        size: self.size
+        pos_hint_y: 0
+
+        GridLayout:
+            id: mistakes
+            size_hint: 1, 1
+            pos_hint_y: 0
+            cols: 1
+            row_default_height: root.height * 0.06
+            row_force_default: True
 
     GridLayout:
         id: menu
         cols: 4
         rows: 1
-        size_hint: 1, 0.05
+        size_hint: 1, None
+        size: root.width, root.height * 0.05
 
         BoxLayout:
             padding: [2, 0, 0, 2]
@@ -70,3 +126,55 @@
                 text: "Stat"
                 background_color: C('#818181')
                 on_release: app.load_window('omission')
+
+<Mistake>:
+    id: mistake
+    size_hint: 1, 0.07
+    orientation: 'horizontal'
+    padding: 5
+
+    Label:
+        id: verb
+        size_hint: 0.35, 1
+        halign: 'left'
+        font_size: '20sp'
+        color: C('#52B2A8')
+        canvas.before:
+            Color:
+                rgba: C('#F6F6F6')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    Label:
+        id: noun
+        size_hint: 0.35, 1
+        halign: 'left'
+        font_size: '20sp'
+        color: C('#52B2A8')
+        canvas.before:
+            Color:
+                rgba: C('#F6F6F6')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    Label:
+        id: cost
+        size_hint: 0.2, 1
+        halign: 'left'
+        font_size: '20sp'
+        color: C('#52B2A8')
+        canvas.before:
+            Color:
+                rgba: C('#F6F6F6')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    Button:
+        id: edit
+        size_hint: 0.1, 1
+        text:
+            ('[font=Modern Pictograms][size=30]'
+            'X[/size][/font]')
+        color: C('#949494')
+        background_color: C('#F6F6F6')
+        on_release: mistake.remove_form()
