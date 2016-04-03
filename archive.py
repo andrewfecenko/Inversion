@@ -1,16 +1,18 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.graphics import Color
-from kivy.properties import ObjectProperty
+from kivy.properties import StringProperty
 from database.db_function import get_all_entries_id
 from database.db_function import get_entry_mistakes_id
 from database.db_function import get_mistake_noun
+from database.db_function import get_mistake_verb
 
 
 class Archive(BoxLayout):
 
     def __init__(self, **kwargs):
         super(Archive, self).__init__(**kwargs)
+        self.archive_grid.bind(minimum_height=self.archive_grid.setter('height'))
         self.list_entries()
 
     def list_entries(self):
@@ -31,12 +33,21 @@ class Archive(BoxLayout):
             # go through all mistakes for the day
             for id in mistakes_id:
                 mistake_noun = get_mistake_noun(id)
+                mistake_verb = get_mistake_verb(id)
                 print(mistake_noun)
-                label = Label(text=mistake_noun, font_size=20,
-                    halign='center', color=(0, 1, 0), size_hint=(1, 0.25))
-                self.ids['mistake_scroll'].add_widget(label)
+                new = Entry(name=mistake_noun, verb=mistake_verb)
+                self.ids.main_scroll.children[0].add_widget(new)
+
+                # label = Label(text=mistake_noun, font_size=20,
+                #     halign='center', color=(0, 1, 0), size_hint=(1, 0.25))
+                # self.ids['mistake_scroll'].add_widget(label)
 
     def list_empty_archive(self):
         label = Label(text='You don\'t  have any mistakes!', font_size=40,
             halign='center')
         self.ids['mistake_scroll'].add_widget(label)
+
+
+class Entry(BoxLayout):
+    name = StringProperty('')
+    verb = StringProperty('')

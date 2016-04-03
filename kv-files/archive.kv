@@ -1,10 +1,43 @@
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
+<Entry@BoxLayout>:
+    id: entry
+	orientation:'vertical'
+    valign: 'top'
+    size_hint: (1, None)
+
+    canvas:
+        Color:
+            rgba: 0.5, 0.5, 0.5, 0.5
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, 1
+        height: 50
+
+        Label:
+            size_hint: 1, 1
+            font_size: '25sp'
+            markup: True
+            text: '[b]'+ entry.verb + '[/b]'
+
+        Label:
+            size_hint: 1, 1
+            font_size: '25sp'
+            markup: True
+            text: '[b]'+ entry.name + '[/b]'
+
+
+
 
 <Archive>:
     id: journal
     orientation: 'vertical'
     size_hint: 1, 1
+    archive_grid: archive_grid
 
     canvas.before:
         Color:
@@ -13,20 +46,35 @@
             pos: self.pos
             size: self.size
 
-    Label:
-        size_hint: 1, 0.2
-        post_hint_y: 0
-        font_size: 40
-        halign: 'center'
-        text: 'Mistakes Archive'
-        color: C('#53F0BC')
+#    Label:
+#        size_hint: 1, 0.2
+#        post_hint_y: 0
+#        font_size: 40
+#        halign: 'center'
+#        text: 'Mistakes Archive'
+#        color: C('#53F0BC')
 
-    GridLayout:
-        id: mistake_scroll 
-        col: 1
-        rows: 4
-        size_hint: 1, 0.7
-        post_hint_y: None 
+#    GridLayout:
+#        id: mistake_scroll
+#        col: 1
+#        rows: 4
+#        size_hint: 1, 0.7
+#        post_hint_y: None
+
+    ScrollView:
+        id: main_scroll
+        size_hint: 1, 0.95
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        do_scroll_x: False
+
+        GridLayout:
+            id: archive_grid
+            size_hint_y: None
+            cols: 1
+            row_default_height: '20dp'
+            row_force_default: True
+            spacing: 60
+            padding: 10
 
     GridLayout:
         id: menu
