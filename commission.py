@@ -1,5 +1,7 @@
 from kivy.uix.boxlayout import BoxLayout
 from database.db_function import *
+from kivy.uix.popup import Popup
+from kivy.uix.label import Label
 
 
 class CustomDropDown(BoxLayout):
@@ -32,17 +34,46 @@ class Commission(BoxLayout):
     # Change the button to the minus button
     def submit_form(self):
         # Insert inputs to DB
-        verb = self.ids.verb.text
-        noun = self.ids.noun.text
-        cost = self.ids.cost.text
-        create_mistake(self.eid, False, verb, noun, cost)
 
-        # Clear input field
-        self.ids.verb.text = ''
-        self.ids.noun.text = ''
-        self.ids.cost.text = ''
+        if not (self.ids.cost.text) or not (self.ids.noun.text):
+            popup = Popup(title='Input Error',
+                content=Label(text='Please enter all fieds'),
+                size_hint=(None, None), size=(350, 350))
+            popup.open()
 
-        self.display_mistakes()
+            # Clear input field
+            self.ids.verb.text = ''
+            self.ids.noun.text = ''
+            self.ids.cost.text = ''
+
+
+        elif not (self.ids.cost.text.isdigit()):
+            popup = Popup(title='Input Error',
+                content=Label(text='Please enter an interger for cost'),
+                size_hint=(None, None), size=(350, 350))
+
+            popup.open()
+
+            # Clear input field
+            self.ids.verb.text = ''
+            self.ids.noun.text = ''
+            self.ids.cost.text = ''
+
+
+        else:
+            verb = self.ids.verb.text
+            noun = self.ids.noun.text
+            cost = self.ids.cost.text
+
+            create_mistake(self.eid, False, verb, noun, cost)
+
+            # Clear input field
+            self.ids.verb.text = ''
+            self.ids.noun.text = ''
+            self.ids.cost.text = ''
+
+            self.display_mistakes()
+
 
     def display_mistakes(self):
         # Create/get an entry id for the day
