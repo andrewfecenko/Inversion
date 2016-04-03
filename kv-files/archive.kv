@@ -21,17 +21,12 @@
         text: 'Mistakes Archive'
         color: C('#53F0BC')
 
-    ScrollView:
-        id: mistake_scroll
-        size_hint: 1, 0.7 
-        Label:
-            size_hint: 1, 0.2
-            post_hint_y: 0
-            font_size: 40
-            halign: 'center'
-            text: 'Mistakes Archive'
-            color: C('#53F0BC')
-
+    GridLayout:
+        id: mistake_scroll 
+        col: 1
+        rows: 4
+        size_hint: 1, 0.7
+        post_hint_y: None 
 
     GridLayout:
         id: menu
