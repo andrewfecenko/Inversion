@@ -25,6 +25,7 @@ class Mistake(Base):
     entry_id = Column(Integer, ForeignKey(Entry.id))
     time_created = Column(DateTime, default=datetime.datetime.now(), nullable=False)
     is_om = Column(Boolean)
+    verb = Column(String(256))
     noun = Column(String(256))
     cost = Column(Integer)
 
