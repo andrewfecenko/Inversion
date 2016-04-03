@@ -114,11 +114,10 @@ def delete_mistake(id):
 #######################################################################
 
 def get_mistakes_category_id(eid, is_om):
-    mistake_ids = get_entry_mistakes_id(eid)
-    mistakes = [get_mistake(id) for id in mistake_ids]
-    mistakes = get_mistakes_category(mistakes, is_om)
-    mistakes_id = [m.id for m in mistakes]
-    return mistakes_id
+	mistakes = session.query(Mistake).filter(Mistake.entry_id == eid).\
+		filter(Mistake.is_om == is_om)
+	mistakes_id = [m.id for m in mistakes]
+	return mistakes_id
 
 def get_mistakes_range_id(begin, end):
     mistakes = session.query(Mistake).filter(Mistake.time_created <= end).\
@@ -126,18 +125,30 @@ def get_mistakes_range_id(begin, end):
     mistakes_id = [m.id for m in mistakes]
     return mistakes_id
 
-def get_mistakes_category(mistakes, is_om):
-    category_mistakes = filter(lambda x: x.is_om == is_om, mistakes)
-    return category_mistakes
 
+#######################################################################
+# All functions relating keywords (verb, noun)                        #
+#######################################################################
+
+def get_mistakes_with_verb(verb):
+	mistakes = session.query(Mistake).filter(Mistake.verb == verb)
+	mistakes_id = [m.id for m in mistakes]
+	return mistakes_id
+
+def get_mistakes_with_keyword(keyword):
+	mistakes = session.query(Mistake).filter(Mistake.noun.contains(keyword))
+	mistakes_id = [m.id for m in mistakes]
+	return mistakes_id
 
 #######################################################################
 # All functions for statistics                                        #
 #######################################################################
 
 def get_all_days():
-    days = session.query(Entry).all()
-    days = sorted(set([e.time_created for e in days]))
+    #days = session.query(Entry).all()
+    #days = sorted(set([e.time_created for e in days]))
+    days = session.query(Entry.time_created).distinct()
+    days = [d[0] for d in days]
     return days
 
 def get_day_cost(givenday=datetime.datetime.now()):
