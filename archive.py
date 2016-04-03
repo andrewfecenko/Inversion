@@ -2,7 +2,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.graphics import Color
 from kivy.properties import ObjectProperty
-from database.db_function import get_all_entries
+from database.db_function import get_all_entries_id
 from database.db_function import get_entry_mistakes_id
 from database.db_function import get_mistake_noun
 
@@ -14,17 +14,17 @@ class Archive(BoxLayout):
         self.list_entries()
 
     def list_entries(self):
-        all_entries = get_all_entries()
+        all_entries = get_all_entries_id()
 
         if all_entries is None:
             self.list_empty_archive()
             return
 
-        for ind, entry in enumerate(all_entries):
+        for ind, eid in enumerate(all_entries):
             if ind == 3:
                 break
 
-            mistakes_id = get_entry_mistakes_id(entry)
+            mistakes_id = get_entry_mistakes_id(eid)
             if mistakes_id is None:
                 continue
 

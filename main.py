@@ -15,6 +15,7 @@ from omission import Omission
 from archive import Archive
 
 from database.db_function import get_entry, get_entry_mistakes_id, get_mistake_cost
+from database.db_model import build_database
 
 Builder.load_file('kv-files/commission.kv')
 Builder.load_file('kv-files/omission.kv')
@@ -105,6 +106,7 @@ class Journal(BoxLayout):
 class JournalApp(App):
 
     def build(self):
+        build_database()
         self.journal = JournalInterfaceManager()
         return self.journal
 
