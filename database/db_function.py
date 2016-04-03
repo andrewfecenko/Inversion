@@ -75,7 +75,7 @@ def create_mistake(eid, is_om, verb, noun, cost):
     entry = get_entry_by_id(eid)
     givenday = datetime.datetime.now()
     time = givenday.replace(month=entry.time_created.month, day=entry.time_created.day)
-    
+
     mistake = Mistake(entry_id=eid, is_om=is_om, verb=verb, noun=noun, cost=cost, time_created=time)
     session.add(mistake)
     session.commit()
@@ -130,11 +130,16 @@ def delete_mistake(id):
 # All functions for getting information about omissions or commissions#
 #######################################################################
 
-def get_mistakes_category_id(eid, is_om):
+def get_entry_category_id(eid, is_om):
     mistakes = session.query(Mistake).filter(Mistake.entry_id == eid).\
         filter(Mistake.is_om == is_om)
     mistakes_id = [m.id for m in mistakes]
     return mistakes_id
+
+def get_mistakes_category_id(is_om):
+	mistakes = session.query(Mistake).filter(Mistake.is_om == is_om)
+	mistakes_id = [m.id for m in mistakes]
+	return mistakes_id
 
 def get_mistakes_range_id(begin, end):
     mistakes = session.query(Mistake).filter(Mistake.time_created <= end).\
@@ -147,6 +152,14 @@ def get_mistakes_range_id(begin, end):
 # All functions relating keywords (verb, noun)                        #
 #######################################################################
 
+def get_all_verbs(is_om=None):
+	if is_om == True or is_om == False:
+		mistakes = session.query(Mistake).filter(Mistake.is_om == is_om)
+	else:
+		mistakes = session.query(Mistake).all()
+	verbs = sorted(set([m.verb for m in mistakes]))
+	return verbs # list of strings
+
 def get_mistakes_with_verb(verb):
     mistakes = session.query(Mistake).filter(Mistake.verb == verb)
     mistakes_id = [m.id for m in mistakes]
@@ -157,30 +170,31 @@ def get_mistakes_with_keyword(keyword):
     mistakes_id = [m.id for m in mistakes]
     return mistakes_id
 
+def get_verb_graph(is_om=None):
+	verbs = get_all_verbs(is_om)
+	return [len(get_mistakes_with_verb(v)) for v in verbs]
+
 
 #######################################################################
 # All functions for extracting distinct timestamps                    #
 #######################################################################
 
 def get_all_days():
-    days = session.query(Entry).all()
-    days = sorted(set([e.time_created for e in days]))
+    entries = session.query(Entry).all()
+    days = sorted(set([e.time_created for e in entries]))
     #days = session.query(Entry.time_created).distinct()
     #days = [d[0] for d in days]
-    #print("all days: {}".format(days))
-    return days
+    return days # list of datetimes
 
 def get_all_weeks():
-    weeks = session.query(Entry).all()
-    weeks = sorted(set([e.time_created.isocalendar()[1] for e in weeks]))
-    #print("all weeks: {}".format(weeks))
-    return weeks
+    entries = session.query(Entry).all()
+    weeks = sorted(set([e.time_created.isocalendar()[1] for e in entries]))
+    return weeks # list of ints
 
 def get_all_months():
-    months = session.query(Entry).all()
-    months = sorted(set([e.time_created.month for e in months]))
-    #print("all months: {}".format(months))
-    return months
+    entries = session.query(Entry).all()
+    months = sorted(set([e.time_created.month for e in entries]))
+    return months # list of ints
 
 
 #######################################################################
@@ -303,6 +317,18 @@ def partial_info_get():
     print("Daily mistkae #: {}".format(get_daily_mistake_num()))
     print("Weekly mistake #: {}".format(get_weekly_mistake_num()))
     print("Monthly mistake #: {}".format(get_monthly_mistake_num()))
+    print("")
+
+    print("List of OM verbs: {}".format(get_all_verbs(True)))
+    print("List of occurrences: {}".format(get_verb_graph(True)))
+    print("")
+
+    print("List of CM verbs: {}".format(get_all_verbs(False)))
+    print("List of occurrences: {}".format(get_verb_graph(False)))
+    print("")
+
+    print("List of ALL verbs: {}".format(get_all_verbs()))
+    print("List of occurrences: {}".format(get_verb_graph()))
     print("")
 
 if __name__ == '__main__':
