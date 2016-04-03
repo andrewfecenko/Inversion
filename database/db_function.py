@@ -5,7 +5,7 @@ from db_model import Mistakes
 from db_model import engine
 
 from db_model import build_database
-from db_model import clear_database()
+from db_model import clear_database
 
 import datetime
 
@@ -63,8 +63,7 @@ def get_all_entries():
 #######################################################################
 
 def create_mistake(eid, is_om, noun, cost):
-    mistake = Mistake(entry_id=eid, is_om=is_om,
-        noun=noun, cost=cost)
+    mistake = Mistake(entry_id=eid, is_om=is_om, noun=noun, cost=cost)
     session.add(mistake)
     session.commit()
     return mistake.id
@@ -72,6 +71,11 @@ def create_mistake(eid, is_om, noun, cost):
 def get_mistake(id):
     mistake = session.query(Mistake).get(id)
     return mistake
+
+def get_mistake_cost(id):
+	mistake = session.query(Mistake).get(id)
+	cost = mistake.cost
+	return cost
 
 def update_mistake_cost(id, cost):
     mistake = session.query(Mistake).get(id)
@@ -94,8 +98,8 @@ def get_day_mistake_category(eid, is_om):
     return mistakes
 
 def get_mistake_range(begin, end):
-    mistakes = session.query(Mistake).filter(User.time_created <= end).\
-        filter(User.time_created <= begin)
+    mistakes = session.query(Mistake).filter(Mistake.time_created <= end).\
+        filter(Mistake.time_created >= begin)
     return mistakes
 
 def get_mistake_category(mistakes, is_om):
