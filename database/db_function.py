@@ -126,7 +126,7 @@ def get_mistakes_category(mistakes, is_om):
 #######################################################################
 
 def get_all_days():
-	days = session.query(Entry).all()
+    days = session.query(Entry).all()
     days = sorted(set([e.time_created for e in days]))
     return days
 
@@ -148,8 +148,8 @@ def get_range_cost(begin, end):
     return total
 
 def get_daily_cost():
-	daily_cost = [get_day_cost(d) for d in get_all_days()]
-	return daily_cost
+    daily_cost = [get_day_cost(d) for d in get_all_days()]
+    return daily_cost
 
 def get_day_mistake_num(givenday=datetime.datetime.now()):
     beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -165,8 +165,8 @@ def get_range_mistake_num(begin, end):
     return len(get_mistakes_range_id(begin, end))
 
 def get_daily_mistake_num():
-	daily_num = [get_day_mistake_num(d) for d in get_all_days()]
-	return daily_num
+    daily_num = [get_day_mistake_num(d) for d in get_all_days()]
+    return daily_num
 
 
 #######################################################################
@@ -189,5 +189,8 @@ def partial_info_get():
         print("Omission mistake: {}-{} costs ${}".format(omid, get_mistake_noun(omid), get_mistake_cost(omid)))
     for cmid in cmid_list:
         print("Commission mistake: {}-{} costs ${}".format(cmid, get_mistake_noun(cmid), get_mistake_cost(cmid)))
+
+    print(get_daily_cost())
+    print(get_daily_mistake_num())
 
 #partial_info_get()
