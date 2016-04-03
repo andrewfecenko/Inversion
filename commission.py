@@ -3,40 +3,47 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.dropdown import DropDown
 from kivy.uix.boxlayout import BoxLayout
 from kivy.utils import get_color_from_hex
+from database.db_function import *
+
 
 class CustomDropDown(BoxLayout):
     pass
 
 
-class Form(BoxLayout):
-    def __init__(self, **kwargs):
-        super(Form, self).__init__(**kwargs)
+class Mistake(BoxLayout):
+    pass
 
-    # Click on the plus button to complete the form
-    # Change the button to the minus button
-    def finish_form(self):
-        self.ids.submit.text = ('[font=Modern Pictograms][size=30]'
-            'X[/size][/font]')
-        self.ids.submit.background_color = get_color_from_hex('#B5B5B5')
-        commission.add_form()
-
-    # Click on the minus button to delete the form
-    # Remove this form from the page
-    def delete_form(self):
-        commission.remove_form()
 
 class Commission(BoxLayout):
     def __init__(self, **kwargs):
         super(Commission, self).__init__(**kwargs)
 
-        global commission
-        commission = self
-        self.add_form()
+        # Create/get an entry id for the day
+        self.eid = get_entry()
+        if self.eid == None:
+            self.eid = create_entry()
 
-    def add_form(self):
-        form = Form()
-        self.ids.forms.add_widget(form)
+        self.commission = self
+        self.display_mistakes()
 
-    def remove_form(self, form):
-        self.ids.forms.clear_widget(form)
+    # Click on the plus button to complete the form
+    # Change the button to the minus button
+    def finish_form(self):
+        noun = self.ids.noun.text
+        cost = self.ids.cost.text
+        create_mistake(self.eid, True, noun, cost)
+        self.display_mistakes()
+
+    def display_mistakes(self):
+        # Get a list of mistakes for today
+        self.ids.mistakes.clear_widgets()
+        mids = get_mistakes_category_id(self.eid, False)
+        mistakes = []
+        for mid in mids:
+            mistakes.append(get_mistake(mid))
+        for each in mistakes:
+            mistake = Mistake()
+            mistake.ids.noun.text = each.noun
+            mistake.ids.cost.text = each.cost
+            self.ids.mistakes.add_widget(mistake)
 
