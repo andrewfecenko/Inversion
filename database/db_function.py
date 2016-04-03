@@ -55,8 +55,11 @@ def get_entry_mistakes_id(eid):
     return mistakes_id
 
 def get_all_entries():
-    for entry in session.query(Entry).all():
-        yield entry
+    all_entries = session.query(Entry).all()
+    if all_entries is None:
+        yield None
+    for entry in all_entries:
+        yield entry.id
 
 
 #######################################################################
@@ -214,4 +217,4 @@ def partial_info_get():
     print(get_daily_cost())
     print(get_daily_mistake_num())
 
-#partial_info_get()
+partial_info_get()

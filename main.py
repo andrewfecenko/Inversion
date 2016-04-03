@@ -95,8 +95,8 @@ class Journal(BoxLayout):
         todays_cost = 0
 
         if todays_eid is not None:
-            mistakes_id = get_entry_mistakes_id(todays_eid)
-            for id in mistakes_id:
+            mistakes_ids = get_entry_mistakes_id(todays_eid)
+            for id in mistakes_ids:
                 todays_cost += get_mistake_cost(id)
 
         self.ids['opportunity_cost'].text = str(todays_cost)
