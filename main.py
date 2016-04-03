@@ -13,6 +13,8 @@ from kivy.properties import StringProperty
 from commission import Commission
 from omission import Omission
 
+from database.db_function import get_entry, get_entry_mistakes_id, get_mistake_cost
+
 Builder.load_file('kv-files/commission.kv')
 Builder.load_file('kv-files/omission.kv')
 
@@ -81,6 +83,18 @@ class Journal(BoxLayout):
 
     def __init__(self, **kwargs):
         super(Journal, self).__init__(**kwargs)
+        self.calculate_day_cost()
+
+    def calculate_day_cost(self):
+        todays_eid = get_entry()
+        todays_cost = 0
+
+        if todays_eid is not None:
+            mistakes_ids = get_entry_mistakes_id(todays_eid)
+            for id in mistakes_id:
+                todays_cost += get_mistake_cost(id)
+
+        self.ids['opportunity_cost'].text = str(todays_cost)
 
 
 class JournalApp(App):

@@ -21,12 +21,20 @@
             size: self.size
 
     Label:
-        id: opportunity_cost
-        size_hint: 1, 0.5
+        size_hint: 1, 0.15
         pos_hint_y: 0
-        font_size: 50
+        font_size: 30
         halign: 'center'
-        text: "OP"
+        text: 'Your score:'
+        color: C('#53F0BC')
+
+    Label:
+        id: opportunity_cost
+        size_hint: 1, 0.35
+        pos_hint_y: 0
+        font_size: 80 
+        halign: 'center'
+        text: 'replace'
         color: C('#53F0BC')
 
     GridLayout:
