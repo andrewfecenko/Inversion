@@ -1,0 +1,79 @@
+#:kivy 1.9.1
+#:import C kivy.utils.get_color_from_hex
+
+<Commission>:
+    id: journal
+    orientation: 'vertical'
+    size_hint: 1, 1
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        id: input_field
+        orientation: 'horizontal'
+        size_hint: 1, 0.05
+
+        TextInput:
+            id: noun
+            size_hint: 0.3, 1
+            halign: 'center'
+            font_size: '20sp'
+            foreground_color: C('#818181')
+            background_color: C('#FFFFFF')
+        TextInput:
+            id: cost
+            size_hint: 0.3, 1
+            halign: 'center'
+            font_size: '20sp'
+            foreground_color: C('#818181')
+            background_color: C('#FFFFFF')
+        Button:
+            id: submit
+            size_hint: 0.1, 1
+            text: "+"
+            background_color: C('#818181')
+
+    GridLayout:
+        id: mistakes
+        size_hint: 1, 0.9
+
+    GridLayout:
+        id: menu
+        cols: 4
+        rows: 1
+        size_hint: 1, 0.05
+
+        BoxLayout:
+            padding: [2, 0, 0, 2]
+#            [padding_left, padding_top, padding_right, padding_bottom]
+            Button:
+                id: Main
+                text: "Main"
+                background_color: C('#818181')
+                on_release: app.load_window('home')
+        BoxLayout:
+            padding: [2, 0, 2, 2]
+            Button:
+                id: List
+                text: "List"
+                background_color: C('#818181')
+                on_release: app.load_window('omission')
+        BoxLayout:
+            padding: [0, 0, 2, 2]
+            Button:
+                id: Stat
+                text: "Stat"
+                background_color: C('#818181')
+                on_release: app.load_window('omission')
+        BoxLayout:
+            padding: [0, 0, 2, 2]
+            Button:
+                id: Archive
+                text: "Archive"
+                background_color: C('#818181')
+                on_release: app.load_window('omission')

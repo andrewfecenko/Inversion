@@ -1,0 +1,92 @@
+#:kivy 1.9.1
+#:import C kivy.utils.get_color_from_hex
+
+<Button>:
+    background_normal: 'images/button_normal.png'
+    background_down: 'images/button_down.png'
+    font_size: 24
+    halign: 'center'
+    markup: True
+
+<Journal>:
+    id: journal
+    orientation: 'vertical'
+    size_hint: 1, 1
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        id: opportunity_cost
+        size_hint: 1, 0.5
+        pos_hint_y: 0
+        font_size: 50
+        halign: 'center'
+        text: "OP"
+        color: C('#53F0BC')
+
+    GridLayout:
+        size_hint: 1, 0.3
+        cols: 2
+        rows: 1
+        padding: 15
+
+        BoxLayout:
+            padding: [40, 0, 20, 40]
+            Button:
+                id: commission
+                size_hint: 1, 1
+                text:
+                    ('[font=Modern Pictograms][size=60]'
+                    '-[/size][/font]\nCommission')
+                background_color: C('#FF7D7D')
+                on_release: app.load_window('commission')
+
+        BoxLayout:
+            padding: [20, 0, 40, 40]
+            Button:
+                id: omission
+                size_hint: 1, 1
+                text:
+                    ('[font=Modern Pictograms][size=60]'
+                    '/[/size][/font]\nOmission')
+                background_color: C('#7DB1FF')
+                on_release: app.load_window('omission')
+
+    GridLayout:
+        id: menu
+        cols: 4
+        rows: 1
+        size_hint: 1, 0.05
+
+        BoxLayout:
+            padding: [2, 0, 0, 2]
+#            [padding_left, padding_top, padding_right, padding_bottom]
+            Button:
+                id: Main
+                text: "Main"
+                background_color: C('#818181')
+        BoxLayout:
+            padding: [2, 0, 2, 2]
+            Button:
+                id: List
+                text: "List"
+                background_color: C('#818181')
+        BoxLayout:
+            padding: [0, 0, 2, 2]
+            Button:
+                id: Stat
+                text: "Stat"
+                background_color: C('#818181')
+        BoxLayout:
+            padding: [0, 0, 2, 2]
+            Button:
+                id: Archive
+                text: "Archive"
+                background_color: C('#818181')
+
+

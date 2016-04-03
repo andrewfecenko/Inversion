@@ -1,0 +1,52 @@
+#:kivy 1.9.1
+#:import C kivy.utils.get_color_from_hex
+
+<Omission>:
+    id: journal
+    orientation: 'vertical'
+    size_hint: 1, 1
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    TextInput:
+        id: input_field
+        size_hint: 1, 0.1
+        halign: 'center'
+        font_size: '30sp'
+        foreground_color: C('#818181')
+        background_color: C('#FFFFFF')
+
+    GridLayout:
+        id: mistakes
+        size_hint: 1, 0.9
+
+    GridLayout:
+        id: menu
+        cols: 3
+        rows: 1
+        size_hint: 1, 0.05
+
+        BoxLayout:
+            padding: [2, 0, 0, 2]
+#            [padding_left, padding_top, padding_right, padding_bottom]
+            Button:
+                id: menu1
+                text: "Menu1"
+                background_color: C('#818181')
+        BoxLayout:
+            padding: [2, 0, 2, 2]
+            Button:
+                id: menu2
+                text: "Menu2"
+                background_color: C('#818181')
+        BoxLayout:
+            padding: [0, 0, 2, 2]
+            Button:
+                id: menu3
+                text: "Menu3"
+                background_color: C('#818181')
