@@ -1,6 +1,14 @@
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
 
+<Option@Button>:
+    text: 'Verb1'
+    size_hint_y: None
+    height: '48dp'
+    background_color: C('#F6F6F6')
+    color:C('#65E1D4')
+    on_release: dropdown.select('First Item')
+
 <Omission>:
     id: journal
     orientation: 'vertical'
@@ -13,13 +21,64 @@
             pos: self.pos
             size: self.size
 
-    TextInput:
+    BoxLayout:
         id: input_field
-        size_hint: 1, 0.1
-        halign: 'center'
-        font_size: '30sp'
-        foreground_color: C('#818181')
-        background_color: C('#FFFFFF')
+        orientation: 'horizontal'
+        size_hint: 1, 0.06
+        padding: 5
+
+        Button:
+            id: noun
+            text: 'Omitted'
+            on_release: dropdown.open(self)
+            size_hint: 0.35, 1
+            halign: 'center'
+            color: C('#878787')
+            background_color: C('#F6F6F6')
+
+            DropDown:
+                id: dropdown
+                on_parent: self.dismiss()
+                on_select: btn.text = '{}'.format(args[1])
+
+
+#                Button:
+#
+#                    text: 'Verb2'
+#                    size_hint_y: None
+#                    background_color: C('#F6F6F6')
+#                    color:C('#878787')
+#                    height: '48dp'
+#
+#                Button:
+#                    text: 'Verb3'
+#                    size_hint_y: None
+#                    height: '48dp'
+#                    background_color: C('#F6F6F6')
+#                    color:C('#878787')
+#                    on_release: dropdown.select('Third Item')
+
+        TextInput:
+            id: noun
+            size_hint: 0.35, 1
+            halign: 'center'
+            font_size: '20sp'
+            foreground_color: C('#52B2A8')
+            background_color: C('#FFFFFF')
+        TextInput:
+            id: cost
+            size_hint: 0.2, 1
+            halign: 'center'
+            font_size: '20sp'
+            foreground_color: C('#52B2A8')
+            background_color: C('#FFFFFF')
+        Button:
+            id: submit
+            size_hint: 0.1, 1
+            text:
+                ('[font=Modern Pictograms][size=30]'
+                '+[/size][/font]')
+            background_color: C('#7DB1FF')
 
     GridLayout:
         id: mistakes
@@ -27,26 +86,37 @@
 
     GridLayout:
         id: menu
-        cols: 3
+        cols: 4
         rows: 1
-        size_hint: 1, 0.05
+        size_hint: 1, None
+        size: root.width, root.height * 0.05
 
         BoxLayout:
             padding: [2, 0, 0, 2]
 #            [padding_left, padding_top, padding_right, padding_bottom]
             Button:
-                id: menu1
-                text: "Menu1"
+                id: Main
+                text: "Main"
                 background_color: C('#818181')
+                on_release: app.load_window('home')
         BoxLayout:
             padding: [2, 0, 2, 2]
             Button:
-                id: menu2
-                text: "Menu2"
+                id: List
+                text: "List"
                 background_color: C('#818181')
+                on_release: app.load_window('omission')
         BoxLayout:
             padding: [0, 0, 2, 2]
             Button:
-                id: menu3
-                text: "Menu3"
+                id: Stat
+                text: "Stat"
                 background_color: C('#818181')
+                on_release: app.load_window('omission')
+        BoxLayout:
+            padding: [0, 0, 2, 2]
+            Button:
+                id: Archive
+                text: "Archive"
+                background_color: C('#818181')
+                on_release: app.load_window('omission')
