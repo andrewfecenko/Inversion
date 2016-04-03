@@ -125,7 +125,7 @@ def get_mistakes_category(mistakes, is_om):
 # All functions for statistics                                        #
 #######################################################################
 
-def get_all_days:
+def get_all_days():
 	days = session.query(Entry).all()
     days = sorted(set([e.time_created for e in days]))
     return days
