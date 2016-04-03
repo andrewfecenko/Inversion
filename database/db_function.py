@@ -125,6 +125,11 @@ def get_mistakes_category(mistakes, is_om):
 # All functions for statistics                                        #
 #######################################################################
 
+def get_all_days:
+	days = session.query(Entry).all()
+    days = sorted(set([e.time_created for e in days]))
+    return days
+
 def get_day_cost(givenday=datetime.datetime.now()):
     beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
     end = givenday.replace(hour=23, minute=59, second=59, microsecond=59)
@@ -142,6 +147,10 @@ def get_range_cost(begin, end):
         total = total + get_mistake_cost(mid)
     return total
 
+def get_daily_cost():
+	daily_cost = [get_day_cost(d) for d in get_all_days()]
+	return daily_cost
+
 def get_day_mistake_num(givenday=datetime.datetime.now()):
     beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
     end = givenday.replace(hour=23, minute=59, second=59, microsecond=59)
@@ -154,6 +163,10 @@ def get_total_mistake_num():
 
 def get_range_mistake_num(begin, end):
     return len(get_mistakes_range_id(begin, end))
+
+def get_daily_mistake_num():
+	daily_num = [get_day_mistake_num(d) for d in get_all_days()]
+	return daily_num
 
 
 #######################################################################
