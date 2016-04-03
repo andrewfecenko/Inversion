@@ -72,10 +72,20 @@ def get_mistake(id):
     mistake = session.query(Mistake).get(id)
     return mistake
 
+def get_mistake_noun(id):
+	mistake = session.query(Mistake).get(id)
+	noun = mistake.noun
+	return noun
+
 def get_mistake_cost(id):
 	mistake = session.query(Mistake).get(id)
 	cost = mistake.cost
 	return cost
+
+def update_mistake_noun(id, noun):
+    mistake = session.query(Mistake).get(id)
+    mistake.noun = noun
+    session.commit()
 
 def update_mistake_cost(id, cost):
     mistake = session.query(Mistake).get(id)
@@ -91,17 +101,44 @@ def delete_mistake(id):
 # Functions for getting information about omissions or commissions.   #
 #######################################################################
 
-def get_day_mistake_category(eid, is_om):
-    mistake_ids = get_mistakes_entry_id(eid)
+def get_mistakes_category_id(eid, is_om):
+    mistake_ids = get_entry_mistakes_id(eid)
     mistakes = [get_mistake(id) for id in mistake_ids]
-    mistakes = get_mistake_category(mistakes, is_om)
-    return mistakes
+    mistakes = get_mistakes_category(mistakes, is_om)
+    mistakes_id = [m.id for m in mistakes]
+    return mistakes_id
 
-def get_mistake_range(begin, end):
+def get_mistakes_range_id(begin, end):
     mistakes = session.query(Mistake).filter(Mistake.time_created <= end).\
         filter(Mistake.time_created >= begin)
-    return mistakes
+    mistakes_id = [m.id for m in mistakes]
+    return mistakes_id
 
-def get_mistake_category(mistakes, is_om):
+def get_mistakes_category(mistakes, is_om):
     category_mistakes = filter(lambda x: x.is_om == is_om, mistakes)
     return category_mistakes
+
+
+#######################################################################
+# All functions for testing                                           #
+#######################################################################
+
+def partial_info_get():
+    """TODO: delete this function."""
+    clear_database()
+    build_database()
+
+    eid = create_entry()
+
+    mid1 = create_mistake(eid, True, 'Didn\'t work', 50)
+    mid2 = create_mistake(eid, False, 'Bought too much food', 30)
+
+    omid_list = get_mistakes_category_id(eid, True)
+    cmid_list = get_mistakes_category_id(eid, False)
+
+    for omid in omid_list:
+    	print("Omission mistake: {}-{} costs ${}".format(omid, get_mistake_noun(omid), get_mistake_cost(omid)))
+    for cmid in cmid_list:
+    	print("Commission mistake: {}-{} costs ${}".format(cmid, get_mistake_noun(cmid), get_mistake_cost(cmid)))
+
+#partial_info_get()
