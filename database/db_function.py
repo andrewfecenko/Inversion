@@ -147,8 +147,11 @@ def get_mistakes_range_id(begin, end):
 # All functions relating keywords (verb, noun)                        #
 #######################################################################
 
-def get_all_verbs(is_om):
-	mistakes = session.query(Mistake).filter(Mistake.is_om == is_om)
+def get_all_verbs(is_om=None):
+	if is_om == True or is_om == False:
+		mistakes = session.query(Mistake).filter(Mistake.is_om == is_om)
+	else:
+		mistakes = session.query(Mistake).all()
 	verbs = sorted(set([m.verb for m in mistakes]))
 	return verbs # list of strings
 
@@ -162,7 +165,7 @@ def get_mistakes_with_keyword(keyword):
     mistakes_id = [m.id for m in mistakes]
     return mistakes_id
 
-def get_verb_graph(is_om):
+def get_verb_graph(is_om=None):
 	verbs = get_all_verbs(is_om)
 	return [len(get_mistakes_with_verb(v)) for v in verbs]
 
@@ -317,6 +320,10 @@ def partial_info_get():
 
     print("List of CM verbs: {}".format(get_all_verbs(False)))
     print("List of occurrences: {}".format(get_verb_graph(False)))
+    print("")
+
+    print("List of ALL verbs: {}".format(get_all_verbs()))
+    print("List of occurrences: {}".format(get_verb_graph()))
     print("")
 
 if __name__ == '__main__':
