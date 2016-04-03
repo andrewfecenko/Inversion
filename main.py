@@ -88,6 +88,8 @@ class JournalInterfaceManager(BoxLayout):
             self.windows[key].display_mistakes()
         elif key == 'home':
             self.windows[key].calculate_day_cost()
+        elif key == 'archive':
+            self.windows[key].list_entries()
         self.clear_widgets()
         self.add_widget(self.windows[key])
 
