@@ -13,7 +13,7 @@ class Archive(BoxLayout):
 
     def __init__(self, **kwargs):
         super(Archive, self).__init__(**kwargs)
-        self.all_entries = get_all_entries_id()
+        self.all_entries = []
         self.dates = {}
         self.category = {}
         self.searchFlag = False
@@ -75,6 +75,31 @@ class Archive(BoxLayout):
 
     def order_by_time(self):
         self.ids.container.clear_widgets()
+
+        self.all_entries = get_all_entries_id()
+
+        if self.all_entries is None:
+            self.list_empty_archive()
+            return
+
+        # Get all mistakes and get date list
+        for ind, eid in enumerate(self.all_entries):
+            mistakes_id = get_entry_mistakes_id(eid)
+            print(mistakes_id)
+            if mistakes_id is None:
+                continue
+
+            # parse all mistakes by date and categories
+            for id in mistakes_id:
+                mistake_date = get_mistake_date(id).strftime("%Y-%m-%d")
+
+                if mistake_date not in self.dates:
+                    self.dates[mistake_date] = [id]
+                else:
+                    self.dates[mistake_date].append(id)
+
+                self.category['omission'] = get_mistakes_category_id(True)
+                self.category['commission'] = get_mistakes_category_id(False)
 
         if self.searchFlag:
             self.ids.navbar.remove_widget(self.ids.navbar.children[0])

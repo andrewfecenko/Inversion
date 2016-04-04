@@ -20,6 +20,7 @@
         Button:
             background_color: C('#818181')
             size_hint: 0.2, 1
+            font_size: '20sp'
             text: 'Search'
             on_release: searchInput.search()
 
@@ -39,12 +40,11 @@
             pos: self.pos
             size: self.size
 
-
-    Label:
-        size_hint: 1, 1
-        font_size: '30sp'
-        markup: True
-        text: '[b]'+ entry.time + '[/b]'
+#    Label:
+#        size_hint: 1, 1
+#        font_size: '30sp'
+#        markup: True
+#        text: '[b]'+ entry.time + '[/b]'
 
     BoxLayout:
         orientation: 'horizontal'
@@ -85,13 +85,13 @@
             pos: self.pos
             size: self.size
 
-    Label:
-        size_hint: 1, 0.05
-        post_hint_y: 0
-        font_size: 40
-        halign: 'center'
-        text: 'Mistakes Archive'
-        color: C('#53F0BC')
+#    Label:
+#        size_hint: 1, 0.05
+#        post_hint_y: 0
+#        font_size: 40
+#        halign: 'center'
+#        text: 'Mistakes Archive'
+#        color: C('#53F0BC')
 
     BoxLayout:
         id: navbar
@@ -111,6 +111,7 @@
                     text: "Order by Day"
                     background_color: C('#818181')
                     on_release: archive.order_by_time()
+                    font_size: '20sp'
 
             BoxLayout:
                 padding: [2, 0, 2, 2]
@@ -119,6 +120,7 @@
                     text: "Order by Category"
                     background_color: C('#818181')
                     on_release: archive.order_by_category()
+                    font_size: '20sp'
 
             BoxLayout:
                 padding: [0, 0, 2, 2]
@@ -127,6 +129,7 @@
                     text: "Search"
                     background_color: C('#818181')
                     on_release: archive.search()
+                    font_size: '20sp'
 
 #    GridLayout:
 #        id: mistake_scroll
@@ -156,6 +159,7 @@
     Accordion:
         id: container
         size_hint: 1, 0.9
+        font_size: '20sp'
         size: root.width, root.height * 0.5
         orientation: 'vertical'
         pos: self.pos
@@ -176,13 +180,16 @@
                 text: "Main"
                 background_color: C('#818181')
                 on_release: app.load_window('home')
+                font_size: '20sp'
         BoxLayout:
             padding: [2, 0, 2, 2]
             Button:
                 id: List
                 text: "Archive"
-                background_color: C('#818181')
+                background_color: C('#DE3612')
                 on_release: app.load_window('archive')
+                font_size: '20sp'
+
         BoxLayout:
             padding: [0, 0, 2, 2]
             Button:
@@ -190,3 +197,4 @@
                 text: "Stat"
                 background_color: C('#818181')
                 on_release: app.load_window('omission')
+                font_size: '20sp'
