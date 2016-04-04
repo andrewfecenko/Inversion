@@ -17,7 +17,10 @@ class Archive(BoxLayout):
         self.dates = {}
         self.category = {}
         self.searchFlag = False
-        self.input = SearchInput()
+
+
+        global archive_instance
+        archive_instance = self
 
         if self.all_entries is None:
             self.list_empty_archive()
@@ -101,11 +104,51 @@ class Archive(BoxLayout):
                 grid.add_widget(new)
 
     def search(self):
-        print("h")
-        # self.ids.container.clear_widgets()
-        # # self.ids.menu.clear_widgets()
-        # self.ids.add_widget(self.input)
-        # self.searchFlag = True
+        if self.searchFlag:
+            return
+
+        self.ids.container.clear_widgets()
+        self.ids.navbar.add_widget(SearchInput(search_text=""))
+        self.searchFlag = True
+
+    def searchList(self, mistakes_id):
+        self.ids.container.clear_widgets()
+        if len(mistakes_id) == 0:
+            accordItem = AccordionItem()
+            accordItem.title = "No archive found!"
+            self.ids.container.add_widget(accordItem)
+
+        dates = {}
+
+        for id in mistakes_id:
+                mistake_date = get_mistake_date(id).strftime("%Y-%m-%d")
+
+                if mistake_date not in dates:
+                    dates[mistake_date] = [id]
+                else:
+                    dates[mistake_date].append(id)
+
+        for date in dates:
+            accordItem = AccordionItem()
+            scroll = ScrollView()
+            grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='100dp', row_force_default=True, spacing=20, padding=20)
+            grid.bind(minimum_height=grid.setter('height'))
+            scroll.add_widget(grid)
+            accordItem.add_widget(scroll)
+            accordItem.title = date
+            self.ids.container.add_widget(accordItem)
+
+            id_list = dates[date]
+
+            # go through all mistakes for the day
+            for id in id_list:
+                mistake_noun = get_mistake_noun(id)
+                mistake_verb = get_mistake_verb(id)
+                mistake_time = get_mistake_date(id).strftime("%H:%M:%S")
+                mistake_cost = str(get_mistake_cost(id))
+
+                new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost='-' + mistake_cost)
+                grid.add_widget(new)
 
     def list_empty_archive(self):
         label = Label(text='You don\'t  have any mistakes!', font_size=40,
@@ -121,6 +164,8 @@ class Entry(BoxLayout):
 
 
 class SearchInput(BoxLayout):
+    search_text = StringProperty('')
 
     def search(self):
-        print(self.search_text)
+        mistakes_id = get_mistakes_with_keyword(self.search_text)
+        archive_instance.searchList(mistakes_id)

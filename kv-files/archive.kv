@@ -5,23 +5,22 @@
     search_text: self.ids.search_text.text
     orientation:'horizontal'
     valign: 'top'
-    size_hint: 1, None
+    size_hint: 1, 0.5
 
     BoxLayout:
         orientation: 'horizontal'
+        padding: [2, 0, 2, 0]
 
         TextInput:
             id: search_text
             size_hint: 0.7, 1
             multiline: True
-            font_size: '20sp'
             padding: [5, 5]
 
         Button:
-            background_color: C('#660000')
+            background_color: C('#818181')
             size_hint: 0.2, 1
             text: 'Search'
-            font_size: '30sp'
             on_release: searchInput.search()
 
 
@@ -102,7 +101,7 @@
         GridLayout:
             cols: 4
             rows: 1
-            size_hint: 1, None
+            size_hint: 1, 0.5
 
             BoxLayout:
                 padding: [2, 0, 0, 2]
@@ -150,6 +149,9 @@
 #            row_force_default: True
 #            spacing: 30
 #            padding: 10
+
+    Label:
+        size_hint: 1, 0.01
 
     Accordion:
         id: container
