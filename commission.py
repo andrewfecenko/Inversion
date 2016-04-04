@@ -4,20 +4,17 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 
 
-class CustomDropDown(BoxLayout):
+class ComCustomDropDown(BoxLayout):
     def __init__(self, **kwargs):
-        super(CustomDropDown, self).__init__(**kwargs)
-        self.refs = [self.dropdown.__self__,
-                     self.ratebutton.__self__,
-                     self.instructions.__self__,
-                     self.leaderboard.__self__]
+        super(ComCustomDropDown, self).__init__(**kwargs)
 
-class Mistake(BoxLayout):
+
+class ComMistake(BoxLayout):
     def __init__(self,mid, **kwargs):
-        super(Mistake, self).__init__(**kwargs)
+        super(ComMistake, self).__init__(**kwargs)
         self.mid = mid
 
-    def remove_form(self):
+    def remove_mistake(self):
         commission.remove_mistake(self.mid)
 
 
@@ -35,31 +32,18 @@ class Commission(BoxLayout):
     def submit_form(self):
         # Insert inputs to DB
 
-        if not (self.ids.cost.text) or not (self.ids.noun.text):
+        if (not self.ids.cost.text) or (not self.ids.noun.text) or (not self.ids.verb.text):
             popup = Popup(title='Input Error',
                 content=Label(text='Please enter all fieds'),
                 size_hint=(None, None), size=(350, 350))
             popup.open()
-
-            # Clear input field
-            self.ids.verb.text = ''
-            self.ids.noun.text = ''
-            self.ids.cost.text = ''
-
-
         elif not (self.ids.cost.text.isdigit()):
             popup = Popup(title='Input Error',
                 content=Label(text='Please enter an interger for cost'),
                 size_hint=(None, None), size=(350, 350))
 
             popup.open()
-
-            # Clear input field
-            self.ids.verb.text = ''
-            self.ids.noun.text = ''
             self.ids.cost.text = ''
-
-
         else:
             verb = self.ids.verb.text
             noun = self.ids.noun.text
@@ -68,7 +52,7 @@ class Commission(BoxLayout):
             create_mistake(self.eid, False, verb, noun, cost)
 
             # Clear input field
-            self.ids.verb.text = ''
+            #self.ids.verb.text = 'Did'
             self.ids.noun.text = ''
             self.ids.cost.text = ''
 
@@ -84,11 +68,10 @@ class Commission(BoxLayout):
         # Get a list of mistakes for today
         self.ids.mistakes.clear_widgets()
         mids = get_entry_mistakes_id(self.eid)
-        mistakes = []
         for mid in mids:
             m = get_mistake(mid)
             if not m.is_om:
-                mistake = Mistake(mid)
+                mistake = ComMistake(mid)
                 mistake.ids.verb.text = m.verb
                 mistake.ids.noun.text = m.noun
                 mistake.ids.cost.text = str(m.cost)
