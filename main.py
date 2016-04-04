@@ -23,6 +23,9 @@ from archive import Archive
 from database.db_function import get_entry, get_entry_mistakes_id, get_mistake_cost
 from database.db_model import build_database
 
+import random
+import time
+
 Builder.load_file('kv-files/commission.kv')
 Builder.load_file('kv-files/omission.kv')
 Builder.load_file('kv-files/archive.kv')
@@ -120,14 +123,20 @@ class Journal(BoxLayout):
 
     def __init__(self, **kwargs):
         super(Journal, self).__init__(**kwargs)
+        self.timer = time.time()
         self.score_canvas = self.ids['menu_canvas'].canvas
         self.start_angle = 250
         self.end_angle = 360
         self.calculate_day_cost()
+        self.demo = ["Missed seminar", "Forgot to send email", "Did not brush teeth"]
+        self.ids['mistakes'].text = random.choice(self.demo)
 
     def update(self, *args):
         self.start_angle = self.start_angle + 2.5 
-        self.end_angle = self.end_angle + 2.5 
+        self.end_angle = self.end_angle + 2.5
+        if (abs(time.time()-self.timer) >= 3):
+          self.ids['mistakes'].text = random.choice(self.demo)
+          self.timer = time.time()
 
     def calculate_day_cost(self):
         todays_eid = get_entry()
@@ -154,7 +163,7 @@ class JournalApp(App):
 
 if __name__ == "__main__":
 
-    demo = ["Missed seminar", "Forgot to send email", "Did not brush teeth"]
+    
     Window.size = (600, 850)
     LabelBase.register(name='Modern Pictograms', fn_regular='images/modernpics.ttf')
     JournalApp().run()
