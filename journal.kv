@@ -16,7 +16,7 @@
 
     canvas.before:
         Color:
-            rgba: 1, 1, 1, 1
+            rgba: 66/255.0, 60/255.0, 68/255.0, 1 # main color
         Rectangle:
             pos: self.pos
             size: self.size
@@ -25,20 +25,21 @@
         pos_hint_y: 0
         font_size: '40sp'
         halign: 'center'
-        text: 'Your cost:'
-        color: C('#4E2F2F')
+        text: 'You Lost:'
+        bold: True
+        color: C('#9d939f') # top letters
 
     MenuCanvas:
         id: menu_canvas
         size_hint: 1, 0.35
         canvas:
             Color:
-                rgba: (0, 0.7, 0.8, 1)
+                rgba: 93/255.0, 83/255.0, 94/255.0, 1 # canvas color
             Rectangle:
                 pos: self.pos
                 size: self.size
             Color: 
-                rgba: (0, 1, 0, 1)
+                rgba: 161/255.0, 214/255.0, 226/255.0, 0.5 # circle color
             Line:
                 group: 'circle'
                 width: 5 
@@ -51,10 +52,16 @@
             font_size: '80sp'
             halign: 'center'
             text: 'replace'
-            color: C('#4E2F2F')
+            color: C('#c2bbc3') # cost color
 
     GridLayout:
-        size_hint: 1, 0.35
+        size_hint: 1, 0.15
+        cols: 1
+        rows: 1
+        padding: 10
+
+    GridLayout:
+        size_hint: 1, 0.25
         cols: 2
         rows: 1
         padding: '15sp'
@@ -65,9 +72,9 @@
                 id: commission
                 size_hint: 1, 1
                 text:
-                    ('[font=Modern Pictograms][size=60]'
+                    ('[font=Modern Pictograms][size=100]'
                     '-[/size][/font]\nCommission')
-                background_color: C('#FF7D7D')
+                background_color: C('#423C44') # commission button
                 on_release: app.load_window('commission')
 
         BoxLayout:
@@ -76,9 +83,9 @@
                 id: omission
                 size_hint: 1, 1
                 text:
-                    ('[font=Modern Pictograms][size=60]'
+                    ('[font=Modern Pictograms][size=100]'
                     '/[/size][/font]\nOmission')
-                background_color: C('#7DB1FF')
+                background_color: C('#423C44') # omission button
                 on_release: app.load_window('omission')
 
     GridLayout:
@@ -86,7 +93,7 @@
         cols: 4
         rows: 1
         size_hint: 1, None
-        size: root.width, root.height * 0.05
+        size: root.width, root.height * 0.10
 
         BoxLayout:
             padding: ['2sp', 0, 0, '2sp']
@@ -95,19 +102,21 @@
                 id: Main
                 font_size: '20sp'
                 text: "Main"
-                background_color: C('#6BCDC3')
+                #background_color: C('#6BCDC3')
+                background_color: C('#EC96A4') # bottom menu1
         BoxLayout:
             padding: ['2sp', 0, '2sp', '2sp']
             Button:
                 id: List
                 font_size: '20sp'
                 text: "Archive"
-                background_color: C('#818181')
+                background_color: C('#DFE166') # buttom menu2
                 on_release: app.load_window('archive')
         BoxLayout:
             padding: [0, 0, '2sp', '2sp']
             Button:
                 id: Stat
+                font_size: '20sp'
+                background_color: C('#75B1A9') # buttom menu3
                 text: "Stats"
-                background_color: C('#818181')
                 on_release: app.load_window('stats')
