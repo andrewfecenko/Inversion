@@ -1,0 +1,73 @@
+#:kivy 1.9.1
+#:import C kivy.utils.get_color_from_hex
+
+<Stats>:
+    id: journal
+    orientation: 'vertical'
+    size_hint: 1, 1
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        id: opportunity_cost
+        size_hint: 1, 0.1
+        pos_hint_y: 0
+        font_size: 30
+        halign: 'center'
+        text: 'replace'
+        color: C('#53F0BC')
+
+
+    Graph:
+        id: graph
+        size_hint: 1, 0.5
+        pos_hint_y: 0
+        xLabel: 'Date'
+        yLabel: 'Cost of mistakes ($)'
+        x_ticks_minor: 1 
+        y_ticks_minor: 1
+        x_grid_label: True
+        y_grid_label: True
+        padding: 5
+        x_grid: True
+        y_grid: True
+        xmin: 0 
+        xmax: 10 
+        ymin: 0 
+        ymax: 10 
+
+
+    GridLayout:
+        id: menu
+        cols: 4
+        rows: 1
+        size_hint: 1, 0.05
+        size: root.width, root.height * 0.05
+
+        BoxLayout:
+            padding: [2, 0, 0, 2]
+#            [padding_left, padding_top, padding_right, padding_bottom]
+            Button:
+                id: Main
+                text: "Main"
+                background_color: C('#818181')
+                on_release: app.load_window('home')
+        BoxLayout:
+            padding: [2, 0, 2, 2]
+            Button:
+                id: List
+                text: "Archive"
+                background_color: C('#818181')
+                on_release: app.load_window('archive')
+        BoxLayout:
+            padding: [0, 0, 2, 2]
+            Button:
+                id: Stat
+                text: "Stats"
+                background_color: C('#818181')
+                on_release: app.load_window('stats')
