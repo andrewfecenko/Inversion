@@ -55,6 +55,16 @@ KIVY_FONTS = [
         "fn_regular": "fonts/Ubuntu-R.ttf",
         "fn_bold": "fonts/Ubuntu-B.ttf",
         "fn_italic": "fonts/Ubuntu-RI.ttf",
+    }, {
+        "name": "Exo",
+        "fn_regular": "fonts/Exo-Regular.otf",
+        "fn_bold": "fonts/Exo-Bold.otf",
+        "fn_italic": "fonts/Exo-Italic.otf",
+    }, {
+        "name": "Quicksand",
+        "fn_regular": "fonts/Quicksand-Regular.otf",
+        "fn_bold": "fonts/Quicksand-Bold.otf",
+        "fn_italic": "fonts/Quicksand-Italic.otf",
     }
 ]
 

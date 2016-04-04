@@ -23,11 +23,11 @@
     Label:
         size_hint: 1, 0.15
         pos_hint_y: 0
-        font_name: "Ubuntu"
+        font_name: "Quicksand"
         font_size: '36sp'
         halign: 'center'
         text: 'Your Mistakes Cost'
-        bold: True
+        bold: False
         color: C('#9d939f') # top letters
 
     MenuCanvas:
@@ -104,14 +104,14 @@
             Button:
                 id: Main
                 font_size: '20sp'
-                text: "[font=Ubuntu]Main[/font]"
+                text: "[font=Quicksand]Main[/font]"
                 background_color: C('#669999') # bottom menu1
         BoxLayout:
             padding: ['2sp', 0, '2sp', '2sp']
             Button:
                 id: List
                 font_size: '20sp'
-                text: "[font=Ubuntu]Archive[/font]"
+                text: "[font=Quicksand]Archive[/font]"
                 background_color: C('#5D535E') # buttom menu2
                 on_release: app.load_window('archive')
         BoxLayout:
@@ -119,5 +119,5 @@
             Button:
                 id: Stat
                 font_size: '20sp'
-                text: "[font=Ubuntu]Stat[/font]"
+                text: "[font=Quicksand]Stat[/font]"
                 background_color: C('#5D535E') # buttom menu3
