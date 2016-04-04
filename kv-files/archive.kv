@@ -1,10 +1,83 @@
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
+<SearchInput@BoxLayout>:
+    id: searchInput
+    search_text: self.ids.search_text.text
+    orientation:'horizontal'
+    valign: 'top'
+    size_hint: 1, None
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        TextInput:
+            id: search_text
+            size_hint: 0.7, 1
+            multiline: True
+            font_size: '20sp'
+            padding: [5, 5]
+
+        Button:
+            background_color: C('#660000')
+            size_hint: 0.2, 1
+            text: 'Search'
+            font_size: '30sp'
+            on_release: searchInput.search()
+
+
+
+
+<Entry@BoxLayout>:
+    id: entry
+	orientation:'vertical'
+    valign: 'top'
+    size_hint: (1, None)
+
+    canvas:
+        Color:
+            rgba: 0.5, 0.5, 0.5, 0.3
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+    Label:
+        size_hint: 1, 1
+        font_size: '30sp'
+        markup: True
+        text: '[b]'+ entry.time + '[/b]'
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, 1
+
+        Label:
+            size_hint: 3, 1
+            font_size: '25sp'
+            markup: True
+            text: '[b]'+ entry.verb + '[/b]'
+
+        Label:
+            size_hint: 3, 1
+            font_size: '25sp'
+            markup: True
+            text: '[b]'+ entry.name + '[/b]'
+
+        Label:
+            size_hint: 1, 1
+            font_size: '25sp'
+            markup: True
+            color: C('#DE3612')
+            text: '[b]'+ entry.cost + '[/b]'
+
+
+
 
 <Archive>:
-    id: journal
+    id: archive
     orientation: 'vertical'
     size_hint: 1, 1
+#    archive_grid: archive_grid
 
     canvas.before:
         Color:
@@ -14,19 +87,78 @@
             size: self.size
 
     Label:
-        size_hint: 1, 0.2
+        size_hint: 1, 0.05
         post_hint_y: 0
         font_size: 40
         halign: 'center'
         text: 'Mistakes Archive'
         color: C('#53F0BC')
 
-    GridLayout:
-        id: mistake_scroll 
-        col: 1
-        rows: 4
-        size_hint: 1, 0.7
-        post_hint_y: None 
+    BoxLayout:
+        id: navbar
+        orientation: 'vertical'
+        size_hint: 1, None
+
+        GridLayout:
+            cols: 4
+            rows: 1
+            size_hint: 1, None
+
+            BoxLayout:
+                padding: [2, 0, 0, 2]
+    #            [padding_left, padding_top, padding_right, padding_bottom]
+                Button:
+                    id: Main
+                    text: "Order by Day"
+                    background_color: C('#818181')
+                    on_release: archive.order_by_time()
+
+            BoxLayout:
+                padding: [2, 0, 2, 2]
+                Button:
+                    id: List
+                    text: "Order by Category"
+                    background_color: C('#818181')
+                    on_release: archive.order_by_category()
+
+            BoxLayout:
+                padding: [0, 0, 2, 2]
+                Button:
+                    id: Stat
+                    text: "Search"
+                    background_color: C('#818181')
+                    on_release: archive.search()
+
+#    GridLayout:
+#        id: mistake_scroll
+#        col: 1
+#        rows: 4
+#        size_hint: 1, 0.7
+#        post_hint_y: None
+
+#    ScrollView:
+#        id: main_scroll
+#        size_hint: 1, 1
+#        pos_hint: {'center_x': .5, 'center_y': .5}
+#        do_scroll_x: False
+#
+#        GridLayout:
+#            id: archive_grid
+#            size_hint_y: None
+#            cols: 1
+#            row_default_height: '100dp'
+#            row_force_default: True
+#            spacing: 30
+#            padding: 10
+
+    Accordion:
+        id: container
+        size_hint: 1, 0.9
+        size: root.width, root.height * 0.5
+        orientation: 'vertical'
+        pos: self.pos
+
+
 
     GridLayout:
         id: menu

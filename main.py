@@ -98,7 +98,7 @@ class JournalInterfaceManager(BoxLayout):
             self.windows[key].calculate_day_cost()
             self.current_window = 'home'
         elif key == 'archive':
-            self.windows[key].list_entries()
+            self.windows[key].order_by_time()
             self.current_window = 'archive'
         self.clear_widgets()
         self.add_widget(self.windows[key])
