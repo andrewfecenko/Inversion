@@ -4,7 +4,7 @@
 <Button>:
     background_normal: 'images/button_normal.png'
     background_down: 'images/button_down.png'
-    font_size: 20
+    font_size: '20sp'
     halign: 'center'
     markup: True
 
@@ -23,7 +23,7 @@
     Label:
         size_hint: 1, 0.15
         pos_hint_y: 0
-        font_size: 40
+        font_size: '40sp'
         halign: 'center'
         text: 'Your cost:'
         color: C('#4E2F2F')
@@ -48,7 +48,7 @@
             id: opportunity_cost
             pos: self.size
             size: self.size
-            font_size: 80 
+            font_size: '80sp'
             halign: 'center'
             text: 'replace'
             color: C('#4E2F2F')
@@ -57,10 +57,10 @@
         size_hint: 1, 0.35
         cols: 2
         rows: 1
-        padding: 15
+        padding: '15sp'
 
         BoxLayout:
-            padding: [40, 0, 20, 40]
+            padding: ['40sp', 0, '20sp', '40sp']
             Button:
                 id: commission
                 size_hint: 1, 1
@@ -71,7 +71,7 @@
                 on_release: app.load_window('commission')
 
         BoxLayout:
-            padding: [20, 0, 40, 40]
+            padding: ['20sp', 0, '40sp', '40sp']
             Button:
                 id: omission
                 size_hint: 1, 1
@@ -89,22 +89,25 @@
         size: root.width, root.height * 0.05
 
         BoxLayout:
-            padding: [2, 0, 0, 2]
+            padding: ['2sp', 0, 0, '2sp']
 #            [padding_left, padding_top, padding_right, padding_bottom]
             Button:
                 id: Main
+                font_size: '20sp'
                 text: "Main"
-                background_color: C('#818181')
+                background_color: C('#6BCDC3')
         BoxLayout:
-            padding: [2, 0, 2, 2]
+            padding: ['2sp', 0, '2sp', '2sp']
             Button:
                 id: List
+                font_size: '20sp'
                 text: "Archive"
                 background_color: C('#818181')
                 on_release: app.load_window('archive')
         BoxLayout:
-            padding: [0, 0, 2, 2]
+            padding: [0, 0, '2sp', '2sp']
             Button:
                 id: Stat
+                font_size: '20sp'
                 text: "Stat"
                 background_color: C('#818181')
