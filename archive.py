@@ -101,11 +101,11 @@ class Archive(BoxLayout):
                 grid.add_widget(new)
 
     def search(self):
-        self.clear_widgets()
-        self.add_widget()
+        print("h")
         # self.ids.container.clear_widgets()
-        self.ids.navbar.add_widget(self.input)
-        self.searchFlag = True
+        # # self.ids.menu.clear_widgets()
+        # self.ids.add_widget(self.input)
+        # self.searchFlag = True
 
     def list_empty_archive(self):
         label = Label(text='You don\'t  have any mistakes!', font_size=40,
