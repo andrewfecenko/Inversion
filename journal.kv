@@ -23,10 +23,11 @@
     Label:
         size_hint: 1, 0.15
         pos_hint_y: 0
-        font_size: '40sp'
+        font_name: "Quicksand"
+        font_size: '36sp'
         halign: 'center'
-        text: 'You Lost:'
-        bold: True
+        text: 'Your Mistakes Cost'
+        bold: False
         color: C('#9d939f') # top letters
 
     MenuCanvas:
@@ -39,7 +40,7 @@
                 pos: self.pos
                 size: self.size
             Color: 
-                rgba: 161/255.0, 214/255.0, 226/255.0, 0.5 # circle color
+                rgba: 102/255.0, 153/255.0, 153/255.0, 0.5 # circle color
             Line:
                 group: 'circle'
                 width: 5 
@@ -50,9 +51,12 @@
             pos: self.size
             size: self.size
             font_size: '80sp'
+            font_name: 'SourceSansPro'
             halign: 'center'
             text: 'replace'
-            color: C('#c2bbc3') # cost color
+            bold: False
+            color: C('#ED5752')
+            #color: C('#c2bbc3') # cost color
 
     GridLayout:
         size_hint: 1, 0.055
@@ -88,9 +92,9 @@
                 id: commission
                 size_hint: 1, 1
                 text:
-                    ('[font=Modern Pictograms][size=60]'
-                    '-[/size][/font]\nCommission')
-                background_color: C('#f3bec7') # commission button
+                    ('[color=#c2bbc3][font=Modern Pictograms][size=100]'
+                    '-[/size][/font]\n[font=Ubuntu]Commission[/color][/font]')
+                background_color: C('#423C44') # commission button
                 on_release: app.load_window('commission')
 
         BoxLayout:
@@ -99,9 +103,9 @@
                 id: omission
                 size_hint: 1, 1
                 text:
-                    ('[font=Modern Pictograms][size=60]'
-                    '/[/size][/font]\nOmission')
-                background_color: C('#e4e67f') # omission button
+                    ('[color=#c2bbc3][font=Modern Pictograms][size=100]'
+                    '/[/size][/font]\n[font=Ubuntu]Omission[/color][/font]')
+                background_color: C('#423C44') # omission button
                 on_release: app.load_window('omission')
 
     GridLayout:
@@ -117,21 +121,20 @@
             Button:
                 id: Main
                 font_size: '20sp'
-                text: "Main"
-                #background_color: C('#6BCDC3')
-                background_color: C('#EC96A4') # bottom menu1
+                text: "[font=Quicksand]Main[/font]"
+                background_color: C('#669999') # bottom menu1
         BoxLayout:
             padding: ['2sp', 0, '2sp', '2sp']
             Button:
                 id: List
                 font_size: '20sp'
-                text: "Archive"
-                background_color: C('#DFE166') # buttom menu2
+                text: "[font=Quicksand]Archive[/font]"
+                background_color: C('#5D535E') # buttom menu2
                 on_release: app.load_window('archive')
         BoxLayout:
             padding: [0, 0, '2sp', '2sp']
             Button:
                 id: Stat
                 font_size: '20sp'
-                text: "Stat"
-                background_color: C('#75B1A9') # buttom menu3
+                text: "[font=Quicksand]Stat[/font]"
+                background_color: C('#5D535E') # buttom menu3

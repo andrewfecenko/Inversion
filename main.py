@@ -18,7 +18,7 @@ from kivy.properties import NumericProperty
 from commission import Commission
 from omission import Omission
 from archive import Archive
-# from archive import Archive
+from stats import Stats
 
 from database.db_function import *
 from database.db_model import build_database
@@ -33,6 +33,7 @@ import time
 Builder.load_file('kv-files/commission.kv')
 Builder.load_file('kv-files/omission.kv')
 Builder.load_file('kv-files/archive.kv')
+Builder.load_file('kv-files/stats.kv')
 
 # from add_entry import AddEntry
 # from update_entry import UpdateEntry
@@ -49,6 +50,40 @@ Builder.load_file('kv-files/archive.kv')
 # Builder.load_file('kv-files/collection.kv')
 # Builder.load_file('kv-files/favorites.kv')
 
+KIVY_FONTS = [
+    {
+        "name": "RobotoCondensed",
+        "fn_regular": "fonts/RobotoCondensed-Light.ttf",
+        "fn_bold": "fonts/RobotoCondensed-Regular.ttf",
+        "fn_italic": "fonts/RobotoCondensed-LightItalic.ttf",
+        "fn_bolditalic": "fonts/RobotoCondensed-Italic.ttf"
+    }, {
+        "name": "Ubuntu",
+        "fn_regular": "fonts/Ubuntu-R.ttf",
+        "fn_bold": "fonts/Ubuntu-B.ttf",
+        "fn_italic": "fonts/Ubuntu-RI.ttf",
+    }, {
+        "name": "Quicksand",
+        "fn_regular": "fonts/Quicksand-Regular.otf",
+        "fn_bold": "fonts/Quicksand-Bold.otf",
+        "fn_italic": "fonts/Quicksand-Italic.otf",
+    }, {
+        "name": "BebasNeue",
+        "fn_regular": "fonts/BebasNeue-Regular.otf",
+        "fn_bold": "fonts/BebasNeue-Bold.otf",
+    }, {
+        "name": "SourceSansPro",
+        "fn_regular": "fonts/SourceSansPro-Regular.otf",
+        "fn_bold": "fonts/SourceSansPro-Bold.otf",
+    }, {
+        "name": "OstrichSans",
+        "fn_regular": "fonts/OstrichSans-Regular.ttf",
+        "fn_bold": "fonts/OstrichSans-Bold.otf",
+    }
+]
+
+for font in KIVY_FONTS:
+    LabelBase.register(**font)
 
 class JournalInterfaceManager(BoxLayout):
 
@@ -74,6 +109,9 @@ class JournalInterfaceManager(BoxLayout):
 
         archive = Archive()
         self.add_window("archive", archive)
+
+        stats = Stats()
+        self.add_window("stats", stats)
 
         # # add remaining windows to tracked windows
         # enter_tasks = AddEntry()
@@ -110,6 +148,9 @@ class JournalInterfaceManager(BoxLayout):
         elif key == 'archive':
             self.windows[key].order_by_time()
             self.current_window = 'archive'
+        elif key == 'stats':
+            self.current_windiw = 'stats'
+
         self.clear_widgets()
         self.add_widget(self.windows[key])
 
