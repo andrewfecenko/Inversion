@@ -5,6 +5,7 @@ from kivy.uix.label import Label
 from kivy.graphics import Color
 from kivy.properties import StringProperty
 from kivy.uix.accordion import AccordionItem
+from kivy.uix.textinput import TextInput
 from database.db_function import *
 
 
@@ -15,6 +16,8 @@ class Archive(BoxLayout):
         self.all_entries = get_all_entries_id()
         self.dates = {}
         self.category = {}
+        self.searchFlag = False
+        self.input = SearchInput()
 
         if self.all_entries is None:
             self.list_empty_archive()
@@ -29,21 +32,23 @@ class Archive(BoxLayout):
 
             # parse all mistakes by date and categories
             for id in mistakes_id:
-                # print(get_mistake_date(id))
                 mistake_date = get_mistake_date(id).strftime("%Y-%m-%d")
-                mistake_category = get_mistakes_category_id(id, True)
 
                 if mistake_date not in self.dates:
                     self.dates[mistake_date] = [id]
                 else:
                     self.dates[mistake_date].append(id)
 
-                # if mistake_category not in self.category:
-                #     self.category[mistake_category] = [id]
-                # else:
-                #     self.category[mistake_category].append(id)
+                self.category['omission'] = get_mistakes_category_id(True)
+                self.category['commission'] = get_mistakes_category_id(False)
 
     def order_by_category(self):
+        self.ids.container.clear_widgets()
+
+        if self.searchFlag:
+            self.ids.navbar.remove_widget(self.ids.navbar.children[0])
+            self.searchFlag = False
+
         for cate in self.category:
             accordItem = AccordionItem()
             scroll = ScrollView()
@@ -54,7 +59,24 @@ class Archive(BoxLayout):
             accordItem.title = cate
             self.ids.container.add_widget(accordItem)
 
+            id_list = self.category[cate]
+
+            for id in id_list:
+                mistake_noun = get_mistake_noun(id)
+                mistake_verb = get_mistake_verb(id)
+                mistake_time = get_mistake_date(id).strftime("%H:%M:%S")
+                mistake_cost = str(get_mistake_cost(id))
+
+                new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost='-' + mistake_cost)
+                grid.add_widget(new)
+
     def order_by_time(self):
+        self.ids.container.clear_widgets()
+
+        if self.searchFlag:
+            self.ids.navbar.remove_widget(self.ids.navbar.children[0])
+            self.searchFlag = False
+
         # Iterate over date list and order mistakes by date
         for date in self.dates:
             accordItem = AccordionItem()
@@ -67,8 +89,6 @@ class Archive(BoxLayout):
             self.ids.container.add_widget(accordItem)
 
             id_list = self.dates[date]
-            # date_title = Label(size_hint=(1, None), font_size='25sp', color=(0, 0, 0, 1), text=date)
-            # self.archive_grid.add_widget(date_title)
 
             # go through all mistakes for the day
             for id in id_list:
@@ -77,11 +97,15 @@ class Archive(BoxLayout):
                 mistake_time = get_mistake_date(id).strftime("%H:%M:%S")
                 mistake_cost = str(get_mistake_cost(id))
 
-
-
                 new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost='-' + mistake_cost)
-                # self.archive_grid.add_widget(new)
                 grid.add_widget(new)
+
+    def search(self):
+        self.clear_widgets()
+        self.add_widget()
+        # self.ids.container.clear_widgets()
+        self.ids.navbar.add_widget(self.input)
+        self.searchFlag = True
 
     def list_empty_archive(self):
         label = Label(text='You don\'t  have any mistakes!', font_size=40,
@@ -95,3 +119,8 @@ class Entry(BoxLayout):
     time = StringProperty('')
     cost = StringProperty('')
 
+
+class SearchInput(BoxLayout):
+
+    def search(self):
+        print(self.search_text)

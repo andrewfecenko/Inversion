@@ -1,5 +1,38 @@
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
+<SearchInput@BoxLayout>:
+    id: searchInput
+    search_text: self.ids.search_text.text
+    orientation:'horizontal'
+    valign: 'top'
+    size_hint: 1, None
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        Label:
+            size_hint: 0.1, 1
+            font_size: '25sp'
+            markup: True
+            text: 'a'
+
+        TextInput:
+            id: search_text
+            size_hint: 0.7, 1
+            multiline: True
+            font_size: '20sp'
+            padding: [5, 5]
+
+        Button:
+            background_color: C('#660000')
+            size_hint: 0.2, 1
+            text: 'Search'
+            font_size: '30sp'
+            on_release: searchInput.search()
+
+
+
+
 <Entry@BoxLayout>:
     id: entry
 	orientation:'vertical'
@@ -67,34 +100,40 @@
         text: 'Mistakes Archive'
         color: C('#53F0BC')
 
-    GridLayout:
-        id: menu
-        cols: 4
-        rows: 1
-        size_hint: 1, 0.05
+    BoxLayout:
+        id: navbar
+        orientation: 'vertical'
+        size_hint: 1, None
 
-        BoxLayout:
-            padding: [2, 0, 0, 2]
-#            [padding_left, padding_top, padding_right, padding_bottom]
-            Button:
-                id: Main
-                text: "Order by Day"
-                background_color: C('#818181')
-                on_release: archive.order_by_time()
-        BoxLayout:
-            padding: [2, 0, 2, 2]
-            Button:
-                id: List
-                text: "Order by Category"
-                background_color: C('#818181')
-                on_release: archive.order_by_category()
-        BoxLayout:
-            padding: [0, 0, 2, 2]
-            Button:
-                id: Stat
-                text: "Search"
-                background_color: C('#818181')
-#                on_release: app.load_window('omission')
+        GridLayout:
+            cols: 4
+            rows: 1
+            size_hint: 1, None
+
+            BoxLayout:
+                padding: [2, 0, 0, 2]
+    #            [padding_left, padding_top, padding_right, padding_bottom]
+                Button:
+                    id: Main
+                    text: "Order by Day"
+                    background_color: C('#818181')
+                    on_release: archive.order_by_time()
+
+            BoxLayout:
+                padding: [2, 0, 2, 2]
+                Button:
+                    id: List
+                    text: "Order by Category"
+                    background_color: C('#818181')
+                    on_release: archive.order_by_category()
+
+            BoxLayout:
+                padding: [0, 0, 2, 2]
+                Button:
+                    id: Stat
+                    text: "Search"
+                    background_color: C('#818181')
+                    on_release: archive.search()
 
 #    GridLayout:
 #        id: mistake_scroll
