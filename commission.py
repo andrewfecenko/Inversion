@@ -1,21 +1,32 @@
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.dropdown import DropDown
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.textinput import TextInput
+
 from database.db_function import *
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-
 
 class ComCustomDropDown(BoxLayout):
     def __init__(self, **kwargs):
         super(ComCustomDropDown, self).__init__(**kwargs)
 
 
-class ComMistake(BoxLayout):
+class ComMistake(GridLayout):
     def __init__(self,mid, **kwargs):
         super(ComMistake, self).__init__(**kwargs)
         self.mid = mid
 
     def remove_mistake(self):
         commission.remove_mistake(self.mid)
+
+
+class ComOption(Button):
+    def __init__(self, opt, **kwargs):
+        super(ComOption, self).__init__(**kwargs)
+
+        self.text = opt
 
 
 class Commission(BoxLayout):
@@ -36,28 +47,30 @@ class Commission(BoxLayout):
             popup = Popup(title='Input Error',
                 content=Label(text='Please enter all fieds'),
                 size_hint=(None, None), size=(350, 350))
+
             popup.open()
+
         elif not (self.ids.cost.text.isdigit()):
             popup = Popup(title='Input Error',
                 content=Label(text='Please enter an interger for cost'),
                 size_hint=(None, None), size=(350, 350))
 
-            popup.open()
             self.ids.cost.text = ''
+
+            popup.open()
+
         else:
             verb = self.ids.verb.text
             noun = self.ids.noun.text
             cost = self.ids.cost.text
-
             create_mistake(self.eid, False, verb, noun, cost)
 
             # Clear input field
-            #self.ids.verb.text = 'Did'
+            self.ids.verb.text = "Didn't do"
             self.ids.noun.text = ''
             self.ids.cost.text = ''
 
             self.display_mistakes()
-
 
     def display_mistakes(self):
         # Create/get an entry id for the day
@@ -68,14 +81,32 @@ class Commission(BoxLayout):
         # Get a list of mistakes for today
         self.ids.mistakes.clear_widgets()
         mids = get_entry_mistakes_id(self.eid)
+        mids.reverse()
+
         for mid in mids:
             m = get_mistake(mid)
-            if not m.is_om:
+            if m.is_om is False:
                 mistake = ComMistake(mid)
                 mistake.ids.verb.text = m.verb
                 mistake.ids.noun.text = m.noun
                 mistake.ids.cost.text = str(m.cost)
                 self.ids.mistakes.add_widget(mistake)
+
+        self.display_verbs()
+
+    def display_verbs(self):
+        dropdown = DropDown()
+        verbs = get_all_verbs(False)
+
+        for verb in verbs:
+            new_option = ComOption(verb)
+            new_option.bind(on_release=lambda btn: dropdown.select(btn.text))
+            dropdown.add_widget(new_option)
+
+        mainbutton = self.ids.verb
+        mainbutton.text = 'Did'
+        mainbutton.bind(on_release=dropdown.open)
+        dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
 
     def remove_mistake(self, mid):
         delete_mistake(mid)

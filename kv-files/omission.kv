@@ -1,6 +1,12 @@
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
 
+<OmOption>:
+    size_hint_y: None
+    height: '48dp'
+    background_color: C('#F6F6F6')
+    color:C('#878787')
+
 
 <Omission>:
     id: omission
@@ -24,41 +30,40 @@
 
         Button:
             id: verb
-            text: "Didn't do"
-            on_release: dropdown.open(self)
+            text: "Missed"
             size_hint: 0.35, 1
             halign: 'center'
             color: C('#65E1D4')
             background_color: C('#F6F6F6')
 
-        DropDown:
-            id: dropdown
-            on_parent: self.dismiss()
-            on_select: verb.text = '{}'.format(args[1])
+#        DropDown:
+#            id: dropdown
+#            on_parent: self.dismiss()
+#            on_select: verb.text = '{}'.format(args[1])
 
-            Button:
-                text: 'Bought'
-                size_hint_y: None
-                height: '48dp'
-                background_color: C('#F6F6F6')
-                color:C('#878787')
-                on_release: dropdown.select('Bought')
-
-            Button:
-                text: 'Ate'
-                size_hint_y: None
-                background_color: C('#F6F6F6')
-                color:C('#878787')
-                height: '48dp'
-                on_release: dropdown.select('Ate')
-
-            Button:
-                text: 'Killed'
-                size_hint_y: None
-                height: '48dp'
-                background_color: C('#F6F6F6')
-                color:C('#878787')
-                on_release: dropdown.select('Killed')
+#            Button:
+#                text: 'Bought'
+#                size_hint_y: None
+#                height: '48dp'
+#                background_color: C('#F6F6F6')
+#                color:C('#878787')
+#                on_release: dropdown.select('Bought')
+#
+#            Button:
+#                text: 'Ate'
+#                size_hint_y: None
+#                background_color: C('#F6F6F6')
+#                color:C('#878787')
+#                height: '48dp'
+#                on_release: dropdown.select('Ate')
+#
+#            Button:
+#                text: 'Killed'
+#                size_hint_y: None
+#                height: '48dp'
+#                background_color: C('#F6F6F6')
+#                color:C('#878787')
+#                on_release: dropdown.select('Killed')
 
         TextInput:
             id: noun
@@ -66,6 +71,7 @@
             size_hint: 0.35, 1
             halign: 'center'
             font_size: '20sp'
+            multiline: False
             foreground_color: C('#52B2A8')
             background_color: C('#FFFFFF')
         TextInput:
@@ -74,6 +80,7 @@
             hint_text: '$$$'
             halign: 'center'
             font_size: '20sp'
+            multiline: False
             foreground_color: C('#52B2A8')
             background_color: C('#FFFFFF')
         Button:

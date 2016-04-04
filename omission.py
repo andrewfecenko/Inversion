@@ -1,4 +1,6 @@
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.dropdown import DropDown
 from kivy.uix.gridlayout import GridLayout
 
 from database.db_function import *
@@ -17,6 +19,13 @@ class OmMistake(GridLayout):
 
     def remove_mistake(self):
         omission.remove_mistake(self.mid)
+
+
+class OmOption(Button):
+    def __init__(self, opt, **kwargs):
+        super(OmOption, self).__init__(**kwargs)
+
+        self.text = opt
 
 
 class Omission(BoxLayout):
@@ -71,6 +80,7 @@ class Omission(BoxLayout):
         # Get a list of mistakes for today
         self.ids.mistakes.clear_widgets()
         mids = get_entry_mistakes_id(self.eid)
+        mids.reverse()
 
         for mid in mids:
             m = get_mistake(mid)
@@ -80,6 +90,24 @@ class Omission(BoxLayout):
                 mistake.ids.noun.text = m.noun
                 mistake.ids.cost.text = str(m.cost)
                 self.ids.mistakes.add_widget(mistake)
+
+        self.display_verbs()
+
+    def display_verbs(self):
+        dropdown = DropDown()
+        verbs = get_all_verbs(True)
+
+        for verb in verbs:
+            print(verb)
+            new_option = OmOption(verb)
+            new_option.bind(on_release=lambda btn: dropdown.select(btn.text))
+            dropdown.add_widget(new_option)
+
+        mainbutton = self.ids.verb
+        mainbutton.text = "Missed"
+        mainbutton.bind(on_release=dropdown.open)
+        dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
+
 
     def remove_mistake(self, mid):
         delete_mistake(mid)
