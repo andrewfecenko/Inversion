@@ -168,7 +168,7 @@ def get_all_verbs(is_om=None):
     return verbs # list of strings
 
 def get_mistakes_with_verb(verb):
-    mistakes = session.query(Mistake).filter(Mistake.verb == verb)
+    mistakes = session.query(Mistake).filter(Mistake.verb == verb.capitalize())
     mistakes_id = [m.id for m in mistakes]
     return mistakes_id
 

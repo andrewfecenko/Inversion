@@ -13,7 +13,7 @@
 
         TextInput:
             id: search_text
-            size_hint: 0.7, 1
+            size_hint: 0.6, 1
             multiline: True
             padding: [5, 5]
 
@@ -21,9 +21,15 @@
             background_color: C('#818181')
             size_hint: 0.2, 1
             font_size: '20sp'
-            text: 'Search'
-            on_release: searchInput.search()
+            text: 'Verb'
+            on_release: searchInput.verb_search()
 
+        Button:
+            background_color: C('#818181')
+            size_hint: 0.2, 1
+            font_size: '20sp'
+            text: 'Noun'
+            on_release: searchInput.noun_search()
 
 
 

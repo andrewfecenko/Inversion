@@ -3,6 +3,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.label import Label
 from kivy.graphics import Color
+from kivy.utils import get_color_from_hex
 from kivy.properties import StringProperty
 from kivy.uix.accordion import AccordionItem
 from kivy.uix.textinput import TextInput
@@ -72,6 +73,10 @@ class Archive(BoxLayout):
                 new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost='-' + mistake_cost)
                 grid.add_widget(new)
 
+        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#818181')
+        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('ff9966')
+        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('#818181')
+
     def order_by_time(self):
         self.ids.container.clear_widgets()
 
@@ -127,13 +132,24 @@ class Archive(BoxLayout):
                 new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost='-' + mistake_cost)
                 grid.add_widget(new)
 
+        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('#818181')
+        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('ff9966')
+        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('#818181')
+
     def search(self):
         if self.searchFlag:
             return
 
         self.ids.container.clear_widgets()
+
+        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('#818181')
+        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('ff9966')
+        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#818181')
+
         self.ids.navbar.add_widget(SearchInput(search_text=""))
         self.searchFlag = True
+
+
 
     def searchList(self, mistakes_id):
         self.ids.container.clear_widgets()
@@ -190,6 +206,10 @@ class Entry(BoxLayout):
 class SearchInput(BoxLayout):
     search_text = StringProperty('')
 
-    def search(self):
+    def verb_search(self):
+        mistakes_id = get_mistakes_with_verb(self.search_text)
+        archive_instance.searchList(mistakes_id)
+
+    def noun_search(self):
         mistakes_id = get_mistakes_with_keyword(self.search_text)
         archive_instance.searchList(mistakes_id)
