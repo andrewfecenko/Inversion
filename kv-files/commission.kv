@@ -24,46 +24,46 @@
 
         Button:
             id: verb
-            text: 'Commited'
+            text: 'Did'
             on_release: dropdown.open(self)
             size_hint: 0.35, 1
             halign: 'center'
             color: C('#65E1D4')
             background_color: C('#F6F6F6')
 
-            DropDown:
-                id: dropdown
-                on_parent: self.dismiss()
-                on_select: verb.text = '{}'.format(args[1])
+        DropDown:
+            id: dropdown
+            on_parent: self.dismiss()
+            on_select: verb.text = '{}'.format(args[1])
 
-                Button:
-                    text: 'Bought'
-                    size_hint_y: None
-                    height: '48dp'
-                    background_color: C('#F6F6F6')
-                    color:C('#878787')
-                    on_release: dropdown.select('Bought')
+            Button:
+                text: 'Bought'
+                size_hint_y: None
+                height: '48dp'
+                background_color: C('#F6F6F6')
+                color:C('#878787')
+                on_release: dropdown.select('Bought')
 
-                Button:
-                    text: 'Ate'
-                    size_hint_y: None
-                    background_color: C('#F6F6F6')
-                    color:C('#878787')
-                    height: '48dp'
-                    on_release: dropdown.select('Ate')
+            Button:
+                text: 'Ate'
+                size_hint_y: None
+                background_color: C('#F6F6F6')
+                color:C('#878787')
+                height: '48dp'
+                on_release: dropdown.select('Ate')
 
-                Button:
-                    text: 'Killed'
-                    size_hint_y: None
-                    height: '48dp'
-                    background_color: C('#F6F6F6')
-                    color:C('#878787')
-                    on_release: dropdown.select('Killed')
+            Button:
+                text: 'Killed'
+                size_hint_y: None
+                height: '48dp'
+                background_color: C('#F6F6F6')
+                color:C('#878787')
+                on_release: dropdown.select('Killed')
 
         TextInput:
             id: noun
             size_hint: 0.35, 1
-            hint_text: 'Enter a noun'
+            hint_text: 'What'
             halign: 'center'
             font_size: '20sp'
             foreground_color: C('#52B2A8')
@@ -71,7 +71,7 @@
         TextInput:
             id: cost
             size_hint: 0.2, 1
-            hint_text: '$cost'
+            hint_text: '$$$'
             halign: 'center'
             font_size: '20sp'
             foreground_color: C('#52B2A8')
@@ -112,6 +112,7 @@
             Button:
                 id: Main
                 text: "Main"
+                font_size: '20sp'
                 background_color: C('#818181')
                 on_release: app.load_window('home')
         BoxLayout:
@@ -119,6 +120,7 @@
             Button:
                 id: List
                 text: "Archive"
+                font_size: '20sp'
                 background_color: C('#818181')
                 on_release: app.load_window('archive')
         BoxLayout:
@@ -126,10 +128,11 @@
             Button:
                 id: Stat
                 text: "Stat"
+                font_size: '20sp'
                 background_color: C('#818181')
                 on_release: app.load_window('omission')
 
-<Mistake>:
+<ComMistake>:
     id: mistake
     size_hint: 1, 0.07
     orientation: 'horizontal'
@@ -179,4 +182,4 @@
             'X[/size][/font]')
         color: C('#949494')
         background_color: C('#F6F6F6')
-        on_release: mistake.remove_form()
+        on_release: mistake.remove_mistake()
