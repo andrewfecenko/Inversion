@@ -111,6 +111,30 @@
 #            row_default_height: root.height * 0.06
 #            row_force_default: True
 
+    BoxLayout:
+        id: add_verb
+        size_hint: 1, 0.07
+        orientation: 'horizontal'
+        padding: '5sp'
+
+        TextInput:
+            id: new_verb
+            size_hint: 0.7, 1
+            hint_text: 'New verb'
+            halign: 'center'
+            font_size: '20sp'
+            multiline: False
+            foreground_color: C('#52B2A8')
+            background_color: C('#FFFFFF')
+        Button:
+            id: add_verb_btn
+            size_hint: 0.3, 1
+            text:
+                ('[font=Modern Pictograms][size=30]'
+                '+[/size][/font]')
+            background_color: C('#FF7D7D')
+            on_release: commission.add_verb()
+
     GridLayout:
         id: menu
         cols: 4

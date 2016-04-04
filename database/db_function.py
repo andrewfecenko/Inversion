@@ -51,10 +51,10 @@ def get_entry_by_id(eid):
     return entry
 
 def get_entry_mistakes_id(eid):
-    entry = session.query(Entry).get(eid)
     try:
-        mistakes = entry.mistakes.all()
+        mistakes = session.query(Mistake).filter(Mistake.entry_id == eid, Mistake.noun != '').all()
         mistakes_id = [m.id for m in mistakes]
+        print(mistakes_id)
     except AttributeError:
         mistakes_id = []
     return mistakes_id
@@ -137,7 +137,7 @@ def get_entry_category_id(eid, is_om):
     return mistakes_id
 
 def get_mistakes_category_id(is_om):
-    mistakes = session.query(Mistake).filter(Mistake.is_om == is_om)
+    mistakes = session.query(Mistake).filter(Mistake.is_om == is_om, Mistake.noun != '')
     mistakes_id = [m.id for m in mistakes]
     return mistakes_id
 
