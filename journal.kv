@@ -8,6 +8,7 @@
     halign: 'center'
     markup: True
 
+     
 <Journal>:
     id: journal
     orientation: 'vertical'
@@ -19,26 +20,41 @@
         Rectangle:
             pos: self.pos
             size: self.size
-
     Label:
         size_hint: 1, 0.15
         pos_hint_y: 0
-        font_size: 30
+        font_size: 40
         halign: 'center'
-        text: 'Your score:'
-        color: C('#53F0BC')
+        text: 'Your cost:'
+        color: C('#4E2F2F')
 
-    Label:
-        id: opportunity_cost
+    MenuCanvas:
+        id: menu_canvas
         size_hint: 1, 0.35
-        pos_hint_y: 0
-        font_size: 80 
-        halign: 'center'
-        text: 'replace'
-        color: C('#53F0BC')
+        canvas:
+            Color:
+                rgba: (0, 0.7, 0.8, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+            Color: 
+                rgba: (0, 1, 0, 1)
+            Line:
+                group: 'circle'
+                width: 5 
+                circle: (self.center_x, self.center_y, (min(self.width, self.height) / 2) - 20, journal.start_angle, journal.end_angle)
+
+        Label:
+            id: opportunity_cost
+            pos: self.size
+            size: self.size
+            font_size: 80 
+            halign: 'center'
+            text: 'replace'
+            color: C('#4E2F2F')
 
     GridLayout:
-        size_hint: 1, 0.3
+        size_hint: 1, 0.35
         cols: 2
         rows: 1
         padding: 15
