@@ -163,3 +163,17 @@ class Omission(BoxLayout):
     def remove_mistake(self, mid):
         delete_mistake(mid)
         self.display_mistakes()
+
+    def add_verb(self):
+        verb = self.ids.new_verb.text
+        if verb == '':
+            popup = Popup(title='Input Error',
+                content=Label(text="Empty input"),
+                size_hint=(None, None), size=(350, 350))
+            popup.open()
+            return
+
+        # Empty noun to insert verb to DB
+        create_mistake(self.eid, True, verb, '', 0)
+        self.ids.new_verb.text = ''
+        self.display_verbs()
