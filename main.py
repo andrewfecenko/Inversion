@@ -154,6 +154,7 @@ class JournalApp(App):
 
 if __name__ == "__main__":
 
+    demo = ["Missed seminar", "Forgot to send email", "Did not brush teeth"]
     Window.size = (600, 850)
     LabelBase.register(name='Modern Pictograms', fn_regular='images/modernpics.ttf')
     JournalApp().run()
