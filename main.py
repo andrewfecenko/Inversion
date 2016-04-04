@@ -56,15 +56,22 @@ KIVY_FONTS = [
         "fn_bold": "fonts/Ubuntu-B.ttf",
         "fn_italic": "fonts/Ubuntu-RI.ttf",
     }, {
-        "name": "Exo",
-        "fn_regular": "fonts/Exo-Regular.otf",
-        "fn_bold": "fonts/Exo-Bold.otf",
-        "fn_italic": "fonts/Exo-Italic.otf",
-    }, {
         "name": "Quicksand",
         "fn_regular": "fonts/Quicksand-Regular.otf",
         "fn_bold": "fonts/Quicksand-Bold.otf",
         "fn_italic": "fonts/Quicksand-Italic.otf",
+    }, {
+        "name": "BebasNeue",
+        "fn_regular": "fonts/BebasNeue-Regular.otf",
+        "fn_bold": "fonts/BebasNeue-Bold.otf",
+    }, {
+        "name": "SourceSansPro",
+        "fn_regular": "fonts/SourceSansPro-Regular.otf",
+        "fn_bold": "fonts/SourceSansPro-Bold.otf",
+    }, {
+        "name": "OstrichSans",
+        "fn_regular": "fonts/OstrichSans-Regular.ttf",
+        "fn_bold": "fonts/OstrichSans-Bold.otf",
     }
 ]
 
