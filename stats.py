@@ -4,8 +4,6 @@ from kivy.graphics import Color
 from kivy.properties import ObjectProperty
 from database.db_model import build_database
 from database.db_function import *
-
-
 from math import sin
 from kivy.garden.graph import Graph, MeshLinePlot
 
@@ -25,6 +23,13 @@ class Stats(BoxLayout):
         # print("daily cost:" + str(day_cost))
         points_list = self.make_pairs(month_list, month_cost)
         print(points_list)
+
+        # week_costs = get_daily_mistake_num()
+        # plot.points = []
+        # for x, cost in enumerate(week_costs):
+        #     print(cost)
+        #     plot.points.append((x+1, cost))
+
 
         plot = MeshLinePlot(color=[1, 0, 0, 1])
         plot.points = points_list
