@@ -121,16 +121,13 @@ class Journal(BoxLayout):
     def __init__(self, **kwargs):
         super(Journal, self).__init__(**kwargs)
         self.score_canvas = self.ids['menu_canvas'].canvas
-        self.start_angle = 21000 
+        self.start_angle = 250
         self.end_angle = 360
         self.calculate_day_cost()
-        Clock.schedule_interval(self.update, 1/60.)
 
     def update(self, *args):
-        if self.start_angle > 36000:
-            self.start_angle = 21000
-            return
-        self.start_angle = self.start_angle + 30
+        self.start_angle = self.start_angle + 2.5 
+        self.end_angle = self.end_angle + 2.5 
 
     def calculate_day_cost(self):
         todays_eid = get_entry()
