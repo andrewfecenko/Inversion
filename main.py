@@ -43,6 +43,23 @@ Builder.load_file('kv-files/stats.kv')
 # Builder.load_file('kv-files/collection.kv')
 # Builder.load_file('kv-files/favorites.kv')
 
+KIVY_FONTS = [
+    {
+        "name": "RobotoCondensed",
+        "fn_regular": "fonts/RobotoCondensed-Light.ttf",
+        "fn_bold": "fonts/RobotoCondensed-Regular.ttf",
+        "fn_italic": "fonts/RobotoCondensed-LightItalic.ttf",
+        "fn_bolditalic": "fonts/RobotoCondensed-Italic.ttf"
+    }, {
+        "name": "Ubuntu",
+        "fn_regular": "fonts/Ubuntu-R.ttf",
+        "fn_bold": "fonts/Ubuntu-B.ttf",
+        "fn_italic": "fonts/Ubuntu-RI.ttf",
+    }
+]
+
+for font in KIVY_FONTS:
+    LabelBase.register(**font)
 
 class JournalInterfaceManager(BoxLayout):
 
