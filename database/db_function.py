@@ -137,9 +137,9 @@ def get_entry_category_id(eid, is_om):
     return mistakes_id
 
 def get_mistakes_category_id(is_om):
-	mistakes = session.query(Mistake).filter(Mistake.is_om == is_om)
-	mistakes_id = [m.id for m in mistakes]
-	return mistakes_id
+    mistakes = session.query(Mistake).filter(Mistake.is_om == is_om)
+    mistakes_id = [m.id for m in mistakes]
+    return mistakes_id
 
 def get_mistakes_range_id(begin, end):
     mistakes = session.query(Mistake).filter(Mistake.time_created <= end).\
@@ -147,18 +147,25 @@ def get_mistakes_range_id(begin, end):
     mistakes_id = [m.id for m in mistakes]
     return mistakes_id
 
+def get_mistakes_range_category_len(begin, end):
+    om = session.query(Mistake).filter(Mistake.time_created <= end).\
+        filter(Mistake.time_created >= begin).filter(Mistake.is_om == True).all()
+    cm = session.query(Mistake).filter(Mistake.time_created <= end).\
+        filter(Mistake.time_created >= begin).filter(Mistake.is_om == False).all()
+    return len(om), len(cm)
+
 
 #######################################################################
 # All functions relating keywords (verb, noun)                        #
 #######################################################################
 
 def get_all_verbs(is_om=None):
-	if is_om == True or is_om == False:
-		mistakes = session.query(Mistake).filter(Mistake.is_om == is_om)
-	else:
-		mistakes = session.query(Mistake).all()
-	verbs = sorted(set([m.verb for m in mistakes]))
-	return verbs # list of strings
+    if is_om == True or is_om == False:
+        mistakes = session.query(Mistake).filter(Mistake.is_om == is_om)
+    else:
+        mistakes = session.query(Mistake).all()
+    verbs = sorted(set([m.verb for m in mistakes]))
+    return verbs # list of strings
 
 def get_mistakes_with_verb(verb):
     mistakes = session.query(Mistake).filter(Mistake.verb == verb)
@@ -171,8 +178,8 @@ def get_mistakes_with_keyword(keyword):
     return mistakes_id
 
 def get_verb_graph(is_om=None):
-	verbs = get_all_verbs(is_om)
-	return [len(get_mistakes_with_verb(v)) for v in verbs]
+    verbs = get_all_verbs(is_om)
+    return [len(get_mistakes_with_verb(v)) for v in verbs]
 
 
 #######################################################################
@@ -195,6 +202,12 @@ def get_all_months():
     entries = session.query(Entry).all()
     months = sorted(set([e.time_created.month for e in entries]))
     return months # list of ints
+
+def days_to_ints(days):
+    ints = []
+    for d in days:
+        ints.append((d.month, d.day))
+    return ints
 
 
 #######################################################################
@@ -285,6 +298,18 @@ def get_weekly_mistake_num():
 
 def get_monthly_mistake_num():
     return get_monthly(get_range_mistake_num)
+
+def get_weekly_mistake_tuple():
+    tuples = get_weekly(get_mistakes_range_category_len)
+    om_list = [t[0] for t in tuples]
+    cm_list = [t[1] for t in tuples]
+    return (om_list, cm_list)
+
+def get_monthly_mistake_tuple():
+    tuples = get_monthly(get_mistakes_range_category_len)
+    om_list = [t[0] for t in tuples]
+    cm_list = [t[1] for t in tuples]
+    return (om_list, cm_list)
 
 
 #######################################################################
