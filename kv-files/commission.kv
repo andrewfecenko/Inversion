@@ -102,7 +102,7 @@
             id: mistakes
             size_hint_y: None
             cols: 1
-            row_default_height: '70sp'
+            row_default_height: '48sp'
             spacing: '5sp'
             height: self.minimum_height
 #            size_hint: 1, 1
@@ -164,32 +164,26 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-    Label:
+    Button:
         id: noun
         size_hint: 0.35, 1
         halign: 'left'
         font_size: '20sp'
         color: C('#52B2A8')
-        canvas.before:
-            Color:
-                rgba: C('#F6F6F6')
-            Rectangle:
-                pos: self.pos
-                size: self.size
-    Label:
+        background_color: C('#F6F6F6')
+        on_press: mistake.edit_noun()
+
+    Button:
         id: cost
         size_hint: 0.2, 1
         halign: 'left'
         font_size: '20sp'
         color: C('#52B2A8')
-        canvas.before:
-            Color:
-                rgba: C('#F6F6F6')
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        background_color: C('#F6F6F6')
+        on_press: mistake.edit_cost()
+
     Button:
-        id: edit
+        id: rm
         size_hint: 0.1, 1
         text:
             ('[font=Modern Pictograms][size=30]'
@@ -197,3 +191,14 @@
         color: C('#949494')
         background_color: C('#F6F6F6')
         on_release: mistake.remove_mistake()
+
+<EditForm>:
+    id: noun
+#    size_hint: 0.35, 1
+    hint_text: 'What'
+    halign: 'center'
+    font_size: '20sp'
+    multiline: False
+    foreground_color: C('#52B2A8')
+    background_color: C('#FFFFFF')
+    on_touch_down: self.update_mistake()

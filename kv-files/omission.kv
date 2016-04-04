@@ -6,7 +6,7 @@
     height: '48dp'
     background_color: C('#F6F6F6')
     color:C('#878787')
-
+    padding: (5, 5)
 
 <Omission>:
     id: omission
@@ -26,49 +26,19 @@
         id: form
         size_hint: 1, 0.07
         orientation: 'horizontal'
-        padding: 5
+        padding: '5sp'
 
         Button:
             id: verb
-            text: "Missed"
+            text: 'Missed'
             size_hint: 0.35, 1
             halign: 'center'
             color: C('#65E1D4')
             background_color: C('#F6F6F6')
-
-#        DropDown:
-#            id: dropdown
-#            on_parent: self.dismiss()
-#            on_select: verb.text = '{}'.format(args[1])
-
-#            Button:
-#                text: 'Bought'
-#                size_hint_y: None
-#                height: '48dp'
-#                background_color: C('#F6F6F6')
-#                color:C('#878787')
-#                on_release: dropdown.select('Bought')
-#
-#            Button:
-#                text: 'Ate'
-#                size_hint_y: None
-#                background_color: C('#F6F6F6')
-#                color:C('#878787')
-#                height: '48dp'
-#                on_release: dropdown.select('Ate')
-#
-#            Button:
-#                text: 'Killed'
-#                size_hint_y: None
-#                height: '48dp'
-#                background_color: C('#F6F6F6')
-#                color:C('#878787')
-#                on_release: dropdown.select('Killed')
-
         TextInput:
             id: noun
-            hint_text: 'What'
             size_hint: 0.35, 1
+            hint_text: 'What'
             halign: 'center'
             font_size: '20sp'
             multiline: False
@@ -100,11 +70,11 @@
 
         GridLayout:
             id: mistakes
-            size_hint: 1, 1
-            pos_hint_y: 0
+            size_hint_y: None
             cols: 1
-            row_default_height: root.height * 0.06
-            row_force_default: True
+            row_default_height: '48sp'
+            spacing: '5sp'
+            height: self.minimum_height
 
     GridLayout:
         id: menu
@@ -119,6 +89,7 @@
             Button:
                 id: Main
                 text: "Main"
+                font_size: '20sp'
                 background_color: C('#818181')
                 on_release: app.load_window('home')
         BoxLayout:
@@ -126,6 +97,7 @@
             Button:
                 id: List
                 text: "Archive"
+                font_size: '20sp'
                 background_color: C('#818181')
                 on_release: app.load_window('archive')
         BoxLayout:
@@ -133,6 +105,7 @@
             Button:
                 id: Stat
                 text: "Stat"
+                font_size: '20sp'
                 background_color: C('#818181')
                 on_release: app.load_window('omission')
 
@@ -142,6 +115,7 @@
     orientation: 'horizontal'
     padding: 5
     cols: 4
+    rows: 1
 
     Label:
         id: verb
@@ -155,32 +129,26 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-    Label:
+    Button:
         id: noun
         size_hint: 0.35, 1
         halign: 'left'
         font_size: '20sp'
         color: C('#52B2A8')
-        canvas.before:
-            Color:
-                rgba: C('#F6F6F6')
-            Rectangle:
-                pos: self.pos
-                size: self.size
-    Label:
+        background_color: C('#F6F6F6')
+        on_press: mistake.edit_noun()
+
+    Button:
         id: cost
         size_hint: 0.2, 1
         halign: 'left'
         font_size: '20sp'
         color: C('#52B2A8')
-        canvas.before:
-            Color:
-                rgba: C('#F6F6F6')
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        background_color: C('#F6F6F6')
+        on_press: mistake.edit_cost()
+
     Button:
-        id: edit
+        id: rm
         size_hint: 0.1, 1
         text:
             ('[font=Modern Pictograms][size=30]'
@@ -188,3 +156,14 @@
         color: C('#949494')
         background_color: C('#F6F6F6')
         on_release: mistake.remove_mistake()
+
+<EditForm>:
+    id: noun
+#    size_hint: 0.35, 1
+    hint_text: 'What'
+    halign: 'center'
+    font_size: '20sp'
+    multiline: False
+    foreground_color: C('#52B2A8')
+    background_color: C('#FFFFFF')
+    on_touch_down: self.update_mistake()
