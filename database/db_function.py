@@ -147,6 +147,11 @@ def get_mistakes_range_id(begin, end):
     mistakes_id = [m.id for m in mistakes]
     return mistakes_id
 
+def get_all_mistakes_id():
+    mistakes = session.query(Mistake).all()
+    mistakes_id = [m.id for m in mistakes]
+    return mistakes_id
+
 
 #######################################################################
 # All functions relating keywords (verb, noun)                        #

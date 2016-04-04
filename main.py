@@ -20,8 +20,12 @@ from omission import Omission
 from archive import Archive
 # from archive import Archive
 
-from database.db_function import get_entry, get_entry_mistakes_id, get_mistake_cost
+from database.db_function import *
 from database.db_model import build_database
+
+import json
+from nltk.tag import pos_tag
+import os.path
 
 import random
 import time
@@ -54,10 +58,13 @@ class JournalInterfaceManager(BoxLayout):
         self.windows = {}
         self.current_window = None
 
+
         # initially load the journal window as main window
         journal_menu = Journal()
         self.add_window("home", journal_menu)
         self.load_window("home")
+        self.windows['home'].get_top_mistakes()
+
 
         omission = Omission()
         self.add_window("omission", omission)
@@ -110,6 +117,12 @@ class JournalInterfaceManager(BoxLayout):
         if self.current_window == 'home':
             self.windows['home'].update()
 
+    def change_top_mistake(self, *args):
+        if self.current_window == 'home':
+            self.windows['home'].change_top_mistake()
+
+        
+
 class MenuCanvas(BoxLayout):
 
     def __init__(self, **kwargs):
@@ -128,15 +141,78 @@ class Journal(BoxLayout):
         self.start_angle = 250
         self.end_angle = 360
         self.calculate_day_cost()
-        self.demo = ["Missed seminar", "Forgot to send email", "Did not brush teeth"]
-        self.ids['mistakes'].text = random.choice(self.demo)
+        self.demo = []
+        self.get_top_mistakes()
 
     def update(self, *args):
         self.start_angle = self.start_angle + 2.5 
         self.end_angle = self.end_angle + 2.5
-        if (abs(time.time()-self.timer) >= 3):
-          self.ids['mistakes'].text = random.choice(self.demo)
-          self.timer = time.time()
+
+    def get_top_mistakes(self):
+        # get generator of all nouns in all mistakes
+    
+        '''
+        TODO: use actual priority algorithm in the future
+        if !os.path.exists('mistakes.json'):
+            self.create_initial_json()
+        try:
+            with open('mistakes.json') as data_file:
+                data = json.load(data_file)
+                for noun in data:
+                    noun_data = data[noun]
+
+                    if noun_data[0] > top_nouns[0]:
+        except IOError:
+            pass
+        '''
+        nouns = self.get_mistake_nouns()
+        counts = self.get_nouns_count(nouns)
+        top_nouns = [["",0], ["",0], ["",0]]
+
+        # get top nouns from all nouns
+        for noun, times in counts.items():
+            if times[0] > top_nouns[2][1]:
+                top_nouns.append([noun, times]) 
+                top_nouns.sort(key=lambda x: x[1], reverse=True)
+                top_nouns.pop()
+
+        for noun in top_nouns:
+            mistakes_id = get_mistakes_with_keyword(noun[0])
+            for id in mistakes_id:
+                mistake = get_mistake_verb(id) + " " + get_mistake_noun(id)
+                self.demo.append(mistake)
+
+    def create_initial_json(self):
+        nouns = self.get_mistake_nouns()
+        counts = self.get_nouns_count(nouns)
+        with open('mistakes.json', 'w') as data_file:
+            json.dump(counts, data_file)
+
+
+    def change_top_mistake(self):
+        self.ids['mistakes'].text = random.choice(self.demo)
+
+    def get_nouns_count(self, nouns):
+        counts = {}
+        for noun in nouns:
+            if noun in counts:
+                counts[noun][0] += 1
+            else:
+                counts[noun] = [1, 1]
+        return counts
+
+    def get_mistake_nouns(self):
+        mistakes_id = get_all_mistakes_id()
+        for id in mistakes_id:
+            phrase = get_mistake_noun(id)
+            tagged_sent = pos_tag(phrase.split())
+            nouns = [word for word, pos in tagged_sent if pos[0] == 'N']
+            for noun in nouns:
+                yield noun.strip('.')
+        
+
+            
+
 
     def calculate_day_cost(self):
         todays_eid = get_entry()
@@ -156,6 +232,7 @@ class JournalApp(App):
         build_database()
         self.journal = JournalInterfaceManager()
         Clock.schedule_interval(self.journal.update, 1/60.)
+        Clock.schedule_interval(self.journal.change_top_mistake, 3)
         return self.journal 
 
     def load_window(self, key):
