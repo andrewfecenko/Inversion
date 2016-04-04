@@ -1,5 +1,30 @@
 #:kivy 1.9.1
 #:import C kivy.utils.get_color_from_hex
+<CateEntry@BoxLayout>:
+    id: category_entry
+    orientation:'horizontal'
+    valign: 'top'
+    size_hint: 1, 0.1
+
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: [2, 0, 2, 0]
+
+        canvas:
+            Color:
+                rgba: 0.3, 0.3, 0.3, 0.1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            id: search_text
+            size_hint: 0.7, 1
+            padding: [5, 5]
+            font_size: '20sp'
+            color: C('#000000')
+            text: category_entry.name + ": " + category_entry.times + " times"
+
 
 <Stats>:
     id: stat
@@ -70,7 +95,7 @@
                 pos_hint: {'center_x': .5, 'center_y': .5}
 
                 BoxLayout:
-                    padding: [30, 0, 30, 0]
+                    padding: [30, 10, 30, 10]
         #            [padding_left, padding_top, padding_right, padding_bottom]
                     Button:
                         text: "Monthly"
@@ -80,13 +105,22 @@
                         on_release: stat.get_monthly_cost()
 
                 BoxLayout:
-                    padding: [30, 0, 30, 0]
+                    padding: [30, 10, 30, 10]
                     Button:
                         text: "Weekly"
                         size_hint: 1, 0.5
                         size_hint_y: None
                         background_color: C('#7DB1FF')
                         on_release: stat.get_weekly_cost()
+
+                BoxLayout:
+                    padding: [30, 10, 30, 10]
+                    Button:
+                        text: "Daily"
+                        size_hint: 1, 0.5
+                        size_hint_y: None
+                        background_color: C('#7DB1FF')
+                        on_release: stat.get_daily_cost()
 
         BoxLayout:
             size_hint: 1, 0.005
@@ -104,9 +138,11 @@
                     pos: self.pos
                     size: self.size
 
-            BoxLayout:
+            GridLayout:
                 id: graph2
+                cols: 1
                 size_hint: 0.7, 1
+
 
             BoxLayout:
                 id: options
@@ -115,7 +151,7 @@
                 pos_hint: {'center_x': .5, 'center_y': .5}
 
                 BoxLayout:
-                    padding: [30, 0, 30, 0]
+                    padding: [30, 10, 30, 10]
         #            [padding_left, padding_top, padding_right, padding_bottom]
                     Button:
                         text: "Monthly"
@@ -125,7 +161,7 @@
                         on_release: stat.get_om_cates()
 
                 BoxLayout:
-                    padding: [30, 0, 30, 0]
+                    padding: [30, 10, 30, 10]
                     Button:
                         text: "Weekly"
                         size_hint: 1, 0.5
@@ -159,7 +195,7 @@
                 pos_hint: {'center_x': .5, 'center_y': .5}
 
                 BoxLayout:
-                    padding: [30, 0, 30, 0]
+                    padding: [30, 10, 30, 10]
         #            [padding_left, padding_top, padding_right, padding_bottom]
                     Button:
                         text: "Monthly"
@@ -169,13 +205,22 @@
                         on_release: stat.get_monthly_mistakes()
 
                 BoxLayout:
-                    padding: [30, 0, 30, 0]
+                    padding: [30, 10, 30, 10]
                     Button:
                         text: "Weekly"
                         size_hint: 1, 0.5
                         size_hint_y: None
                         background_color: C('#7DB1FF')
                         on_release: stat.get_weekly_mistakes()
+
+                BoxLayout:
+                    padding: [30, 10, 30, 10]
+                    Button:
+                        text: "Daily"
+                        size_hint: 1, 0.5
+                        size_hint_y: None
+                        background_color: C('#7DB1FF')
+                        on_release: stat.get_daily_mistakes()
 
 
     BoxLayout:
