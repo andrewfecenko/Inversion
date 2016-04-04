@@ -18,7 +18,7 @@ from kivy.properties import NumericProperty
 from commission import Commission
 from omission import Omission
 from archive import Archive
-# from archive import Archive
+from stats import Stats
 
 from database.db_function import get_entry, get_entry_mistakes_id, get_mistake_cost
 from database.db_model import build_database
@@ -26,6 +26,7 @@ from database.db_model import build_database
 Builder.load_file('kv-files/commission.kv')
 Builder.load_file('kv-files/omission.kv')
 Builder.load_file('kv-files/archive.kv')
+Builder.load_file('kv-files/stats.kv')
 
 # from add_entry import AddEntry
 # from update_entry import UpdateEntry
@@ -65,6 +66,9 @@ class JournalInterfaceManager(BoxLayout):
         archive = Archive()
         self.add_window("archive", archive)
 
+        stats = Stats()
+        self.add_window("stats", stats)
+
         # # add remaining windows to tracked windows
         # enter_tasks = AddEntry()
         # self.add_window("enter_tasks", enter_tasks)
@@ -100,6 +104,9 @@ class JournalInterfaceManager(BoxLayout):
         elif key == 'archive':
             self.windows[key].order_by_time()
             self.current_window = 'archive'
+        elif key == 'stats':
+            self.current_windiw = 'stats'
+
         self.clear_widgets()
         self.add_widget(self.windows[key])
 
