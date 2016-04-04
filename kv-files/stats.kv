@@ -2,7 +2,7 @@
 #:import C kivy.utils.get_color_from_hex
 
 <Stats>:
-    id: journal
+    id: stat
     orientation: 'vertical'
     size_hint: 1, 1
 
@@ -17,36 +17,175 @@
         id: opportunity_cost
         size_hint: 1, 0.1
         pos_hint_y: 0
-        font_size: 30
+        font_size: '30sp'
         halign: 'center'
         text: 'replace'
         color: C('#53F0BC')
 
 
-    Graph:
-        id: graph
-        size_hint: 1, 0.5
-        pos_hint_y: 0
-        xLabel: 'Date'
-        yLabel: 'Cost of mistakes ($)'
-        x_ticks_minor: 1 
-        y_ticks_minor: 1
-        x_grid_label: True
-        y_grid_label: True
-        padding: 5
-        x_grid: True
-        y_grid: True
-        xmin: 0 
-        xmax: 10 
-        ymin: 0 
-        ymax: 10 
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 0.95, 1
+        pos_hint: {'center_x': .5, 'center_y': .5}
 
+        BoxLayout:
+            id: cost_graph
+            orientation: 'horizontal'
+            size_hint: 0.95, 0.1
+            pos_hint: {'center_x': .5, 'center_y': .5}
+
+            canvas:
+                Color:
+                    rgba: 0.5, 0.5, 0.5, 0.1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+#            Graph:
+#                id: graph1
+#                size_hint: 0.7, 1
+#                pos_hint_y: 0
+#                xLabel: 'Date'
+#                yLabel: 'Cost of mistakes ($)'
+#                x_ticks_minor: 1
+#                y_ticks_minor: 1
+#                x_grid_label: True
+#                y_grid_label: True
+#                padding: 5
+#                x_grid: True
+#                y_grid: True
+#                xmin: 0
+#                xmax: 10
+#                ymin: 0
+#                ymax: 100
+
+            BoxLayout:
+                id: graph1
+                size_hint: 0.7, 1
+
+            BoxLayout:
+                id: options
+                orientation: 'vertical'
+                size_hint: 0.3, 0.7
+                pos_hint: {'center_x': .5, 'center_y': .5}
+
+                BoxLayout:
+                    padding: [30, 0, 30, 0]
+        #            [padding_left, padding_top, padding_right, padding_bottom]
+                    Button:
+                        text: "Monthly"
+                        size_hint: 1, 0.5
+                        size_hint_y: None
+                        background_color: C('#7DB1FF')
+                        on_release: stat.get_monthly_cost()
+
+                BoxLayout:
+                    padding: [30, 0, 30, 0]
+                    Button:
+                        text: "Weekly"
+                        size_hint: 1, 0.5
+                        size_hint_y: None
+                        background_color: C('#7DB1FF')
+                        on_release: stat.get_weekly_cost()
+
+        BoxLayout:
+            size_hint: 1, 0.005
+
+        BoxLayout:
+            id: category_graph
+            orientation: 'horizontal'
+            size_hint: 0.95, 0.1
+            pos_hint: {'center_x': .5, 'center_y': .5}
+
+            canvas:
+                Color:
+                    rgba: 0.5, 0.5, 0.5, 0.1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                id: graph2
+                size_hint: 0.7, 1
+
+            BoxLayout:
+                id: options
+                orientation: 'vertical'
+                size_hint: 0.3, 0.7
+                pos_hint: {'center_x': .5, 'center_y': .5}
+
+                BoxLayout:
+                    padding: [30, 0, 30, 0]
+        #            [padding_left, padding_top, padding_right, padding_bottom]
+                    Button:
+                        text: "Monthly"
+                        size_hint: 1, 0.5
+                        size_hint_y: None
+                        background_color: C('#7DB1FF')
+                        on_release: stat.get_om_cates()
+
+                BoxLayout:
+                    padding: [30, 0, 30, 0]
+                    Button:
+                        text: "Weekly"
+                        size_hint: 1, 0.5
+                        size_hint_y: None
+                        background_color: C('#7DB1FF')
+                        on_release: stat.get_cm_cates()
+
+        BoxLayout:
+            size_hint: 1, 0.005
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 0.95, 0.1
+            pos_hint: {'center_x': .5, 'center_y': .5}
+
+            canvas:
+                Color:
+                    rgba: 0.5, 0.5, 0.5, 0.1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                id: graph3
+                size_hint: 0.7, 1
+
+            BoxLayout:
+                id: mistakes_graph
+                orientation: 'vertical'
+                size_hint: 0.3, 0.7
+                pos_hint: {'center_x': .5, 'center_y': .5}
+
+                BoxLayout:
+                    padding: [30, 0, 30, 0]
+        #            [padding_left, padding_top, padding_right, padding_bottom]
+                    Button:
+                        text: "Monthly"
+                        size_hint: 1, 0.5
+                        size_hint_y: None
+                        background_color: C('#7DB1FF')
+                        on_release: stat.get_monthly_mistakes()
+
+                BoxLayout:
+                    padding: [30, 0, 30, 0]
+                    Button:
+                        text: "Weekly"
+                        size_hint: 1, 0.5
+                        size_hint_y: None
+                        background_color: C('#7DB1FF')
+                        on_release: stat.get_weekly_mistakes()
+
+
+    BoxLayout:
+        size_hint: 1, 0.02
 
     GridLayout:
         id: menu
         cols: 4
         rows: 1
-        size_hint: 1, 0.05
+        size_hint: 1, None
         size: root.width, root.height * 0.05
 
         BoxLayout:
