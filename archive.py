@@ -29,7 +29,6 @@ class Archive(BoxLayout):
         # Get all mistakes and get date list
         for ind, eid in enumerate(self.all_entries):
             mistakes_id = get_entry_mistakes_id(eid)
-            print(mistakes_id)
             if mistakes_id is None:
                 continue
 
