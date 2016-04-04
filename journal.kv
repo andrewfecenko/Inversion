@@ -59,10 +59,26 @@
             #color: C('#c2bbc3') # cost color
 
     GridLayout:
-        size_hint: 1, 0.15
+        size_hint: 1, 0.055
         cols: 1
         rows: 1
         padding: 10
+        background_color: C('#e4e67f') # top mistakes
+        Label:
+            color: C('#e4e67f')
+            text: "TOP MISTAKES"
+
+    GridLayout:
+        size_hint: 1, 0.0525
+        cols: 1
+        rows: 1
+        padding: 10
+        background_color: C('#e4e67f') # top mistakes
+        Label:
+            id: mistakes
+            color: C('#e4e67f')
+            font_size: "24sp"
+
 
     GridLayout:
         size_hint: 1, 0.25
