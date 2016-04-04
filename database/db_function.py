@@ -278,6 +278,11 @@ def get_day_mistake_num(givenday=datetime.datetime.now()):
     end = givenday.replace(hour=23, minute=59, second=59, microsecond=59)
     return get_range_mistake_num(beg, end)
 
+def get_day_mistake_tuple(givenday=datetime.datetime.now()):
+    beg = givenday.replace(hour=0, minute=0, second=0, microsecond=0)
+    end = givenday.replace(hour=23, minute=59, second=59, microsecond=59)
+    return get_mistakes_range_category_len(beg, end)
+
 def get_total_mistake_num():
     beg = datetime.datetime.min
     end = datetime.datetime.max
@@ -298,6 +303,12 @@ def get_weekly_mistake_num():
 
 def get_monthly_mistake_num():
     return get_monthly(get_range_mistake_num)
+
+def get_daily_mistake_tuple():
+    tuples = get_daily(get_day_mistake_tuple)
+    om_list = [t[0] for t in tuples]
+    cm_list = [t[1] for t in tuples]
+    return (om_list, cm_list)
 
 def get_weekly_mistake_tuple():
     tuples = get_weekly(get_mistakes_range_category_len)
@@ -342,6 +353,10 @@ def partial_info_get():
     print("Daily mistkae #: {}".format(get_daily_mistake_num()))
     print("Weekly mistake #: {}".format(get_weekly_mistake_num()))
     print("Monthly mistake #: {}".format(get_monthly_mistake_num()))
+    print("")
+
+    print("Daily OM mistkae #: {}".format(get_daily_mistake_tuple()[0]))
+    print("Daily CM mistkae #: {}".format(get_daily_mistake_tuple()[1]))
     print("")
 
     print("List of OM verbs: {}".format(get_all_verbs(True)))
