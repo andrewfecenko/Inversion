@@ -6,6 +6,7 @@
     orientation:'horizontal'
     valign: 'top'
     size_hint: 1, 1
+    padding: [0, 0, 0, '2sp']
 
     canvas.before:
         Color:
@@ -16,7 +17,6 @@
 
     BoxLayout:
         orientation: 'horizontal'
-        padding: ["2sp", "2sp", "2sp", 0]
         pos_hint_y: 1
 
         TextInput:
@@ -26,20 +26,28 @@
             multiline: True
             foreground_color: C('#52B2A8')
             background_color: C('#FFFFFF')
-            padding: [5, 5]
+            font_name: 'SourceSansPro'
+
+        BoxLayout:
+            size_hint: None, None
+            width: '2sp'
 
         Button:
-            background_color: C('#818181')
-            size_hint: 0.2, 1
+            background_color: C('#5D535E')
+            size_hint: 0.4, 1
             font_size: '20sp'
-            text: 'Verb'
+            text: '[font=Quicksand]Verb[/font]'
             on_release: searchInput.verb_search()
 
+        BoxLayout:
+            size_hint: None, None
+            width: '2sp'
+
         Button:
-            background_color: C('#818181')
-            size_hint: 0.2, 1
+            background_color: C('#5D535E')
+            size_hint: 0.4, 1
             font_size: '20sp'
-            text: 'Noun'
+            text: '[font=Quicksand]Noun[/font]'
             on_release: searchInput.noun_search()
 
 
@@ -52,7 +60,7 @@
 
     canvas.before:
         Color:
-            rgba: 55/255.0, 50/255.0, 58/255.0, 1 # main color
+            rgba: C('#564d57') # main color
         Rectangle:
             pos: self.pos
             size: self.size
@@ -124,13 +132,13 @@
         GridLayout:
             cols: 4
             rows: 1
-            size_hint: 1, 0.5
+#            size_hint: 1, 0.5
 
             BoxLayout:
                 padding: ['2sp', '2sp', '2sp', '2sp']
     #            [padding_left, padding_top, padding_right, padding_bottom]
                 Button:
-                    id: Main
+                    id: by_day
                     text: "[font=Quicksand]Order by Day[/font]"
                     background_color: C('#5D535E')
                     on_release: archive.order_by_time()
@@ -139,7 +147,7 @@
             BoxLayout:
                 padding: [0, '2sp', '2sp', '2sp']
                 Button:
-                    id: List
+                    id: by_cat
                     text: "[font=Quicksand]Order by Category[/font]"
                     background_color: C('#669999')
                     on_release: archive.order_by_category()
@@ -148,7 +156,7 @@
             BoxLayout:
                 padding: [0, '2sp', '2sp', '2sp']
                 Button:
-                    id: Stat
+                    id: by_search
                     text: "[font=Quicksand]Search[/font]"
                     background_color: C('#5D535E')
                     on_release: archive.search()
@@ -176,19 +184,28 @@
 #            spacing: 30
 #            padding: 10
 
-    Label:
-        size_hint: 1, 0.01
+#    Label:
+#        size_hint: 1, 0.02
 
-    Accordion:
-        id: container
-        background_color: C('#ffffff')
-        size_hint: 1, 0.9
-        font_size: '20sp'
-        size: root.width, root.height * 0.5
-        orientation: 'vertical'
+    BoxLayout:
+        id: outer_container
+        size_hint: 1, 1
         pos: self.pos
+        orientation: "vertical"
+        padding: ['2sp', 0, '2sp', 0]
 
+        BoxLayout:
+            id: search_holder
+            size_hint: 1, 0
 
+        Accordion:
+            id: container
+            background_color: C('#ffffff')
+            size_hint: 1, 1
+            font_size: '20sp'
+            size: root.width, root.height * 0.5
+            orientation: 'vertical'
+            pos: self.pos
 
     GridLayout:
         id: menu
@@ -198,8 +215,8 @@
         size: root.width, root.height * 0.10
 
         BoxLayout:
-            padding: ['2sp', 0, 0, '2sp']
-#            [padding_left, padding_top, padding_right, padding_bottom]
+            padding: ['2sp', '2sp', 0, '2sp']
+    #            [padding_left, padding_top, padding_right, padding_bottom]
             Button:
                 id: Main
                 font_size: '20sp'
@@ -207,7 +224,7 @@
                 background_color: C('#5D535E') # bottom menu1
                 on_release: app.load_window('home')
         BoxLayout:
-            padding: ['2sp', 0, '2sp', '2sp']
+            padding: ['2sp', '2sp', '2sp', '2sp']
             Button:
                 id: List
                 font_size: '20sp'
@@ -215,11 +232,10 @@
                 background_color: C('#669999') # buttom menu2
                 on_release: app.load_window('archive')
         BoxLayout:
-            padding: [0, 0, '2sp', '2sp']
+            padding: [0, '2sp', '2sp', '2sp']
             Button:
                 id: Stat
                 font_size: '20sp'
                 text: "[font=Quicksand]Stat[/font]"
                 background_color: C('#5D535E') # buttom menu3
                 on_release: app.load_window('stats')
-
