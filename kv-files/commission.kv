@@ -84,7 +84,7 @@
             font_name: 'SourceSansPro'
             font_size: '20sp'
             multiline: False
-            foreground_color: C('#52B2A8')
+            foreground_color: C('#5D535E')
             background_color: C('#FFFFFF')
         TextInput:
             id: cost
@@ -94,7 +94,7 @@
             font_name: "SourceSansPro"
             font_size: '20sp'
             multiline: False
-            foreground_color: C('#52B2A8')
+            foreground_color: C('#5D535E')
             background_color: C('#FFFFFF')
         Button:
             id: submit
@@ -102,7 +102,7 @@
             text:
                 ('[font=Modern Pictograms][size=30]'
                 '-[/size][/font]')
-            background_color: C('#FF7D7D')
+            background_color: C('#7DB1FF')
             on_release: commission.submit_form()
 
     ScrollView:
@@ -138,7 +138,7 @@
             font_size: "SourceSansPro"
             font_size: '20sp'
             multiline: False
-            foreground_color: C('#52B2A8')
+            foreground_color: C('#5D535E')
             background_color: C('#FFFFFF')
         Button:
             id: add_verb_btn
@@ -146,7 +146,7 @@
             text:
                 ('[font=Modern Pictograms][size=30]'
                 '+[/size][/font]')
-            background_color: C('#FF7D7D')
+            background_color: C('#7DB1FF')
             on_release: commission.add_verb()
 
     GridLayout:
@@ -166,7 +166,7 @@
                 background_color: C('#669999')
                 on_release: app.load_window('home')
         BoxLayout:
-            padding: [2, 0, 2, 2]
+            padding: ['2sp', 0, 0, '2sp']
             Button:
                 id: List
                 text: "[font=Quicksand]Archive[/font]"
@@ -174,10 +174,11 @@
                 background_color: C('#5D535E')
                 on_release: app.load_window('archive')
         BoxLayout:
-            padding: [0, 0, 2, 2]
+            padding: ['2sp', 0, 0, '2sp']
             Button:
                 id: Stat
                 text: "[font=Quicksand]Stat[/font]"
+                font_size: '20sp'
                 background_color: C('#5D535E')
                 on_release: app.load_window('stats')
 
@@ -237,9 +238,9 @@
 #    size_hint: 0.35, 1
     hint_text: 'What'
     halign: 'center'
-    font_name: "SourceSansPro"
+    font_name: 'SourceSansPro'
     font_size: '20sp'
     multiline: False
-    foreground_color: C('#52B2A8')
+    foreground_color: C('#5D535E')
     background_color: C('#FFFFFF')
     on_touch_down: self.update_mistake()
