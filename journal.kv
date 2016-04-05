@@ -55,8 +55,7 @@
             halign: 'center'
             text: 'replace'
             bold: False
-            color: C('#ED5752')
-            #color: C('#c2bbc3') # cost color
+            color: C('#ED5752') # cost color
 
     GridLayout:
         size_hint: 1, 0.055
@@ -65,8 +64,10 @@
         padding: 10
         background_color: C('#e4e67f') # top mistakes
         Label:
-            color: C('#e4e67f')
+            color: C('#669999')
+            font_name: 'Quicksand'
             text: "TOP MISTAKES"
+            bold: True
 
     GridLayout:
         size_hint: 1, 0.0525
@@ -76,8 +77,9 @@
         background_color: C('#e4e67f') # top mistakes
         Label:
             id: mistakes
-            color: C('#e4e67f')
-            font_size: "24sp"
+            color: C('#9d939f')
+            font_name: 'Quicksand'
+            font_size: "30sp"
 
 
     GridLayout:
