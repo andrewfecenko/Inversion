@@ -212,8 +212,8 @@ class Stats(BoxLayout):
 
         for (name, times) in zip(all_om_verbs, get_verb_graph(True)):
             label_om = CateEntry(name=name, times=str(times))
-            print(name)
-            print(times)
+            # print(name)
+            # print(times)
             grid.add_widget(label_om)
 
     def get_cm_cates(self):
@@ -228,8 +228,8 @@ class Stats(BoxLayout):
 
         for (name, times) in zip(all_cm_verbs, get_verb_graph(False)):
             label_om = CateEntry(name=name, times=str(times))
-            print(name)
-            print(times)
+            # print(name)
+            # print(times)
             grid.add_widget(label_om)
 
     def get_daily_mistakes(self):
@@ -258,8 +258,8 @@ class Stats(BoxLayout):
         plot_cm = SmoothLinePlot(color=[1, 0, 0, 1])
         plot_cm.points = points_cm_list
 
-        print("om:" + str(points_om_list)) #Blue
-        print("cm:" + str(points_cm_list)) # Red
+        # print("om:" + str(points_om_list)) #Blue
+        # print("cm:" + str(points_cm_list)) # Red
 
         self.graph7.add_plot(plot_om)
         self.graph7.add_plot(plot_cm)
@@ -279,8 +279,8 @@ class Stats(BoxLayout):
         plot_cm = SmoothLinePlot(color=[1, 0, 0, 1])
         plot_cm.points = points_cm_list
 
-        print("om:" + str(points_om_list)) #Blue
-        print("cm:" + str(points_cm_list)) # Red
+        # print("om:" + str(points_om_list)) #Blue
+        # print("cm:" + str(points_cm_list)) # Red
 
         # month_mistakes = get_monthly_mistake_num()
         # points_list = self.make_pairs(month_list, month_mistakes)
@@ -305,8 +305,8 @@ class Stats(BoxLayout):
         plot_cm = SmoothLinePlot(color=[1, 0, 0, 1])
         plot_cm.points = points_cm_list
 
-        print("om:" + str(points_om_list)) #Blue
-        print("cm:" + str(points_cm_list)) # Red
+        # print("om:" + str(points_om_list)) #Blue
+        # print("cm:" + str(points_cm_list)) # Red
 
         # week_mistakes = get_weekly_mistake_num()
         # points_list = self.make_pairs(week_list, week_mistakes)

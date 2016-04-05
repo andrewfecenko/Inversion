@@ -5,16 +5,27 @@
     search_text: self.ids.search_text.text
     orientation:'horizontal'
     valign: 'top'
-    size_hint: 1, 0.5
+    size_hint: 1, 1
+
+    canvas.before:
+        Color:
+            rgba: 66/255.0, 60/255.0, 68/255.0, 1 # main color
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
     BoxLayout:
         orientation: 'horizontal'
-        padding: [2, 0, 2, 0]
+        padding: ["2sp", "2sp", "2sp", 0]
+        pos_hint_y: 1
 
         TextInput:
             id: search_text
             size_hint: 0.6, 1
+            font_size: '20sp'
             multiline: True
+            foreground_color: C('#52B2A8')
+            background_color: C('#FFFFFF')
             padding: [5, 5]
 
         Button:
@@ -39,9 +50,9 @@
     valign: 'top'
     size_hint: (1, None)
 
-    canvas:
+    canvas.before:
         Color:
-            rgba: 0.5, 0.5, 0.5, 0.3
+            rgba: 55/255.0, 50/255.0, 58/255.0, 1 # main color
         Rectangle:
             pos: self.pos
             size: self.size
@@ -55,25 +66,31 @@
     BoxLayout:
         orientation: 'horizontal'
         size_hint: 1, 1
+        color: C('#423C44')
 
         Label:
             size_hint: 3, 1
-            font_size: '25sp'
+            font_size: '20sp'
             markup: True
-            text: '[b]'+ entry.verb + '[/b]'
+            font_name: 'Quicksand'
+            color: C('#c2bbc3')
+            text: entry.verb
 
         Label:
             size_hint: 3, 1
-            font_size: '25sp'
+            font_size: '20sp'
             markup: True
-            text: '[b]'+ entry.name + '[/b]'
+            color: C('#c2bbc3')
+            font_name: 'SourceSansPro'
+            text: entry.name
 
         Label:
             size_hint: 1, 1
-            font_size: '25sp'
+            font_size: '20sp'
             markup: True
-            color: C('#DE3612')
-            text: '[b]'+ entry.cost + '[/b]'
+            color: C('#ED5752')
+            font_name: 'SourceSansPro'
+            text: '[b]$'+ entry.cost + '[/b]'
 
 
 
@@ -86,7 +103,7 @@
 
     canvas.before:
         Color:
-            rgba: 1, 1, 1, 1
+            rgba: 66/255.0, 60/255.0, 68/255.0, 1 # main color
         Rectangle:
             pos: self.pos
             size: self.size
@@ -102,7 +119,7 @@
     BoxLayout:
         id: navbar
         orientation: 'vertical'
-        size_hint: 1, None
+        size_hint: 1, 0.08
 
         GridLayout:
             cols: 4
@@ -110,32 +127,32 @@
             size_hint: 1, 0.5
 
             BoxLayout:
-                padding: [2, 0, 0, 2]
+                padding: ['2sp', '2sp', '2sp', '2sp']
     #            [padding_left, padding_top, padding_right, padding_bottom]
                 Button:
                     id: Main
-                    text: "Order by Day"
-                    background_color: C('#818181')
+                    text: "[font=Quicksand]Order by Day[/font]"
+                    background_color: C('#5D535E')
                     on_release: archive.order_by_time()
-                    font_size: '20sp'
+                    font_size: '17sp'
 
             BoxLayout:
-                padding: [2, 0, 2, 2]
+                padding: [0, '2sp', '2sp', '2sp']
                 Button:
                     id: List
-                    text: "Order by Category"
-                    background_color: C('#818181')
+                    text: "[font=Quicksand]Order by Category[/font]"
+                    background_color: C('#669999')
                     on_release: archive.order_by_category()
-                    font_size: '20sp'
+                    font_size: '17sp'
 
             BoxLayout:
-                padding: [0, 0, 2, 2]
+                padding: [0, '2sp', '2sp', '2sp']
                 Button:
                     id: Stat
-                    text: "Search"
-                    background_color: C('#818181')
+                    text: "[font=Quicksand]Search[/font]"
+                    background_color: C('#5D535E')
                     on_release: archive.search()
-                    font_size: '20sp'
+                    font_size: '17sp'
 
 #    GridLayout:
 #        id: mistake_scroll
@@ -164,6 +181,7 @@
 
     Accordion:
         id: container
+        background_color: C('#ffffff')
         size_hint: 1, 0.9
         font_size: '20sp'
         size: root.width, root.height * 0.5
@@ -176,31 +194,32 @@
         id: menu
         cols: 4
         rows: 1
-        size_hint: 1, 0.05
+        size_hint: 1, None
+        size: root.width, root.height * 0.10
 
         BoxLayout:
-            padding: [2, 0, 0, 2]
+            padding: ['2sp', 0, 0, '2sp']
 #            [padding_left, padding_top, padding_right, padding_bottom]
             Button:
                 id: Main
-                text: "Main"
-                background_color: C('#818181')
-                on_release: app.load_window('home')
                 font_size: '20sp'
+                text: "[font=Quicksand]Main[/font]"
+                background_color: C('#5D535E') # bottom menu1
+                on_release: app.load_window('home')
         BoxLayout:
-            padding: [2, 0, 2, 2]
+            padding: ['2sp', 0, '2sp', '2sp']
             Button:
                 id: List
-                text: "Archive"
-                background_color: C('#DE3612')
-                on_release: app.load_window('archive')
                 font_size: '20sp'
-
+                text: "[font=Quicksand]Archive[/font]"
+                background_color: C('#669999') # buttom menu2
+                on_release: app.load_window('archive')
         BoxLayout:
-            padding: [0, 0, 2, 2]
+            padding: [0, 0, '2sp', '2sp']
             Button:
                 id: Stat
-                text: "Stats"
-                background_color: C('#818181')
+                font_size: '20sp'
+                text: "[font=Quicksand]Stat[/font]"
+                background_color: C('#5D535E') # buttom menu3
                 on_release: app.load_window('stats')
 
