@@ -18,10 +18,10 @@ class Stats(BoxLayout):
         cost_max = self.calculate_day_cost()
         self.graph_theme = {
                 'label_options': {
-                    'color': (0, 0, 0, 1),  # color of tick labels and titles
+                    'color': (255, 204, 204, 1),  # color of tick labels and titles
                     'bold': True},
                 'tick_color': (52, 152, 100, 1),  # ticks and grid
-                'border_color': (33, 152, 219, 1)}  # border drawn around each graph
+                'border_color': (255, 204, 204, 1)}  # border drawn around each graph
 
         # Monthly cost graph
         self.graph1 = Graph(
@@ -205,7 +205,7 @@ class Stats(BoxLayout):
         self.ids['graph2'].clear_widgets()
 
         scroll = ScrollView()
-        grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='50dp', row_force_default=True, spacing=20, padding=20)
+        grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='30dp', row_force_default=True, spacing=20, padding=20)
         grid.bind(minimum_height=grid.setter('height'))
         scroll.add_widget(grid)
         self.ids['graph2'].add_widget(scroll)
@@ -221,7 +221,7 @@ class Stats(BoxLayout):
         self.ids['graph2'].clear_widgets()
 
         scroll = ScrollView()
-        grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='50dp', row_force_default=True, spacing=20, padding=20)
+        grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='30dp', row_force_default=True, spacing=20, padding=20)
         grid.bind(minimum_height=grid.setter('height'))
         scroll.add_widget(grid)
         self.ids['graph2'].add_widget(scroll)
