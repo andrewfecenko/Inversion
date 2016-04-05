@@ -8,21 +8,23 @@
 
     BoxLayout:
         orientation: 'horizontal'
-        padding: [2, 0, 2, 0]
+        padding: ['2sp', 0, '2sp', 0]
 
-        canvas:
+        canvas.before:
             Color:
-                rgba: 123, 143, 149, 1
+                rgba: 170/255.0, 160/255.0, 171/255.0, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
+                #source: "images/stat_label.png"
 
         Label:
             id: search_text
             size_hint: 0.7, 1
             padding: [5, 5]
+            font_name: 'Quicksand'
             font_size: '20sp'
-            color: C('#000000')
+            color: C('#433c44')
             text: category_entry.name + ": " + category_entry.times + " times"
 
 # <ScrollView>
@@ -46,13 +48,13 @@
 
     Label:
         id: opportunity_cost
-        size_hint: 1, 0.1
+        size_hint: 1, 0.06
         pos_hint_y: 0
+        font_name: 'Quicksand'
         font_size: '30sp'
         halign: 'center'
         text: 'replace'
         color: C('#9d939f')
-        font_name: "Ubuntu"
 
     BoxLayout:
         orientation: 'vertical'
@@ -60,21 +62,10 @@
         pos_hint: {'center_x': .5, 'center_y': .5}
 
         BoxLayout:
-            size_hint: 0.95, 0.01
-
-            Label:
-                text: "COST"
-                color: C('#c2bbc3')
-                font_name: "Quicksand"
-
-
-
-        BoxLayout:
-            id: cost_graph
+        	id: cost_graph
             orientation: 'horizontal'
-            size_hint: 0.95, 0.1
+            size_hint: 0.95, 0.07
             pos_hint: {'center_x': .5, 'center_y': .5}
-
 
             canvas:
                 Color:
@@ -83,7 +74,6 @@
                     pos: self.pos
                     size: self.size
 
-
             BoxLayout:
                 id: graph1
                 size_hint: 0.7, 1
@@ -91,55 +81,55 @@
             BoxLayout:
                 id: options
                 orientation: 'vertical'
-                size_hint: 0.3, 1
-                pos_hint: {'center_x': .3, 'center_y': .5}
-
+                size_hint: 0.3, 0.8
+                pos_hint: {'center_x': .5, 'center_y': .5}
                 BoxLayout:
-                    padding: [30, 10, 30, 9]
+                	padding: [0, 0, 0, '5sp']
+                	size_hint: 1, 0.15
+                	Label:
+                		text: 'COST'
+                		color: C('#c2bbc3')
+                		font_name: "Quicksand"
+                BoxLayout:
+                    padding: ['30sp', '10sp', 0, '10sp']
+                    size_hint: 0.85, 0.25
         #            [padding_left, padding_top, padding_right, padding_bottom]
                     Button:
-                        text: "Monthly"
-                        size_hint: 1, 0.8
-                        font_size: 16
+                        text: "Daily"
                         font_name: "Quicksand"
+                        size_hint: 1, 1.2
+                        font_size: 16
                         background_color: C('#a27977')
-                        on_release: stat.get_monthly_cost()
+                        on_release: stat.get_daily_cost()
 
                 BoxLayout:
-                    padding: [30, 10, 30, 9]
+                    padding: ['30sp', '10sp', 0, '10sp']
+                    size_hint: 0.85, 0.25
                     Button:
                         text: "Weekly"
                         font_name: "Quicksand"
-                        size_hint: 1, 0.8
+                        size_hint: 1, 1.2
                         font_size: 16
                         background_color: C('#a27977')
                         on_release: stat.get_weekly_cost()
 
                 BoxLayout:
-                    padding: [30, 10, 30, 9]
+                    padding: ['30sp', '10sp', 0, '10sp']
+                    size_hint: 0.85, 0.25
                     Button:
-                        text: "Daily"
+                        text: "Monthly"
                         font_name: "Quicksand"
-                        size_hint: 1, 0.8
+                        size_hint: 1, 1.2
                         font_size: 16
                         background_color: C('#a27977')
-                        on_release: stat.get_daily_cost()
-
+                        on_release: stat.get_monthly_cost()
 
         BoxLayout:
-            size_hint: 1, 0.01
-
-            BoxLayout:
-                size_hint: 0.95, 0.03
-
-                Label:
-                    text: "MISTAKES #"
-                    color: C('#c2bbc3')
-                    font_name: "Quicksand"
+            size_hint: 0.95, 0.004
 
         BoxLayout:
             orientation: 'horizontal'
-            size_hint: 0.95, 0.1
+            size_hint: 0.95, 0.07
             pos_hint: {'center_x': .5, 'center_y': .5}
 
             canvas:
@@ -158,20 +148,28 @@
                 orientation: 'vertical'
                 size_hint: 0.3, 0.8
                 pos_hint: {'center_x': .5, 'center_y': .5}
-
                 BoxLayout:
-                    padding: [30, 10, 30, 10]
+                	padding: [0, 0, 0, '5sp']
+                	size_hint: 1, 0.15
+                	Label:
+                		text: 'MISTAKES #'
+                		color: C('#c2bbc3')
+                		font_name: "Quicksand"
+                BoxLayout:
+                    padding: ['30sp', '10sp', 0, '10sp']
+                    size_hint: 0.85, 0.25
         #            [padding_left, padding_top, padding_right, padding_bottom]
                     Button:
-                        text: "Monthly"
+                        text: "Daily"
                         font_name: "Quicksand"
                         size_hint: 1, 1.2
                         font_size: 16
                         background_color: C('#a27977')
-                        on_release: stat.get_monthly_mistakes()
+                        on_release: stat.get_daily_mistakes()
 
                 BoxLayout:
-                    padding: [30, 10, 30, 10]
+                    padding: ['30sp', '10sp', 0, '10sp']
+                    size_hint: 0.85, 0.25
                     Button:
                         text: "Weekly"
                         font_name: "Quicksand"
@@ -181,31 +179,25 @@
                         on_release: stat.get_weekly_mistakes()
 
                 BoxLayout:
-                    padding: [30, 10, 30, 10]
+                    padding: ['30sp', '10sp', 0, '10sp']
+                    size_hint: 0.85, 0.25
                     Button:
-                        text: "Daily"
+                        text: "Monthly"
                         font_name: "Quicksand"
                         size_hint: 1, 1.2
                         font_size: 16
                         background_color: C('#a27977')
-                        on_release: stat.get_daily_mistakes()
+                        on_release: stat.get_monthly_mistakes()
+
 
     BoxLayout:
-        size_hint: 1, 0.01
-
-    BoxLayout:
-        size_hint: 0.95, 0.02
-
-        Label:
-            text: "CATEGORY"
-            color: C('#c2bbc3')
-            font_name: "Quicksand"
+        size_hint: 0.95, 0.01
 
 
     BoxLayout:
         id: category_graph
         orientation: 'horizontal'
-        size_hint: 0.9, 0.1
+        size_hint: 0.9, 0.12
         pos_hint: {'center_x': .5, 'center_y': .5}
 
         canvas:
@@ -226,61 +218,68 @@
             orientation: 'vertical'
             size_hint: 0.3, 0.8
             pos_hint: {'center_x': .5, 'center_y': .5}
-
             BoxLayout:
-                padding: [30, 10, 30, 10]
+            	size_hint: 1, 0.15
+            	Label:
+            		text: 'CATEGORY'
+            		color: C('#c2bbc3')
+            		font_name: "Quicksand"
+            BoxLayout:
+                padding: ['30sp', '5sp', 0, '5sp']
+                size_hint: 0.85, 0.4
     #            [padding_left, padding_top, padding_right, padding_bottom]
                 Button:
                     text: "Omission"
                     font_name: "Quicksand"
-                    size_hint: 1, 0.5
+                    size_hint: 1, 0.9
                     font_size: 16
                     background_color: C('#ff7d7d')
                     on_release: stat.get_om_cates()
 
             BoxLayout:
-                padding: [30, 10, 30, 10]
+                padding: ['30sp', '5sp', 0, '5sp']
+                size_hint: 0.85, 0.4
                 Button:
                     text: "Commission"
                     font_name: "Quicksand"
-                    size_hint: 1, 0.5
+                    size_hint: 1, 0.9
                     font_size: 16
                     background_color: C('#7db1ff')
                     on_release: stat.get_cm_cates()
 
 
     BoxLayout:
-        size_hint: 1, 0.02
+        size_hint: 1, 0.01
 
     GridLayout:
         id: menu
         cols: 4
         rows: 1
         size_hint: 1, None
-        size: root.width, root.height * 0.08
+        size: root.width, root.height * 0.10
 
         BoxLayout:
-            padding: [2, 0, 0, 2]
+            padding: ['2sp', '2sp', 0, '2sp']
 #            [padding_left, padding_top, padding_right, padding_bottom]
             Button:
                 id: Main
-                text: "Main"
-                font_name: "Quicksand"
+                font_size: '20sp'
+                text: "[font=Quicksand]Main[/font]"
+                background_color: C('#669999') # bottom menu1
                 on_release: app.load_window('home')
-                background_color: C('#5D535E')
         BoxLayout:
-            padding: [2, 0, 2, 2]
+            padding: ['2sp', '2sp', '2sp', '2sp']
             Button:
                 id: List
-                text: "Archive"
-                font_name: "Quicksand"
-                background_color: C('#5D535E')
+                font_size: '20sp'
+                text: "[font=Quicksand]Archive[/font]"
+                background_color: C('#5D535E') # buttom menu2
                 on_release: app.load_window('archive')
         BoxLayout:
-            padding: [0, 0, 2, 2]
+            padding: [0, '2sp', '2sp', '2sp']
             Button:
                 id: Stat
-                text: "Stats"
-                font_name: "Quicksand"
+                font_size: '20sp'
+                text: "[font=Quicksand]Stat[/font]"
+                background_color: C('#5D535E') # buttom menu3
                 on_release: app.load_window('stats')
-                background_color: C('#669999')

@@ -55,8 +55,7 @@
             halign: 'center'
             text: 'replace'
             bold: False
-            color: C('#ED5752')
-            #color: C('#c2bbc3') # cost color
+            color: C('#ED5752') # cost color
 
     GridLayout:
         size_hint: 1, 0.055
@@ -65,8 +64,10 @@
         padding: 10
         background_color: C('#e4e67f') # top mistakes
         Label:
-            color: C('#e4e67f')
+            color: C('#669999')
+            font_name: 'Quicksand'
             text: "TOP MISTAKES"
+            bold: True
 
     GridLayout:
         size_hint: 1, 0.0525
@@ -76,8 +77,9 @@
         background_color: C('#e4e67f') # top mistakes
         Label:
             id: mistakes
-            color: C('#e4e67f')
-            font_size: "24sp"
+            color: C('#9d939f')
+            font_name: 'Quicksand'
+            font_size: "30sp"
 
 
     GridLayout:
@@ -116,15 +118,16 @@
         size: root.width, root.height * 0.10
 
         BoxLayout:
-            padding: ['2sp', 0, 0, '2sp']
+            padding: ['2sp', '2sp', 0, '2sp']
 #            [padding_left, padding_top, padding_right, padding_bottom]
             Button:
                 id: Main
                 font_size: '20sp'
                 text: "[font=Quicksand]Main[/font]"
                 background_color: C('#669999') # bottom menu1
+                on_release: app.load_window('home')
         BoxLayout:
-            padding: ['2sp', 0, '2sp', '2sp']
+            padding: ['2sp', '2sp', '2sp', '2sp']
             Button:
                 id: List
                 font_size: '20sp'
@@ -132,10 +135,11 @@
                 background_color: C('#5D535E') # buttom menu2
                 on_release: app.load_window('archive')
         BoxLayout:
-            padding: [0, 0, '2sp', '2sp']
+            padding: [0, '2sp', '2sp', '2sp']
             Button:
                 id: Stat
                 font_size: '20sp'
                 text: "[font=Quicksand]Stat[/font]"
                 background_color: C('#5D535E') # buttom menu3
                 on_release: app.load_window('stats')
+

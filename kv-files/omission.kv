@@ -4,8 +4,9 @@
 <OmOption>:
     size_hint_y: None
     height: '48dp'
-    background_color: C('#F6F6F6')
-    color:C('#878787')
+    background_color: C('#669999') # drop down background
+    font_name: "Quicksand"
+    color: C('#857887')
     padding: (5, 5)
 
 <Omission>:
@@ -15,43 +16,55 @@
 
     canvas.before:
         Color:
-            rgba: 1, 1, 1, 1
+            rgba: 66/255.0, 60/255.0, 68/255.0, 1 # main color
         Rectangle:
             pos: self.pos
             size: self.size
-
+    Label:
+        size_hint: 1, 0.15
+        pos_hint_y: 0
+        font_name: "Quicksand"
+        font_size: '36sp'
+        halign: 'center'
+        text: 'Omission Mistakes'
+        bold: False
+        color: C('#9d939f') # top letters
 
     # Input area
     BoxLayout:
         id: form
-        size_hint: 1, 0.07
+        size_hint: 1, 0.099
         orientation: 'horizontal'
         padding: '5sp'
 
         Button:
             id: verb
-            text: 'Missed'
+            text: 'Did not'
             size_hint: 0.35, 1
+            font_name: "Quicksand"
+            bold: True
             halign: 'center'
-            color: C('#65E1D4')
-            background_color: C('#F6F6F6')
+            color: C('#857887')
+            background_color: C('#669999') # drop down main button
         TextInput:
             id: noun
             size_hint: 0.35, 1
             hint_text: 'What'
             halign: 'center'
+            font_name: 'SourceSansPro'
             font_size: '20sp'
             multiline: False
-            foreground_color: C('#52B2A8')
+            foreground_color: C('#5D535E')
             background_color: C('#FFFFFF')
         TextInput:
             id: cost
             size_hint: 0.2, 1
             hint_text: '$$$'
             halign: 'center'
+            font_name: "SourceSansPro"
             font_size: '20sp'
             multiline: False
-            foreground_color: C('#52B2A8')
+            foreground_color: C('#5D535E')
             background_color: C('#FFFFFF')
         Button:
             id: submit
@@ -59,7 +72,7 @@
             text:
                 ('[font=Modern Pictograms][size=30]'
                 '/[/size][/font]')
-            background_color: C('#7DB1FF')
+            background_color: C('#FF7D7D')
             on_release: omission.submit_form()
 
     ScrollView:
@@ -78,7 +91,7 @@
 
     BoxLayout:
         id: add_verb
-        size_hint: 1, 0.07
+        size_hint: 1, 0.09
         orientation: 'horizontal'
         padding: '5sp'
 
@@ -87,9 +100,10 @@
             size_hint: 0.7, 1
             hint_text: 'New verb'
             halign: 'center'
+            font_size: "SourceSansPro"
             font_size: '20sp'
             multiline: False
-            foreground_color: C('#52B2A8')
+            foreground_color: C('#5D535E')
             background_color: C('#FFFFFF')
         Button:
             id: add_verb_btn
@@ -97,7 +111,7 @@
             text:
                 ('[font=Modern Pictograms][size=30]'
                 '+[/size][/font]')
-            background_color: C('#7DB1FF')
+            background_color: C('#FF7D7D')
             on_release: omission.add_verb()
 
     GridLayout:
@@ -105,33 +119,34 @@
         cols: 4
         rows: 1
         size_hint: 1, None
-        size: root.width, root.height * 0.05
+        size: root.width, root.height * 0.10
 
         BoxLayout:
-            padding: [2, 0, 0, 2]
+            padding: ['2sp', '2sp', 0, '2sp']
 #            [padding_left, padding_top, padding_right, padding_bottom]
             Button:
                 id: Main
-                text: "Main"
                 font_size: '20sp'
-                background_color: C('#818181')
+                text: "[font=Quicksand]Main[/font]"
+                background_color: C('#669999') # bottom menu1
                 on_release: app.load_window('home')
         BoxLayout:
-            padding: [2, 0, 2, 2]
+            padding: ['2sp', '2sp', '2sp', '2sp']
             Button:
                 id: List
-                text: "Archive"
                 font_size: '20sp'
-                background_color: C('#818181')
+                text: "[font=Quicksand]Archive[/font]"
+                background_color: C('#5D535E') # buttom menu2
                 on_release: app.load_window('archive')
         BoxLayout:
-            padding: [0, 0, 2, 2]
+            padding: [0, '2sp', '2sp', '2sp']
             Button:
                 id: Stat
-                text: "Stats"
                 font_size: '20sp'
-                background_color: C('#818181')
+                text: "[font=Quicksand]Stat[/font]"
+                background_color: C('#5D535E') # buttom menu3
                 on_release: app.load_window('stats')
+
 
 <OmMistake>:
     id: mistake
@@ -145,11 +160,12 @@
         id: verb
         size_hint: 0.35, 1
         halign: 'left'
+        font_name: "Quicksand"
         font_size: '20sp'
-        color: C('#52B2A8')
+        color: C('#c2bbc3')
         canvas.before:
             Color:
-                rgba: C('#F6F6F6')
+                rgba: C('#5D535E') # list view verb
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -157,18 +173,20 @@
         id: noun
         size_hint: 0.35, 1
         halign: 'left'
+        font_name: "SourceSansPro"
         font_size: '20sp'
-        color: C('#52B2A8')
-        background_color: C('#F6F6F6')
+        color: C('#c2bbc3')
+        background_color: C('#5D535E') # list view noun
         on_press: mistake.edit_noun()
 
     Button:
         id: cost
         size_hint: 0.2, 1
         halign: 'left'
+        font_name: "SourceSansPro"
         font_size: '20sp'
-        color: C('#52B2A8')
-        background_color: C('#F6F6F6')
+        color: C('#c2bbc3')
+        background_color: C('#5D535E') # list view cost
         on_press: mistake.edit_cost()
 
     Button:
@@ -177,8 +195,8 @@
         text:
             ('[font=Modern Pictograms][size=30]'
             'X[/size][/font]')
-        color: C('#949494')
-        background_color: C('#F6F6F6')
+        color: C('#c2bbc3')
+        background_color: C('#5D535E') # list view delete button
         on_release: mistake.remove_mistake()
 
 <EditForm>:
@@ -186,8 +204,9 @@
 #    size_hint: 0.35, 1
     hint_text: 'What'
     halign: 'center'
+    font_name: "SourceSansPro"
     font_size: '20sp'
     multiline: False
-    foreground_color: C('#52B2A8')
+    foreground_color: C('#5D535E')
     background_color: C('#FFFFFF')
     on_touch_down: self.update_mistake()

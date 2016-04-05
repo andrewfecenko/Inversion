@@ -18,10 +18,10 @@ class Stats(BoxLayout):
         cost_max = self.calculate_day_cost()
         self.graph_theme = {
                 'label_options': {
-                    'color': (255, 204, 204, 1),  # color of tick labels and titles
-                    'bold': True},
-                'tick_color': (52, 152, 100, 1),  # ticks and grid
-                'border_color': (255, 204, 204, 1)}  # border drawn around each graph
+                    'color': (182/255.0, 174/255.0, 183/255.0, 1),  # color of tick labels and titles
+                    'bold': False},
+                'tick_color': (1, 1, 1, 1),  # ticks and grid
+                'border_color': (182/255.0, 174/255.0, 183/255.0, 1)}  # border drawn around each graph
 
         # Monthly cost graph
         self.graph1 = Graph(
@@ -165,7 +165,7 @@ class Stats(BoxLayout):
         points_list = self.make_pairs(new_day_list, day_cost)
         print(points_list)
 
-        plot = SmoothLinePlot(color=[1, 0, 0, 1])
+        plot = SmoothLinePlot(color=[162/255.0, 121/255.0, 119/255.0, 1])
         plot.points = points_list
 
         self.graph8.add_plot(plot)
@@ -180,7 +180,7 @@ class Stats(BoxLayout):
         points_list = self.make_pairs(month_list, month_cost)
         print(points_list)
 
-        plot = SmoothLinePlot(color=[1, 0, 0, 1])
+        plot = SmoothLinePlot(color=[162/255.0, 121/255.0, 119/255.0, 1])
         plot.points = points_list
         self.graph1.add_plot(plot)
         self.ids['graph1'].remove_widget(self.graph8)
@@ -193,7 +193,7 @@ class Stats(BoxLayout):
         points_list = self.make_pairs(week_list, week_cost)
         print(points_list)
 
-        plot = SmoothLinePlot(color=[1, 0, 0, 1])
+        plot = SmoothLinePlot(color=[162/255.0, 121/255.0, 119/255.0, 1])
         plot.points = points_list
         self.graph2.add_plot(plot)
         self.ids['graph1'].remove_widget(self.graph8)
@@ -253,9 +253,9 @@ class Stats(BoxLayout):
         day_cm_cost = get_daily_mistake_tuple()[1]
         points_om_list = self.make_pairs(new_day_list, day_om_cost)
         points_cm_list = self.make_pairs(new_day_list, day_cm_cost)
-        plot_om = SmoothLinePlot(color=[0, 1, 1, 1])
+        plot_om = SmoothLinePlot(color=[255/255.0, 125/255.0, 125/255.0, 1])
         plot_om.points = points_om_list
-        plot_cm = SmoothLinePlot(color=[1, 0, 0, 1])
+        plot_cm = SmoothLinePlot(color=[125/255.0, 177/255.0, 255/255.0, 1])
         plot_cm.points = points_cm_list
 
         # print("om:" + str(points_om_list)) #Blue
@@ -274,9 +274,9 @@ class Stats(BoxLayout):
         month_cm_cost = get_monthly_mistake_tuple()[1]
         points_om_list = self.make_pairs(month_list, month_om_cost)
         points_cm_list = self.make_pairs(month_list, month_cm_cost)
-        plot_om = SmoothLinePlot(color=[0, 1, 1, 1])
+        plot_om = SmoothLinePlot(color=[255/255.0, 125/255.0, 125/255.0, 1])
         plot_om.points = points_om_list
-        plot_cm = SmoothLinePlot(color=[1, 0, 0, 1])
+        plot_cm = SmoothLinePlot(color=[125/255.0, 177/255.0, 255/255.0, 1])
         plot_cm.points = points_cm_list
 
         # print("om:" + str(points_om_list)) #Blue
@@ -300,9 +300,9 @@ class Stats(BoxLayout):
         week_cm_cost = get_monthly_mistake_tuple()[1]
         points_om_list = self.make_pairs(week_list, week_om_cost)
         points_cm_list = self.make_pairs(week_list, week_cm_cost)
-        plot_om = SmoothLinePlot(color=[0, 1, 1, 1])
+        plot_om = SmoothLinePlot(color=[255/255.0, 125/255.0, 125/255.0, 1])
         plot_om.points = points_om_list
-        plot_cm = SmoothLinePlot(color=[1, 0, 0, 1])
+        plot_cm = SmoothLinePlot(color=[125/255.0, 177/255.0, 255/255.0, 1])
         plot_cm.points = points_cm_list
 
         # print("om:" + str(points_om_list)) #Blue
