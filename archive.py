@@ -55,15 +55,15 @@ class Archive(BoxLayout):
 
         for cate in self.category:
             if cate == 'omission':
-                accordItem = AccordionItem(background_normal='images/accordion_om_normal.png',
-                                            background_selected='images/accordion_om_selected.png',
-                                            background_disabled_normal='images/accordion_om_normal.png',
-                                            background_disabled_selected='images/accordion_om_selected.png')
+                accordItem = AccordionItem(background_normal='images/accordion_normal.png',
+                                            background_selected='images/accordion_selected.png',
+                                            background_disabled_normal='images/accordion_normal.png',
+                                            background_disabled_selected='images/accordion_selected.png')
             else:
-                accordItem = AccordionItem(background_normal='images/accordion_com_normal.png',
-                                            background_selected='images/accordion_com_selected.png',
-                                            background_disabled_normal='images/accordion_com_normal.png',
-                                            background_disabled_selected='images/accordion_com_selected.png')
+                accordItem = AccordionItem(background_normal='images/accordion_normal.png',
+                                            background_selected='images/accordion_selected.png',
+                                            background_disabled_normal='images/accordion_normal.png',
+                                            background_disabled_selected='images/accordion_selected.png')
             scroll = ScrollView()
             grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='80dp', row_force_default=True, spacing=20, padding=20)
             grid.bind(minimum_height=grid.setter('height'))
