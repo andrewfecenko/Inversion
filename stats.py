@@ -15,7 +15,16 @@ class Stats(BoxLayout):
 
     def __init__(self, **kwargs):
         super(Stats, self).__init__(**kwargs)
-        cost_max = self.calculate_day_cost()
+        self.flag = 0
+        # flag = 1: Daily cost
+        # flag = 2: Weekly cost
+        # flag = 3: Monthly cost
+        # flag = 4: Daily mistakes
+        # flag = 5: Weekly mistakes
+        # flag = 6: Monthly mistakes
+        # flag = 7: Omission Category
+        # flag = 8: Commission Category
+
         self.graph_theme = {
                 'label_options': {
                     'color': (182/255.0, 174/255.0, 183/255.0, 1),  # color of tick labels and titles
@@ -37,7 +46,7 @@ class Stats(BoxLayout):
                 xmin=0,
                 xmax=12,
                 ymin=0,
-                ymax=200,
+                ymax=80,
                 **self.graph_theme)
 
         # Weekly cost graph
@@ -54,7 +63,7 @@ class Stats(BoxLayout):
                 xmin=0,
                 xmax=20,
                 ymin=0,
-                ymax=100,
+                ymax=80,
                 **self.graph_theme)
 
         # Daily cost graph
@@ -69,9 +78,9 @@ class Stats(BoxLayout):
                 x_grid_label=True,
                 padding=5,
                 xmin=0,
-                xmax=365,
+                xmax=150,
                 ymin=0,
-                ymax=50,
+                ymax=80,
                 **self.graph_theme)
 
         # Monthly mistakes graph
@@ -81,14 +90,14 @@ class Stats(BoxLayout):
                 size_hint=(0.7, 0.9),
                 pos_hint={'center_x': .5, 'center_y': 0.5},
                 x_ticks_major=5,
-                y_ticks_major=10,
+                y_ticks_major=1,
                 y_grid_label=True,
                 x_grid_label=True,
                 padding=5,
                 xmin=0,
                 xmax=12,
                 ymin=0,
-                ymax=20,
+                ymax=5,
                 **self.graph_theme)
 
         # Weekly mistakes graph
@@ -98,14 +107,14 @@ class Stats(BoxLayout):
                 size_hint=(0.7, 0.9),
                 pos_hint={'center_x': .5, 'center_y': 0.5},
                 x_ticks_major=5,
-                y_ticks_major=10,
+                y_ticks_major=1,
                 y_grid_label=True,
                 x_grid_label=True,
                 padding=5,
                 xmin=0,
-                xmax=49,
+                xmax=25,
                 ymin=0,
-                ymax=10,
+                ymax=5,
                 **self.graph_theme)
 
         # Daily mistakes graph
@@ -115,12 +124,12 @@ class Stats(BoxLayout):
                 size_hint=(0.7, 0.9),
                 pos_hint={'center_x': .5, 'center_y': 0.5},
                 x_ticks_major=5,
-                y_ticks_major=10,
+                y_ticks_major=1,
                 y_grid_label=True,
                 x_grid_label=True,
                 padding=5,
                 xmin=0,
-                xmax=365,
+                xmax=150,
                 ymin=0,
                 ymax=5,
                 **self.graph_theme)
@@ -144,6 +153,10 @@ class Stats(BoxLayout):
         return todays_cost
 
     def get_daily_cost(self):
+        if self.flag == 1:
+            return
+
+        self.flag = 1
         day_list = days_to_ints(get_all_days())
         my_day_list = {}
 
@@ -175,6 +188,11 @@ class Stats(BoxLayout):
         self.ids['graph1'].add_widget(self.graph8)
 
     def get_monthly_cost(self):
+        if self.flag == 3:
+            return
+
+        self.flag = 3
+
         month_list = get_all_months()
         month_cost = get_monthly_cost()
         points_list = self.make_pairs(month_list, month_cost)
@@ -188,6 +206,11 @@ class Stats(BoxLayout):
         self.ids['graph1'].add_widget(self.graph1)
 
     def get_weekly_cost(self):
+        if self.flag == 2:
+            return
+
+        self.flag = 2
+
         week_list = get_all_weeks()
         week_cost = get_weekly_cost()
         points_list = self.make_pairs(week_list, week_cost)
@@ -201,6 +224,11 @@ class Stats(BoxLayout):
         self.ids['graph1'].add_widget(self.graph2)
 
     def get_om_cates(self):
+        if self.flag == 7:
+            return
+
+        self.flag = 7
+
         all_om_verbs = get_all_verbs(True)
         self.ids['graph2'].clear_widgets()
 
@@ -217,6 +245,11 @@ class Stats(BoxLayout):
             grid.add_widget(label_om)
 
     def get_cm_cates(self):
+        if self.flag == 8:
+            return
+
+        self.flag = 8
+
         all_cm_verbs = get_all_verbs(False)
         self.ids['graph2'].clear_widgets()
 
@@ -233,6 +266,11 @@ class Stats(BoxLayout):
             grid.add_widget(label_om)
 
     def get_daily_mistakes(self):
+        if self.flag == 4:
+            return
+
+        self.flag = 4
+
         day_list = days_to_ints(get_all_days())
         my_day_list = {}
 
@@ -258,8 +296,8 @@ class Stats(BoxLayout):
         plot_cm = SmoothLinePlot(color=[125/255.0, 177/255.0, 255/255.0, 1])
         plot_cm.points = points_cm_list
 
-        # print("om:" + str(points_om_list)) #Blue
-        # print("cm:" + str(points_cm_list)) # Red
+        print("om:" + str(points_om_list)) #Blue
+        print("cm:" + str(points_cm_list)) # Red
 
         self.graph7.add_plot(plot_om)
         self.graph7.add_plot(plot_cm)
@@ -268,6 +306,11 @@ class Stats(BoxLayout):
         self.ids['graph3'].add_widget(self.graph7)
 
     def get_monthly_mistakes(self):
+        if self.flag == 6:
+            return
+
+        self.flag = 6
+
         month_list = get_all_months()
 
         month_om_cost = get_monthly_mistake_tuple()[0]
@@ -294,6 +337,11 @@ class Stats(BoxLayout):
         self.ids['graph3'].add_widget(self.graph5)
 
     def get_weekly_mistakes(self):
+        if self.flag == 5:
+            return
+
+        self.flag = 5
+
         week_list = get_all_weeks()
 
         week_om_cost = get_monthly_mistake_tuple()[0]

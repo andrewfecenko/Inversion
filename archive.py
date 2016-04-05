@@ -89,6 +89,10 @@ class Archive(BoxLayout):
         self.ids.by_search.background_color = get_color_from_hex('#5D535E')
 
     def order_by_time(self):
+        self.all_entries = []
+        self.dates = {}
+        self.category = {}
+
         self.ids.container.clear_widgets()
         self.ids.search_holder.clear_widgets()
         self.ids.search_holder.size_hint=(1, 0)
@@ -120,8 +124,14 @@ class Archive(BoxLayout):
         if self.searchFlag:
             self.searchFlag = False
 
-        # Iterate over date list and order mistakes by date
+        self.sortedDate= []
         for date in self.dates:
+            self.sortedDate.append(datetime.datetime.strptime(date, '%Y-%m-%d').date())
+
+        print("date: " + str(sorted(self.sortedDate)))
+
+        # Iterate over date list and order mistakes by date
+        for date in sorted(self.sortedDate):
             accordItem = AccordionItem(background_normal='images/accordion_normal.png',
                                         background_selected='images/accordion_selected.png',
                                         background_disabled_normal='images/accordion_normal.png',
@@ -131,10 +141,10 @@ class Archive(BoxLayout):
             grid.bind(minimum_height=grid.setter('height'))
             scroll.add_widget(grid)
             accordItem.add_widget(scroll)
-            accordItem.title = date
+            accordItem.title = date.strftime("%Y-%m-%d")
             self.ids.container.add_widget(accordItem)
 
-            id_list = self.dates[date]
+            id_list = self.dates[date.strftime("%Y-%m-%d")]
 
             # go through all mistakes for the day
             for id in id_list:
