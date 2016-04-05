@@ -47,9 +47,10 @@ class Archive(BoxLayout):
 
     def order_by_category(self):
         self.ids.container.clear_widgets()
+        self.ids.search_holder.clear_widgets()
+        self.ids.search_holder.size_hint=(1, 0)
 
         if self.searchFlag:
-            self.ids.navbar.remove_widget(self.ids.navbar.children[0])
             self.searchFlag = False
 
         for cate in self.category:
@@ -83,12 +84,14 @@ class Archive(BoxLayout):
                 new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost= mistake_cost)
                 grid.add_widget(new)
 
-        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#5D535E')
-        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('#669999')
-        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('#5D535E')
+        self.ids.by_day.background_color = get_color_from_hex('#5D535E')
+        self.ids.by_cat.background_color = get_color_from_hex('#669999')
+        self.ids.by_search.background_color = get_color_from_hex('#5D535E')
 
     def order_by_time(self):
         self.ids.container.clear_widgets()
+        self.ids.search_holder.clear_widgets()
+        self.ids.search_holder.size_hint=(1, 0)
 
         self.all_entries = get_all_entries_id()
 
@@ -115,7 +118,6 @@ class Archive(BoxLayout):
                 self.category['commission'] = get_mistakes_category_id(False)
 
         if self.searchFlag:
-            self.ids.navbar.remove_widget(self.ids.navbar.children[0])
             self.searchFlag = False
 
         # Iterate over date list and order mistakes by date
@@ -141,24 +143,23 @@ class Archive(BoxLayout):
                 mistake_time = get_mistake_date(id).strftime("%H:%M:%S")
                 mistake_cost = str(get_mistake_cost(id))
 
-                new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost='-' + mistake_cost)
+                new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost=mistake_cost)
                 grid.add_widget(new)
 
-        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('#5D535E')
-        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#669999')
-        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('#5D535E')
+        self.ids.by_day.background_color = get_color_from_hex('#669999')
+        self.ids.by_cat.background_color = get_color_from_hex('#5D535E')
+        self.ids.by_search.background_color = get_color_from_hex('#5D535E')
 
     def search(self):
         if self.searchFlag:
             return
-
         self.ids.container.clear_widgets()
 
-        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('#5D535E')
-        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('#669999')
-        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#5D535E')
-
-        self.ids.navbar.add_widget(SearchInput(search_text=""))
+        self.ids.by_day.background_color = get_color_from_hex('#5D535E')
+        self.ids.by_cat.background_color = get_color_from_hex('#5D535E')
+        self.ids.by_search.background_color = get_color_from_hex('#669999')
+        self.ids.search_holder.size_hint=(1, 0.07)
+        self.ids.search_holder.add_widget(SearchInput(search_text=""))
         self.searchFlag = True
 
 
@@ -231,3 +232,6 @@ class SearchInput(BoxLayout):
     def noun_search(self):
         mistakes_id = get_mistakes_with_keyword(self.search_text)
         archive_instance.searchList(mistakes_id)
+
+class Menu(GridLayout):
+    pass
