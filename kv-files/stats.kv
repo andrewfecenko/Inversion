@@ -10,12 +10,13 @@
         orientation: 'horizontal'
         padding: ['2sp', 0, '2sp', 0]
 
-        canvas:
+        canvas.before:
             Color:
-                rgba: 123, 143, 149, 1
+                rgba: 170/255.0, 160/255.0, 171/255.0, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
+                #source: "images/stat_label.png"
 
         Label:
             id: search_text
@@ -23,7 +24,7 @@
             padding: [5, 5]
             font_name: 'Quicksand'
             font_size: '20sp'
-            color: C('#5D535E')
+            color: C('#433c44')
             text: category_entry.name + ": " + category_entry.times + " times"
 
 # <ScrollView>
