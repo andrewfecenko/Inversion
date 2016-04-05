@@ -4,8 +4,9 @@
 <ComOption>:
     size_hint_y: None
     height: '48dp'
-    background_color: C('#F6F6F6')
-    color:C('#878787')
+    background_color: C('#669999') # drop down background
+    font_name: "Quicksand"
+    color: C('#857887')
     padding: (5, 5)
 
 <Commission>:
@@ -15,16 +16,24 @@
 
     canvas.before:
         Color:
-            rgba: 1, 1, 1, 1
+            rgba: 66/255.0, 60/255.0, 68/255.0, 1 # main color
         Rectangle:
             pos: self.pos
             size: self.size
-
+    Label:
+        size_hint: 1, 0.15
+        pos_hint_y: 0
+        font_name: "Quicksand"
+        font_size: '36sp'
+        halign: 'center'
+        text: 'Commission Mistakes'
+        bold: False
+        color: C('#9d939f') # top letters
 
     # Input area
     BoxLayout:
         id: form
-        size_hint: 1, 0.07
+        size_hint: 1, 0.09
         orientation: 'horizontal'
         padding: '5sp'
 
@@ -32,9 +41,11 @@
             id: verb
             text: 'Did'
             size_hint: 0.35, 1
+            font_name: "Quicksand"
+            bold: True
             halign: 'center'
-            color: C('#65E1D4')
-            background_color: C('#F6F6F6')
+            color: C('#857887')
+            background_color: C('#669999') # drop down main button
 
 #            DropDown:
 #                id: dropdown
@@ -70,6 +81,7 @@
             size_hint: 0.35, 1
             hint_text: 'What'
             halign: 'center'
+            font_name: 'SourceSansPro'
             font_size: '20sp'
             multiline: False
             foreground_color: C('#52B2A8')
@@ -79,6 +91,7 @@
             size_hint: 0.2, 1
             hint_text: '$$$'
             halign: 'center'
+            font_name: "SourceSansPro"
             font_size: '20sp'
             multiline: False
             foreground_color: C('#52B2A8')
@@ -113,7 +126,7 @@
 
     BoxLayout:
         id: add_verb
-        size_hint: 1, 0.07
+        size_hint: 1, 0.09
         orientation: 'horizontal'
         padding: '5sp'
 
@@ -122,6 +135,7 @@
             size_hint: 0.7, 1
             hint_text: 'New verb'
             halign: 'center'
+            font_size: "SourceSansPro"
             font_size: '20sp'
             multiline: False
             foreground_color: C('#52B2A8')
@@ -140,31 +154,31 @@
         cols: 4
         rows: 1
         size_hint: 1, None
-        size: root.width, root.height * 0.05
+        size: root.width, root.height * 0.10
 
         BoxLayout:
-            padding: [2, 0, 0, 2]
+            padding: ['2sp', 0, 0, '2sp']
 #            [padding_left, padding_top, padding_right, padding_bottom]
             Button:
                 id: Main
-                text: "Main"
+                text: "[font=Quicksand]Main[/font]"
                 font_size: '20sp'
-                background_color: C('#818181')
+                background_color: C('#669999')
                 on_release: app.load_window('home')
         BoxLayout:
             padding: [2, 0, 2, 2]
             Button:
                 id: List
-                text: "Archive"
+                text: "[font=Quicksand]Archive[/font]"
                 font_size: '20sp'
-                background_color: C('#818181')
+                background_color: C('#5D535E')
                 on_release: app.load_window('archive')
         BoxLayout:
             padding: [0, 0, 2, 2]
             Button:
                 id: Stat
-                text: "Stats"
-                background_color: C('#818181')
+                text: "[font=Quicksand]Stat[/font]"
+                background_color: C('#5D535E')
                 on_release: app.load_window('stats')
 
 <ComMistake>:
@@ -179,11 +193,12 @@
         id: verb
         size_hint: 0.35, 1
         halign: 'left'
+        font_name: "Quicksand"
         font_size: '20sp'
-        color: C('#52B2A8')
+        color: C('#c2bbc3')
         canvas.before:
             Color:
-                rgba: C('#F6F6F6')
+                rgba: C('#5D535E') # list view verb
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -191,18 +206,20 @@
         id: noun
         size_hint: 0.35, 1
         halign: 'left'
+        font_name: "SourceSansPro"
         font_size: '20sp'
-        color: C('#52B2A8')
-        background_color: C('#F6F6F6')
+        color: C('#c2bbc3')
+        background_color: C('#5D535E') # list view noun
         on_press: mistake.edit_noun()
 
     Button:
         id: cost
         size_hint: 0.2, 1
         halign: 'left'
+        font_name: "SourceSansPro"
         font_size: '20sp'
-        color: C('#52B2A8')
-        background_color: C('#F6F6F6')
+        color: C('#c2bbc3')
+        background_color: C('#5D535E') # list view cost
         on_press: mistake.edit_cost()
 
     Button:
@@ -211,8 +228,8 @@
         text:
             ('[font=Modern Pictograms][size=30]'
             'X[/size][/font]')
-        color: C('#949494')
-        background_color: C('#F6F6F6')
+        color: C('#c2bbc3')
+        background_color: C('#5D535E') # list view delete button
         on_release: mistake.remove_mistake()
 
 <EditForm>:
@@ -220,6 +237,7 @@
 #    size_hint: 0.35, 1
     hint_text: 'What'
     halign: 'center'
+    font_name: "SourceSansPro"
     font_size: '20sp'
     multiline: False
     foreground_color: C('#52B2A8')
