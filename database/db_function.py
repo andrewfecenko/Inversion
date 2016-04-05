@@ -54,7 +54,7 @@ def get_entry_mistakes_id(eid):
     try:
         mistakes = session.query(Mistake).filter(Mistake.entry_id == eid, Mistake.noun != '').all()
         mistakes_id = [m.id for m in mistakes]
-        print(mistakes_id)
+        # print(mistakes_id)
     except AttributeError:
         mistakes_id = []
     return mistakes_id

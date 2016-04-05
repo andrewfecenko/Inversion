@@ -53,7 +53,10 @@ class Archive(BoxLayout):
             self.searchFlag = False
 
         for cate in self.category:
-            accordItem = AccordionItem()
+            accordItem = AccordionItem(background_normal='images/accordion_normal.png',
+                                        background_selected='images/accordion_selected.png',
+                                        background_disabled_normal='images/accordion_normal.png',
+                                        background_disabled_selected='images/accordion_selected.png')
             scroll = ScrollView()
             grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='100dp', row_force_default=True, spacing=20, padding=20)
             grid.bind(minimum_height=grid.setter('height'))
@@ -73,9 +76,9 @@ class Archive(BoxLayout):
                 new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost='-' + mistake_cost)
                 grid.add_widget(new)
 
-        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#818181')
-        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('ff9966')
-        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('#818181')
+        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#5D535E')
+        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('#669999')
+        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('#5D535E')
 
     def order_by_time(self):
         self.ids.container.clear_widgets()
@@ -89,7 +92,6 @@ class Archive(BoxLayout):
         # Get all mistakes and get date list
         for ind, eid in enumerate(self.all_entries):
             mistakes_id = get_entry_mistakes_id(eid)
-            print(mistakes_id)
             if mistakes_id is None:
                 continue
 
@@ -111,7 +113,10 @@ class Archive(BoxLayout):
 
         # Iterate over date list and order mistakes by date
         for date in self.dates:
-            accordItem = AccordionItem()
+            accordItem = AccordionItem(background_normal='images/accordion_normal.png',
+                                        background_selected='images/accordion_selected.png',
+                                        background_disabled_normal='images/accordion_normal.png',
+                                        background_disabled_selected='images/accordion_selected.png')
             scroll = ScrollView()
             grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='100dp', row_force_default=True, spacing=20, padding=20)
             grid.bind(minimum_height=grid.setter('height'))
@@ -132,9 +137,9 @@ class Archive(BoxLayout):
                 new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost='-' + mistake_cost)
                 grid.add_widget(new)
 
-        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('#818181')
-        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('ff9966')
-        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('#818181')
+        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('#5D535E')
+        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#669999')
+        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('#5D535E')
 
     def search(self):
         if self.searchFlag:
@@ -142,9 +147,9 @@ class Archive(BoxLayout):
 
         self.ids.container.clear_widgets()
 
-        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('#818181')
-        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('ff9966')
-        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#818181')
+        self.ids.navbar.children[0].children[1].children[0].background_color = get_color_from_hex('#5D535E')
+        self.ids.navbar.children[0].children[0].children[0].background_color = get_color_from_hex('#669999')
+        self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#5D535E')
 
         self.ids.navbar.add_widget(SearchInput(search_text=""))
         self.searchFlag = True
@@ -154,7 +159,10 @@ class Archive(BoxLayout):
     def searchList(self, mistakes_id):
         self.ids.container.clear_widgets()
         if len(mistakes_id) == 0:
-            accordItem = AccordionItem()
+            accordItem = AccordionItem(background_normal='images/accordion_normal.png',
+                                        background_selected='images/accordion_selected.png',
+                                        background_disabled_normal='images/accordion_normal.png',
+                                        background_disabled_selected='images/accordion_selected.png')
             accordItem.title = "No archive found!"
             self.ids.container.add_widget(accordItem)
 
@@ -169,7 +177,10 @@ class Archive(BoxLayout):
                     dates[mistake_date].append(id)
 
         for date in dates:
-            accordItem = AccordionItem()
+            accordItem = AccordionItem(background_normal='images/accordion_normal.png',
+                                        background_selected='images/accordion_selected.png',
+                                        background_disabled_normal='images/accordion_normal.png',
+                                        background_disabled_selected='images/accordion_selected.png')
             scroll = ScrollView()
             grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='100dp', row_force_default=True, spacing=20, padding=20)
             grid.bind(minimum_height=grid.setter('height'))
@@ -187,7 +198,7 @@ class Archive(BoxLayout):
                 mistake_time = get_mistake_date(id).strftime("%H:%M:%S")
                 mistake_cost = str(get_mistake_cost(id))
 
-                new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost='-' + mistake_cost)
+                new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost=mistake_cost)
                 grid.add_widget(new)
 
     def list_empty_archive(self):
