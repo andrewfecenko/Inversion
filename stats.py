@@ -18,15 +18,15 @@ class Stats(BoxLayout):
         cost_max = self.calculate_day_cost()
         self.graph_theme = {
                 'label_options': {
-                    'color': (0, 0, 0, 1),  # color of tick labels and titles
+                    'color': (255, 204, 204, 1),  # color of tick labels and titles
                     'bold': True},
                 'tick_color': (52, 152, 100, 1),  # ticks and grid
-                'border_color': (33, 152, 219, 1)}  # border drawn around each graph
+                'border_color': (255, 204, 204, 1)}  # border drawn around each graph
 
         # Monthly cost graph
         self.graph1 = Graph(
-                xlabel='[color=#e7f1f1]Months[/color]',
-                ylabel='[color=#e7f1f1]Costs[/color]',
+                xlabel='Months',
+                ylabel='Costs',
                 size_hint=(0.7, 0.9),
                 pos_hint={'center_x': .5, 'center_y': 0.5},
                 x_ticks_major=5,
