@@ -8,7 +8,7 @@
     halign: 'center'
     markup: True
 
-     
+
 <Journal>:
     id: journal
     orientation: 'vertical'
@@ -39,11 +39,11 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-            Color: 
+            Color:
                 rgba: 102/255.0, 153/255.0, 153/255.0, 0.5 # circle color
             Line:
                 group: 'circle'
-                width: 5 
+                width: 5
                 circle: (self.center_x, self.center_y, (min(self.width, self.height) / 2) - 20, journal.start_angle, journal.end_angle)
 
         Label:
@@ -138,3 +138,4 @@
                 font_size: '20sp'
                 text: "[font=Quicksand]Stat[/font]"
                 background_color: C('#5D535E') # buttom menu3
+                on_release: app.load_window('stats')
