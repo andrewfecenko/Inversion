@@ -28,7 +28,7 @@ from nltk.tag import pos_tag
 import os.path
 
 import random
-import time
+import datetime
 
 Builder.load_file('kv-files/commission.kv')
 Builder.load_file('kv-files/omission.kv')
@@ -177,7 +177,6 @@ class Journal(BoxLayout):
 
     def __init__(self, **kwargs):
         super(Journal, self).__init__(**kwargs)
-        self.timer = time.time()
         self.score_canvas = self.ids['menu_canvas'].canvas
         self.start_angle = 250
         self.end_angle = 360
@@ -192,36 +191,66 @@ class Journal(BoxLayout):
     def get_top_mistakes(self):
         # get generator of all nouns in all mistakes
     
-        '''
-        TODO: use actual priority algorithm in the future
-        if !os.path.exists('mistakes.json'):
-            self.create_initial_json()
-        try:
-            with open('mistakes.json') as data_file:
-                data = json.load(data_file)
-                for noun in data:
-                    noun_data = data[noun]
-
-                    if noun_data[0] > top_nouns[0]:
-        except IOError:
-            pass
-        '''
         nouns = self.get_mistake_nouns()
         counts = self.get_nouns_count(nouns)
-        top_nouns = [["",0], ["",0], ["",0]]
+        top_nouns = [["", 0, 0], ["",0, 0], ["", 0, 0]]
+        time = None
+        old_list = {}
+        changes = False
+        if (os.path.isfile("data.csv")):
+            in_file = open("data.csv", "r")
+            time = datetime.datetime.strptime(in_file.readline().strip(),
+             "%Y-%m-%d %H:%M:%S.%f")
+            
+            for line in in_file:
+                temp = line.strip("\n").split(",")
+                old_list[temp[0]] = (int(temp[1]), float(temp[2]))
+            in_file.close()
+        else:
+            changes = True
 
         # get top nouns from all nouns
         for noun, times in counts.items():
-            if times[0] > top_nouns[2][1]:
-                top_nouns.append([noun, times]) 
+            if (noun in old_list):
+                if (times[0] != old_list[noun][0]):
+                    temp = old_list.pop(noun)
+                    temp = (times[0], temp[1]+1)
+                    old_list[noun] = temp
+                    changes = True
+            else:
+                old_list[noun] = (times[0], times[0]*times[1])
+                changes = True
+
+        for noun, times in old_list.items():
+            if times[1] > top_nouns[2][1]:
+                top_nouns.append([noun, times[1], times[0]]) 
                 top_nouns.sort(key=lambda x: x[1], reverse=True)
                 top_nouns.pop()
+        
 
         for noun in top_nouns:
             mistakes_id = get_mistakes_with_keyword(noun[0])
+            if (time != None):
+                if (time.date() != datetime.datetime.today().date()):
+                    temp = old_list.pop(noun[0])
+                    temp = (temp[0], temp[1]-0.2)
+                    old_list[noun[0]] = temp
             for id in mistakes_id:
                 mistake = get_mistake_verb(id) + " " + get_mistake_noun(id)
                 self.demo.append(mistake)
+        print changes
+        if changes or (time.date() != datetime.datetime.today().date()):
+            out_file = open("data.csv", "w")
+            if (time != None):
+                if (time.date() == datetime.datetime.today().date()):
+                    out_file.write(str(time)+"\n")
+                else:
+                    out_file.write(str(datetime.datetime.today())+"\n")
+            else:
+                out_file.write(str(datetime.datetime.today())+"\n")
+            for noun, times in old_list.items():
+                out_file.write(str(noun)+","+str(times[0])+","+str(times[1])+"\n")
+            out_file.close()
 
     def create_initial_json(self):
         nouns = self.get_mistake_nouns()
