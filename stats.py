@@ -1,13 +1,8 @@
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.properties import StringProperty
-from kivy.properties import NumericProperty
-from database.db_model import build_database
 from database.db_function import *
-from math import sin
-from kivy.graphics import Mesh, Color, Rectangle
 from kivy.garden.graph import Graph, MeshLinePlot, MeshStemPlot, LinePlot, SmoothLinePlot, ContourPlot
 
 
@@ -24,6 +19,8 @@ class Stats(BoxLayout):
         # flag = 6: Monthly mistakes
         # flag = 7: Omission Category
         # flag = 8: Commission Category
+
+        self.calculate_day_cost()
 
         self.graph_theme = {
                 'label_options': {
@@ -141,16 +138,7 @@ class Stats(BoxLayout):
         return points
 
     def calculate_day_cost(self):
-        todays_eid = get_entry()
-        todays_cost = 0
-
-        if todays_eid is not None:
-            mistakes_ids = get_entry_mistakes_id(todays_eid)
-            for id in mistakes_ids:
-                todays_cost += get_mistake_cost(id)
-
-        self.ids['opportunity_cost'].text = "Total cost: $" + str(todays_cost)
-        return todays_cost
+        self.ids['opportunity_cost'].text = "Total cost: $" + str(get_total_cost())
 
     def get_daily_cost(self):
         if self.flag == 1:
