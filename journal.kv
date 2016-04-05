@@ -118,15 +118,16 @@
         size: root.width, root.height * 0.10
 
         BoxLayout:
-            padding: ['2sp', 0, 0, '2sp']
+            padding: ['2sp', '2sp', 0, '2sp']
 #            [padding_left, padding_top, padding_right, padding_bottom]
             Button:
                 id: Main
                 font_size: '20sp'
                 text: "[font=Quicksand]Main[/font]"
                 background_color: C('#669999') # bottom menu1
+                on_release: app.load_window('home')
         BoxLayout:
-            padding: ['2sp', 0, '2sp', '2sp']
+            padding: ['2sp', '2sp', '2sp', '2sp']
             Button:
                 id: List
                 font_size: '20sp'
@@ -134,10 +135,11 @@
                 background_color: C('#5D535E') # buttom menu2
                 on_release: app.load_window('archive')
         BoxLayout:
-            padding: [0, 0, '2sp', '2sp']
+            padding: [0, '2sp', '2sp', '2sp']
             Button:
                 id: Stat
                 font_size: '20sp'
                 text: "[font=Quicksand]Stat[/font]"
                 background_color: C('#5D535E') # buttom menu3
                 on_release: app.load_window('stats')
+
