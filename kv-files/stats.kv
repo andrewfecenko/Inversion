@@ -263,23 +263,23 @@
 #            [padding_left, padding_top, padding_right, padding_bottom]
             Button:
                 id: Main
-                text: "Main"
-                font_name: "Quicksand"
+                font_size: '20sp'
+                text: "[font=Quicksand]Main[/font]"
+                background_color: C('#669999') # bottom menu1
                 on_release: app.load_window('home')
-                background_color: C('#5D535E')
         BoxLayout:
-            padding: ['2sp', '2sp', 0, '2sp']
+            padding: ['2sp', '2sp', '2sp', '2sp']
             Button:
                 id: List
-                text: "Archive"
-                font_name: "Quicksand"
-                background_color: C('#5D535E')
+                font_size: '20sp'
+                text: "[font=Quicksand]Archive[/font]"
+                background_color: C('#5D535E') # buttom menu2
                 on_release: app.load_window('archive')
         BoxLayout:
-            padding: ['2sp', '2sp', 0, '2sp']
+            padding: [0, '2sp', '2sp', '2sp']
             Button:
                 id: Stat
-                text: "Stats"
-                font_name: "Quicksand"
+                font_size: '20sp'
+                text: "[font=Quicksand]Stat[/font]"
+                background_color: C('#5D535E') # buttom menu3
                 on_release: app.load_window('stats')
-                background_color: C('#669999')
