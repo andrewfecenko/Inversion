@@ -5,7 +5,7 @@
     search_text: self.ids.search_text.text
     orientation:'horizontal'
     valign: 'top'
-    size_hint: 1, 0.5
+    size_hint: 1, 1
 
     canvas.before:
         Color:
@@ -17,11 +17,15 @@
     BoxLayout:
         orientation: 'horizontal'
         padding: ["2sp", "2sp", "2sp", 0]
+        pos_hint_y: 1
 
         TextInput:
             id: search_text
             size_hint: 0.6, 1
+            font_size: '20sp'
             multiline: True
+            foreground_color: C('#52B2A8')
+            background_color: C('#FFFFFF')
             padding: [5, 5]
 
         Button:
@@ -48,7 +52,7 @@
 
     canvas.before:
         Color:
-            rgba: 66/255.0, 60/255.0, 68/255.0, 1 # main color
+            rgba: 55/255.0, 50/255.0, 58/255.0, 1 # main color
         Rectangle:
             pos: self.pos
             size: self.size
@@ -68,7 +72,7 @@
             size_hint: 3, 1
             font_size: '20sp'
             markup: True
-            font_name: 'SourceSansPro'
+            font_name: 'Quicksand'
             color: C('#c2bbc3')
             text: entry.verb
 

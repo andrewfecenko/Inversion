@@ -53,16 +53,23 @@ class Archive(BoxLayout):
             self.searchFlag = False
 
         for cate in self.category:
-            accordItem = AccordionItem(background_normal='images/accordion_normal.png',
-                                        background_selected='images/accordion_selected.png',
-                                        background_disabled_normal='images/accordion_normal.png',
-                                        background_disabled_selected='images/accordion_selected.png')
+            if cate == 'omission':
+                accordItem = AccordionItem(background_normal='images/accordion_om_normal.png',
+                                            background_selected='images/accordion_om_selected.png',
+                                            background_disabled_normal='images/accordion_om_normal.png',
+                                            background_disabled_selected='images/accordion_om_selected.png')
+            else:
+                accordItem = AccordionItem(background_normal='images/accordion_com_normal.png',
+                                            background_selected='images/accordion_com_selected.png',
+                                            background_disabled_normal='images/accordion_com_normal.png',
+                                            background_disabled_selected='images/accordion_com_selected.png')
             scroll = ScrollView()
-            grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='100dp', row_force_default=True, spacing=20, padding=20)
+            grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='80dp', row_force_default=True, spacing=20, padding=20)
             grid.bind(minimum_height=grid.setter('height'))
             scroll.add_widget(grid)
             accordItem.add_widget(scroll)
             accordItem.title = cate
+            accordItem.font_name = 'Ubuntu'
             self.ids.container.add_widget(accordItem)
 
             id_list = self.category[cate]
@@ -73,7 +80,7 @@ class Archive(BoxLayout):
                 mistake_time = get_mistake_date(id).strftime("%H:%M:%S")
                 mistake_cost = str(get_mistake_cost(id))
 
-                new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost='-' + mistake_cost)
+                new = Entry(name=mistake_noun, verb=mistake_verb, time=mistake_time, cost= mistake_cost)
                 grid.add_widget(new)
 
         self.ids.navbar.children[0].children[2].children[0].background_color = get_color_from_hex('#5D535E')
@@ -118,7 +125,7 @@ class Archive(BoxLayout):
                                         background_disabled_normal='images/accordion_normal.png',
                                         background_disabled_selected='images/accordion_selected.png')
             scroll = ScrollView()
-            grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='100dp', row_force_default=True, spacing=20, padding=20)
+            grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='80dp', row_force_default=True, spacing=20, padding=20)
             grid.bind(minimum_height=grid.setter('height'))
             scroll.add_widget(grid)
             accordItem.add_widget(scroll)
@@ -182,7 +189,7 @@ class Archive(BoxLayout):
                                         background_disabled_normal='images/accordion_normal.png',
                                         background_disabled_selected='images/accordion_selected.png')
             scroll = ScrollView()
-            grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='100dp', row_force_default=True, spacing=20, padding=20)
+            grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='80dp', row_force_default=True, spacing=20, padding=20)
             grid.bind(minimum_height=grid.setter('height'))
             scroll.add_widget(grid)
             accordItem.add_widget(scroll)
