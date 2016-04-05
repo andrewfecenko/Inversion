@@ -26,15 +26,15 @@ create_mistake(eid2, True, 'Missed', 'seminar', 10)
 create_mistake(eid2, True, 'Did not', 'call mom', 10)
 #day3
 create_mistake(eid3, True, 'Forgot', 'to email professor', 10)
-create_mistake(eid3, False, 'Did not', 'hand in assignment on time', 30)
+create_mistake(eid3, True, 'Did not', 'hand in assignment on time', 30)
 create_mistake(eid3, False, 'Spent', 'money on food delivery', 30)
 #day4
 create_mistake(eid4, True, 'Missed', 'database class', 10)
 create_mistake(eid4, True, 'Missed', 'exam review session', 10)
 #day5
 create_mistake(eid5, True, 'Forgot', 'to pay the bills', 10)
-create_mistake(eid5, True, 'Did not', 'do History readings today', 10)
-create_mistake(eid5, False, 'Did not', 'do bonus assignment', 10)
+create_mistake(eid5, True, 'Did not', 'do history readings today', 10)
+create_mistake(eid5, True, 'Did not', 'do bonus assignment', 10)
 #day6
 create_mistake(eid6, True, 'Did not', 'go to the gym', 10)
-create_mistake(eid6, False, 'Spent', 'too much time on History Essay', 10)
+create_mistake(eid6, False, 'Spent', 'too much time on history essay', 10)
