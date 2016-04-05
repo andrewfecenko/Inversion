@@ -25,8 +25,8 @@ class Stats(BoxLayout):
 
         # Monthly cost graph
         self.graph1 = Graph(
-                xlabel='Months',
-                ylabel='Costs',
+                xlabel='[color=#e7f1f1]Months[/color]',
+                ylabel='[color=#e7f1f1]Costs[/color]',
                 size_hint=(0.7, 0.9),
                 pos_hint={'center_x': .5, 'center_y': 0.5},
                 x_ticks_major=5,
@@ -205,7 +205,7 @@ class Stats(BoxLayout):
         self.ids['graph2'].clear_widgets()
 
         scroll = ScrollView()
-        grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='50dp', row_force_default=True, spacing=20, padding=20)
+        grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='30dp', row_force_default=True, spacing=20, padding=20)
         grid.bind(minimum_height=grid.setter('height'))
         scroll.add_widget(grid)
         self.ids['graph2'].add_widget(scroll)
@@ -221,7 +221,7 @@ class Stats(BoxLayout):
         self.ids['graph2'].clear_widgets()
 
         scroll = ScrollView()
-        grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='50dp', row_force_default=True, spacing=20, padding=20)
+        grid = GridLayout(id='grid', size_hint_y=None, cols=1, row_default_height='30dp', row_force_default=True, spacing=20, padding=20)
         grid.bind(minimum_height=grid.setter('height'))
         scroll.add_widget(grid)
         self.ids['graph2'].add_widget(scroll)
