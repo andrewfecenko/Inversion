@@ -8,9 +8,9 @@ We made an Android application that lets users track their mistakes using Python
 
 We originally got our inspiration from Charlie Munger, the partner of Warren Buffet as vice-chairman of Berkshire Hathaway. Munger takes special note in writing down his mistakes, and never forgetting them. Here’s a few quotes. 
 
-- “I like people admitting they were complete stupid horses’ arses. I know I’ll perform better if I rub my nose in my mistakes. This is a wonderful trick to learn.” <Charlie Munger>
+- “I like people admitting they were complete stupid horses’ arses. I know I’ll perform better if I rub my nose in my mistakes. This is a wonderful trick to learn.” -Charlie Munger-
 
-- “Forgetting your mistakes is a terrible error if you’re trying to improve your cognition.” <Charlie Munger>
+- “Forgetting your mistakes is a terrible error if you’re trying to improve your cognition.” -Charlie Munger-
 
 The idea is that if you can’t determine what you’re doing wrong, then you can’t learn. If you can’t learn, you won’t really know what you’re doing. The idea is that instead of working on a problem forward, you go at it backward. Instead of trying to figure out what you need to do, you figure what you should try to avoid. 
 
@@ -25,16 +25,16 @@ We think that this simpler, more focused app, will better serve our users.
 ### Product
 
 ###### Main Page
-![](https://github.com/csc301-winter-2016/project-team12/blob/master/demo/capture1)
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/demo/capture1.png)
 
 ###### Entry Page
-![](https://github.com/csc301-winter-2016/project-team12/blob/master/demo/capture2)
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/demo/capture2.png)
 
 ###### Entry Page (dropdown menu)
-![](https://github.com/csc301-winter-2016/project-team12/blob/master/demo/capture3)
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/demo/capture3.png)
 
 ###### Archive Page
-![](https://github.com/csc301-winter-2016/project-team12/blob/master/demo/capture4)
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/demo/capture4.png)
 
 ###### Stats Page
-![](https://github.com/csc301-winter-2016/project-team12/blob/master/demo/capture5) 
+![](https://github.com/csc301-winter-2016/project-team12/blob/master/demo/capture5.png) 
